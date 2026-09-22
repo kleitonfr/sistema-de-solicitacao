@@ -199,6 +199,10 @@
   margin-bottom: var(--scale-layout-4xb);
 }
 
+.acesso-marca__identificacao p {
+  margin: 0;
+}
+
 .acesso-marca__brasao {
   height: 217px;
   width: 217px;
@@ -234,25 +238,14 @@
   line-height: var(--leading-tight);
 }
 
-.acesso-marca__frase {
+.acesso-marca__frase,
+.acesso-marca__subfrase {
   align-self: center;
   font-family: var(--font-heading);
   font-weight: var(--font-weight-semibold);
   font-size: var(--text-24);
   line-height: var(--leading-snug);
-  color: var(--color-base-white);
-  margin-bottom: var(--scale-layout-6xb);
-}
-
-.acesso-marca__frase span {
-  display: flex;
-  justify-content: center;
-}
-
-@media (min-width: 1025px) {
-  .acesso-marca__frase {
-    font-size: var(--text-32);
-  }
+  color: rgba(255, 255, 255, 0.76);
 }
 
 .acesso-marca__contato {
@@ -287,7 +280,9 @@
 .acesso-marca__direitos-autorais {
   position: absolute;
   bottom: var(--scale-layout-2xb);
-  right: var(--scale-layout-4xb);
+  width: 60%;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: var(--font-body);
   font-size: var(--text-14);
   color: var(--color-primary-200);

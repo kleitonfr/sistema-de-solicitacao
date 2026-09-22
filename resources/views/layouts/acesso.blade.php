@@ -62,10 +62,12 @@
                             onerror="this.style.display='none'"
                         >
                     </div>
-
+                    
                     <p class="acesso-marca__frase">
-                        Acesso unificado aos serviços digitais <br>
-                        <span>da Prefeitura de Caraguatatuba.</span>
+                        Acesso unificado aos serviços digitais
+                    </p>
+                    <p class="acesso-marca__subfrase">
+                        do município de Caraguatatuba
                     </p>
 
                 </div>

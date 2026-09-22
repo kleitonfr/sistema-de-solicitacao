@@ -90,7 +90,6 @@
                                     name="cpf"
                                     class="cadastro-input @error('cpf') is-invalid @enderror"
                                     value="{{ old('cpf') }}"
-                                    placeholder="000.000.000-00"
                                     inputmode="numeric"
                                     maxlength="14"
                                     data-mask="cpf"
@@ -139,7 +138,7 @@
                                         class="cadastro-select @error('sexo') is-invalid @enderror"
                                         required
                                     >
-                                        <option value="" disabled {{ old('sexo') ? '' : 'selected' }}>Selecione</option>
+                                        <option value="" disabled {{ old('sexo') ? '' : 'selected' }}></option>
                                         <option value="feminino" @selected(old('sexo') === 'feminino')>Feminino</option>
                                         <option value="masculino" @selected(old('sexo') === 'masculino')>Masculino</option>
                                         <option value="outro" @selected(old('sexo') === 'outro')>Outro</option>
@@ -171,7 +170,7 @@
                                     class="cadastro-select @error('telefone_tipo') is-invalid @enderror"
                                     required
                                 >
-                                    <option value="" disabled {{ old('telefone_tipo') ? '' : 'selected' }}>Selecione</option>
+                                    <option value="" disabled {{ old('telefone_tipo') ? '' : 'selected' }}></option>
                                     <option value="celular" @selected(old('telefone_tipo') === 'celular')>Celular</option>
                                     <option value="residencial" @selected(old('telefone_tipo') === 'residencial')>Residencial</option>
                                     <option value="comercial" @selected(old('telefone_tipo') === 'comercial')>Comercial</option>
@@ -190,7 +189,6 @@
                                     name="telefone_ddd"
                                     class="cadastro-input @error('telefone_ddd') is-invalid @enderror"
                                     value="{{ old('telefone_ddd') }}"
-                                    placeholder="ddd"
                                     inputmode="numeric"
                                     maxlength="3"
                                     required
@@ -208,7 +206,6 @@
                                     name="telefone_numero"
                                     class="cadastro-input @error('telefone_numero') is-invalid @enderror"
                                     value="{{ old('telefone_numero') }}"
-                                    placeholder="Telefone"
                                     inputmode="numeric"
                                     maxlength="20"
                                     data-mask="telefone"
@@ -253,7 +250,6 @@
                                     name="endereco_cep"
                                     class="cadastro-input @error('endereco_cep') is-invalid @enderror"
                                     value="{{ old('endereco_cep') }}"
-                                    placeholder="00.000-000"
                                     inputmode="numeric"
                                     maxlength="10"
                                     data-mask="cep"
@@ -301,7 +297,7 @@
                                     id="endereco_cidade"
                                     name="endereco_cidade"
                                     class="cadastro-input @error('endereco_cidade') is-invalid @enderror"
-                                    value="{{ old('endereco_cidade', 'Caraguatatuba') }}"
+                                    value="{{ old('endereco_cidade', '') }}"
                                     required
                                 >
                                 @error('endereco_cidade')

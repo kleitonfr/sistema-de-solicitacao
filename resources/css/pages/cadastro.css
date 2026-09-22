@@ -114,6 +114,7 @@
 }
 
 .cadastro-field {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--scale-fit-half);
@@ -129,42 +130,60 @@
 
 .cadastro-label {
   position: absolute;
+  pointer-events: none;
+  background-color: transparent;
+  left: 15px;
   font-family: var(--font-body);
   font-weight: var(--font-weight-semibold);
   font-size: var(--text-12);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--text-secondary);
-}
-
-.cadastro-input {
-  position: relative;
+  transform: translateY(0.6rem);
+  transition: all 0.3s ease;
 }
 
 .cadastro-input,
 .cadastro-select {
   width: 100%;
   background-color: transparent;
-  border: none;
-  border-bottom: var(--surface-border-width-sm) solid var(--border-default);
-  border-radius: 0;
+  border: solid 1px var(--border-default);
+  border-radius: 8px;
   color: var(--text-primary);
   font-family: var(--font-body);
   font-size: var(--text-16);
-  padding-block: var(--scale-fit-3xh);
+  padding: 10px 15px;
   min-height: var(--scale-fit-11xh);
 }
+
 
 .cadastro-input::placeholder {
   color: var(--text-disabled);
   opacity: 1;
 }
 
-.cadastro-input:focus,
-.cadastro-select:focus {
+.cadastro-field input:focus,
+.cadastro-field select:focus {
   outline: none;
-  border-bottom-color: var(--border-focus);
+  border-color: var(--border-focus);
 }
+
+.cadastro-field label:has(+ input:focus),
+.cadastro-field label:has(+ select:focus) {
+  transform: translateY(-51%) translateX(-10px) scale(1.0);
+  background-color: var(--bg-surface);
+  padding: 0px 5px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 100px;
+}
+
+.cadastro-field input[type="date"] {
+  color: transparent;
+}
+
+
 
 .cadastro-input.is-invalid,
 .cadastro-select.is-invalid {
