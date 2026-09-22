@@ -1,82 +1,41 @@
 /* ==========================================================================
-   PÁGINA — AUTOCADASTRO
+   PÁGINA — AUTOCADASTRO / ACESSO (formulários do Sistema 651)
    Usa exclusivamente tokens do Design System STII (tokens.css) e classes
    utilitárias de utilities.css/responsive.css. Nenhuma cor "crua" aqui,
-   exceto onde documentado (rgba com alpha sobre tokens de cor, necessário
-   para o efeito glassmorphism, que não tem token equivalente).
+   exceto onde documentado.
+
+   COMPONENTE — CARD DE FORMULÁRIO
+   Usado dentro de .acesso-split__form-inner (ver acesso.css). Sem
+   glassmorphism nem largura própria — o painel de acesso já controla
+   o container.
    ========================================================================== */
-
-.cadastro-page {
-    min-height: 100vh;
-    background: linear-gradient(141deg, var(--color-primary-100) 0%, var(--bg-surface) 58%, var(--color-primary-200) 100%);
-    padding-block: var(--scale-layout-6xb);
-}
-
-/* ------------------------------------------------------------------------
-   CABEÇALHO DA PÁGINA — título e subtítulo fora do card
-   ------------------------------------------------------------------------ */
-
-.cadastro-heading {
-  max-width: 992px;
-  margin-inline: auto;
-  margin-bottom: var(--scale-layout-4xb);
-  text-align: center;
-}
-
-.cadastro-heading__title {
-  font-family: var(--font-heading);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--text-32);
-  color: var(--color-primary-900);
-  margin-bottom: var(--scale-fit-3xh);
-}
-
-.cadastro-heading__subtitle {
-  font-family: var(--font-body);
-  font-size: var(--text-16);
-  color: var(--text-secondary);
-}
-
-/* ------------------------------------------------------------------------
-   CARD PRINCIPAL — vidro claro (glassmorphism) sobre o fundo da página
-   ------------------------------------------------------------------------ */
 
 .cadastro-card {
   width: 100%;
-  max-width: 992px;
-  margin-inline: auto;
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(var(--surface-blur-xl));
-  -webkit-backdrop-filter: blur(var(--surface-blur-xl));
-  border: var(--surface-border-width-sm) solid rgba(255, 255, 255, 0.7);
+  /* background-color: var(--color-base-white); */
   color: var(--text-primary);
-  border-radius: var(--surface-rounder-lg);
-  box-shadow: var(--surface-elevation-3);
+  /* border: var
+1px
+(--surface-border-width-sm) solid var(--border-default); */
+  /* border-radius: var(--surface-rounder-lg); */
+  /* box-shadow: var(--surface-elevation-2); */
   padding: var(--scale-layout-4xb);
 }
 
 @media (min-width: 941px) {
   .cadastro-card {
-    padding: var(--scale-layout-6xb);
+    padding: var(--scale-layout-5xb);
   }
 }
 
-.cadastro-card__title {
-  font-family: var(--font-heading);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--text-24);
-  color: var(--color-primary-900);
-  margin-bottom: var(--scale-layout-4xb);
-}
-
-.cadastro-card__section-header {
+.cadastro-card__cabecalho-secao {
   display: flex;
   align-items: center;
   gap: var(--scale-fit-3xh);
   margin-bottom: var(--scale-layout-3xb);
 }
 
-.cadastro-card__section-icon {
+.cadastro-card__icone-secao {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,22 +46,22 @@
   flex-shrink: 0;
 }
 
-.cadastro-card__section-icon--red {
+.cadastro-card__icone-secao--vermelho {
   background-color: var(--color-tertiary-100);
   color: var(--color-tertiary-800);
 }
 
-.cadastro-card__section-icon--yellow {
+.cadastro-card__icone-secao--amarelo {
   background-color: var(--color-secondary-100);
   color: var(--color-secondary-800);
 }
 
-.cadastro-card__section-icon--green {
+.cadastro-card__icone-secao--verde {
   background-color: var(--color-quaternary-100);
   color: var(--color-quaternary-800);
 }
 
-.cadastro-card__section-title {
+.cadastro-card__titulo-secao {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-bold);
   font-size: var(--text-14);
@@ -112,7 +71,7 @@
   margin: 0;
 }
 
-.cadastro-card__section+.cadastro-card__section {
+.cadastro-card__secao+.cadastro-card__secao {
   margin-top: var(--scale-layout-4xb);
   padding-top: var(--scale-layout-4xb);
   border-top: var(--surface-border-width-sm) solid var(--border-default);
@@ -169,12 +128,17 @@
    ------------------------------------------------------------------------ */
 
 .cadastro-label {
+  position: absolute;
   font-family: var(--font-body);
   font-weight: var(--font-weight-semibold);
   font-size: var(--text-12);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--text-secondary);
+}
+
+.cadastro-input {
+  position: relative;
 }
 
 .cadastro-input,
@@ -328,12 +292,12 @@
   font-size: var(--text-14);
 }
 
-.cadastro-alert--success {
+.cadastro-alert--sucesso {
   background-color: var(--feedback-success-bg);
   color: var(--feedback-success-text);
 }
 
-.cadastro-alert--error {
+.cadastro-alert--erro {
   background-color: var(--feedback-error-bg);
   color: var(--feedback-error-text);
 }

@@ -1,0 +1,295 @@
+/* ==========================================================================
+   LAYOUT DE ACESSO — SISTEMA 651
+   Split-screen: formulário (esquerda) + painel de marca (direita).
+   Sem header, sem menu, sem footer institucional — layout dedicado a
+   entrar/cadastro. Usa exclusivamente tokens do Design System STII.
+   Inspiração estrutural: split editorial claro/escuro (ver referência
+   visual fornecida) — adaptado à paleta institucional de Caraguatatuba.
+   ========================================================================== */
+
+.acesso-body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg-surface);
+}
+
+.acesso-split {
+  display: flex;
+  flex-direction: column-reverse;
+  min-height: 100vh;
+}
+
+@media (min-width: 941px) {
+  .acesso-split {
+    flex-direction: row;
+  }
+}
+
+/* ------------------------------------------------------------------------
+   PAINEL ESQUERDO — FORMULÁRIO
+   Rola normalmente com o restante da página (decisão de produto: sem
+   scroll interno isolado, para manter o comportamento nativo do navegador).
+   ------------------------------------------------------------------------ */
+
+.acesso-split__form-pane {
+  flex: 1 1 60%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--bg-surface);
+  padding: var(--scale-layout-4xb) var(--scale-layout-3xb);
+}
+
+@media (min-width: 941px) {
+  .acesso-split__form-pane {
+    padding: var(--scale-layout-8xb) var(--scale-layout-6xb);
+  }
+}
+
+.acesso-split__form-inner {
+  width: 100%;
+  max-width: 950px;
+}
+
+/* ------------------------------------------------------------------------
+   ALTERNADOR — ENTRAR / CADASTRAR (switch deslizante)
+   ------------------------------------------------------------------------ */
+
+.acesso-alternador {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: var(--color-neutral-100);
+  border-radius: var(--surface-rounder-full);
+  padding: var(--scale-fit-half);
+  margin-bottom: var(--scale-layout-6xb);
+  max-width: 320px;
+}
+
+.acesso-alternador__opcao {
+  position: relative;
+  z-index: var(--surface-z-layer-1);
+  text-align: center;
+  padding-block: var(--scale-fit-3xh);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-14);
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: var(--surface-rounder-full);
+  transition: color 0.2s ease;
+}
+
+.acesso-alternador__opcao.is-active {
+  color: var(--color-primary-900);
+}
+
+.acesso-alternador__indicador {
+  position: absolute;
+  top: var(--scale-fit-half);
+  left: var(--scale-fit-half);
+  width: calc(50% - var(--scale-fit-half));
+  height: calc(100% - (var(--scale-fit-half) * 2));
+  background-color: var(--color-base-white);
+  border-radius: var(--surface-rounder-full);
+  box-shadow: var(--surface-elevation-1);
+  transition: transform 0.25s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.acesso-alternador__indicador.is-right {
+  transform: translateX(100%);
+}
+
+/* ------------------------------------------------------------------------
+   CABEÇALHO DO FORMULÁRIO — título e subtítulo
+   ------------------------------------------------------------------------ */
+
+.acesso-cabecalho-formulario {
+  margin-bottom: var(--scale-layout-4xb);
+}
+
+.acesso-cabecalho-formulario__titulo {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-32);
+  color: var(--color-primary-900);
+  margin-bottom: var(--scale-fit-3xh);
+}
+
+.acesso-cabecalho-formulario__subtitulo {
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.acesso-links-formulario {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--scale-layout-2xb);
+}
+
+.acesso-links-formulario__link {
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--color-primary-800);
+  text-decoration: underline;
+}
+
+.acesso-links-formulario__link:hover {
+  color: var(--color-primary-600);
+}
+
+/* ------------------------------------------------------------------------
+   PAINEL DIREITO — MARCA / INSTITUCIONAL
+   Sticky: acompanha o scroll do formulário sem esticar artificialmente
+   nem deixar espaço vazio quando o conteúdo do formulário é mais alto.
+   ------------------------------------------------------------------------ */
+
+.acesso-split__marca-pane {
+  flex: 1 1 40%;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--color-primary-900) 0%, var(--color-primary-800) 100%);
+  color: var(--color-base-white);
+}
+
+@media (min-width: 941px) {
+  .acesso-split__marca-pane {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+}
+
+/* Textura sutil — listras diagonais discretas, eco do bloco texturizado
+   da referência visual, mantendo a paleta institucional. */
+.acesso-split__marca-pane::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-radial-gradient(circle at 0 0,
+      transparent 0,
+      rgba(255, 255, 255, 0.04) 20px);
+  background-size: 90px 90px;
+  pointer-events: none;
+}
+
+.acesso-split__marca-inner {
+  position: relative;
+  z-index: var(--surface-z-layer-1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--scale-layout-6xb) var(--scale-layout-4xb);
+}
+
+@media (min-width: 941px) {
+  .acesso-split__marca-inner {
+    padding: var(--scale-layout-8xb) var(--scale-layout-6xb);
+  }
+}
+
+.acesso-marca__identificacao {
+  height: 300%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--scale-layout-4xb);
+}
+
+.acesso-marca__brasao {
+  height: 217px;
+  width: 217px;
+  object-fit: contain;
+  flex: 1 1 0;
+}
+
+.acesso-marca__nome-sistema {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-fit-half);
+}
+
+.acesso-marca__nome-sistema img {
+  width: 477px;
+  object-fit: contain;
+  flex: 1 1 0;
+}
+
+.acesso-marca__linha-superior {
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary-200);
+}
+
+.acesso-marca__titulo {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-24);
+  color: var(--color-base-white);
+  line-height: var(--leading-tight);
+}
+
+.acesso-marca__frase {
+  align-self: center;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-24);
+  line-height: var(--leading-snug);
+  color: var(--color-base-white);
+  margin-bottom: var(--scale-layout-6xb);
+}
+
+.acesso-marca__frase span {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 1025px) {
+  .acesso-marca__frase {
+    font-size: var(--text-32);
+  }
+}
+
+.acesso-marca__contato {
+  height: 27%;
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+  margin-bottom: var(--scale-layout-6xb);
+}
+
+.acesso-marca__contato-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-fit-half);
+}
+
+.acesso-marca__contato-rotulo {
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-primary-200);
+}
+
+.acesso-marca__contato-valor {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-18);
+  color: var(--color-base-white);
+}
+
+.acesso-marca__direitos-autorais {
+  position: absolute;
+  bottom: var(--scale-layout-2xb);
+  right: var(--scale-layout-4xb);
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--color-primary-200);
+  margin: 0;
+}

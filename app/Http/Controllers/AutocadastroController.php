@@ -42,7 +42,7 @@ class AutocadastroController extends Controller
 
         return redirect()
             ->route('cadastro.index')
-            ->with('status', 'success')
-            ->with('message', 'Cadastro enviado com sucesso! (simulação — integração com a API pendente)');
+            ->with('situacao', 'sucesso')
+            ->with('mensagem', 'Cadastro enviado com sucesso! (simulação — integração com a API pendente)');
     }
 }

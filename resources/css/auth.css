@@ -1,0 +1,289 @@
+/* ==========================================================================
+   LAYOUT DE AUTENTICAÇÃO — SISTEMA 651
+   Split-screen: formulário (esquerda) + painel de marca (direita).
+   Sem header, sem menu, sem footer institucional — layout dedicado a
+   login/cadastro. Usa exclusivamente tokens do Design System STII.
+   Inspiração estrutural: split editorial claro/escuro (ver referência
+   visual fornecida) — adaptado à paleta institucional de Caraguatatuba.
+   ========================================================================== */
+
+.auth-body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg-surface);
+}
+
+.auth-split {
+  display: flex;
+  flex-direction: column-reverse;
+  min-height: 100vh;
+}
+
+@media (min-width: 941px) {
+  .auth-split {
+    flex-direction: row;
+  }
+}
+
+/* ------------------------------------------------------------------------
+   PAINEL ESQUERDO — FORMULÁRIO
+   Rola normalmente com o restante da página (decisão de produto: sem
+   scroll interno isolado, para manter o comportamento nativo do navegador).
+   ------------------------------------------------------------------------ */
+
+.auth-split__form-pane {
+  flex: 1 1 60%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--bg-surface);
+  padding: var(--scale-layout-4xb) var(--scale-layout-3xb);
+}
+
+@media (min-width: 941px) {
+  .auth-split__form-pane {
+    padding: var(--scale-layout-8xb) var(--scale-layout-6xb);
+  }
+}
+
+.auth-split__form-inner {
+  width: 100%;
+  max-width: 640px;
+}
+
+/* ------------------------------------------------------------------------
+   TOGGLE — ENTRAR / CADASTRAR (switch deslizante)
+   ------------------------------------------------------------------------ */
+
+.auth-toggle {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: var(--color-neutral-100);
+  border-radius: var(--surface-rounder-full);
+  padding: var(--scale-fit-half);
+  margin-bottom: var(--scale-layout-6xb);
+  max-width: 320px;
+}
+
+.auth-toggle__option {
+  position: relative;
+  z-index: var(--surface-z-layer-1);
+  text-align: center;
+  padding-block: var(--scale-fit-3xh);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-14);
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: var(--surface-rounder-full);
+  transition: color 0.2s ease;
+}
+
+.auth-toggle__option.is-active {
+  color: var(--color-primary-900);
+}
+
+.auth-toggle__thumb {
+  position: absolute;
+  top: var(--scale-fit-half);
+  left: var(--scale-fit-half);
+  width: calc(50% - var(--scale-fit-half));
+  height: calc(100% - (var(--scale-fit-half) * 2));
+  background-color: var(--color-base-white);
+  border-radius: var(--surface-rounder-full);
+  box-shadow: var(--surface-elevation-1);
+  transition: transform 0.25s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.auth-toggle__thumb.is-right {
+  transform: translateX(100%);
+}
+
+/* ------------------------------------------------------------------------
+   CABEÇALHO DO FORMULÁRIO — título e subtítulo
+   ------------------------------------------------------------------------ */
+
+.auth-form-header {
+  margin-bottom: var(--scale-layout-4xb);
+}
+
+.auth-form-header__title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-32);
+  color: var(--color-primary-900);
+  margin-bottom: var(--scale-fit-3xh);
+}
+
+.auth-form-header__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.auth-form-links {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--scale-layout-2xb);
+}
+
+.auth-form-links__link {
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--color-primary-800);
+  text-decoration: underline;
+}
+
+.auth-form-links__link:hover {
+  color: var(--color-primary-600);
+}
+
+/* ------------------------------------------------------------------------
+   PAINEL DIREITO — MARCA / INSTITUCIONAL
+   Sticky: acompanha o scroll do formulário sem esticar artificialmente
+   nem deixar espaço vazio quando o conteúdo do formulário é mais alto.
+   ------------------------------------------------------------------------ */
+
+.auth-split__brand-pane {
+  flex: 1 1 40%;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--color-primary-900) 0%, var(--color-primary-800) 100%);
+  color: var(--color-base-white);
+}
+
+@media (min-width: 941px) {
+  .auth-split__brand-pane {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+}
+
+/* Textura sutil — listras diagonais discretas, eco do bloco texturizado
+   da referência visual, mantendo a paleta institucional. */
+.auth-split__brand-pane::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.035) 0px,
+    rgba(255, 255, 255, 0.035) 2px,
+    transparent 2px,
+    transparent 14px
+  );
+  pointer-events: none;
+}
+
+.auth-split__brand-inner {
+  position: relative;
+  z-index: var(--surface-z-layer-1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--scale-layout-6xb) var(--scale-layout-4xb);
+}
+
+@media (min-width: 941px) {
+  .auth-split__brand-inner {
+    padding: var(--scale-layout-8xb) var(--scale-layout-6xb);
+  }
+}
+
+.auth-brand__mark {
+  display: flex;
+  align-items: center;
+  gap: var(--scale-layout-2xb);
+  margin-bottom: var(--scale-layout-4xb);
+}
+
+.auth-brand__coat {
+  height: 56px;
+  width: 56px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.auth-brand__system-name {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-fit-half);
+}
+
+.auth-brand__eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary-200);
+}
+
+.auth-brand__title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-24);
+  color: var(--color-base-white);
+  line-height: var(--leading-tight);
+}
+
+.auth-brand__tagline {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-24);
+  line-height: var(--leading-snug);
+  color: var(--color-base-white);
+  max-width: 26ch;
+  margin-bottom: var(--scale-layout-6xb);
+}
+
+@media (min-width: 1025px) {
+  .auth-brand__tagline {
+    font-size: var(--text-32);
+  }
+}
+
+.auth-brand__divider {
+  width: 100%;
+  max-width: 240px;
+  height: var(--surface-border-width-sm);
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-bottom: var(--scale-layout-4xb);
+}
+
+.auth-brand__contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-layout-2xb);
+  margin-bottom: var(--scale-layout-6xb);
+}
+
+.auth-brand__contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-fit-half);
+}
+
+.auth-brand__contact-label {
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-primary-200);
+}
+
+.auth-brand__contact-value {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-18);
+  color: var(--color-base-white);
+}
+
+.auth-brand__copyright {
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--color-primary-200);
+  margin: 0;
+}

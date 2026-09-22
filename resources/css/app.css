@@ -8,7 +8,10 @@
 /* Layout base (header, footer, widget de acessibilidade) */
 @import './layout.css';
 
-/* Página de Autocadastro */
+/* Layout de acesso — split-screen (Sistema 651) */
+@import './acesso.css';
+
+/* Página de Autocadastro / Acesso */
 @import './pages/cadastro.css';
 
 @font-face {

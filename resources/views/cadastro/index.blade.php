@@ -1,27 +1,24 @@
-@extends('layouts.app')
+@extends('layouts.acesso')
 
-@section('title', 'Cadastro — Prefeitura Municipal de Caraguatatuba')
+@section('title', 'Cadastro — Sistema 651')
 
 @section('content')
-    <div class="cadastro-page">
-        <div class="container">
+    <div class="acesso-cabecalho-formulario">
+        <h1 class="acesso-cabecalho-formulario__titulo">Cadastro de Cidadão</h1>
+        <p class="acesso-cabecalho-formulario__subtitulo">Complete as informações abaixo para acessar os serviços digitais do município.</p>
+    </div>
 
-            <div class="cadastro-heading">
-                <h1 class="cadastro-heading__title">Cadastro de Cidadão</h1>
-                <p class="cadastro-heading__subtitle">Complete as informações abaixo para acessar os serviços digitais do município.</p>
-            </div>
-
-            <div class="cadastro-card">
+    <div class="cadastro-card">
 
                 {{-- Alertas de retorno da submissão (simulados até a API existir) --}}
-                @if (session('status') === 'success')
-                    <div class="cadastro-alert cadastro-alert--success" role="status">
-                        {{ session('message') }}
+                @if (session('situacao') === 'sucesso')
+                    <div class="cadastro-alert cadastro-alert--sucesso" role="status">
+                        {{ session('mensagem') }}
                     </div>
                 @endif
 
                 @if ($errors->any())
-                    <div class="cadastro-alert cadastro-alert--error" role="alert">
+                    <div class="cadastro-alert cadastro-alert--erro" role="alert">
                         Verifique os campos destacados abaixo e tente novamente.
                     </div>
                 @endif
@@ -30,12 +27,12 @@
                     @csrf
 
                     {{-- ==================== DADOS DO SOLICITANTE ==================== --}}
-                    <section class="cadastro-card__section">
-                        <div class="cadastro-card__section-header">
-                            <span class="cadastro-card__section-icon cadastro-card__section-icon--red">
+                    <section class="cadastro-card__secao">
+                        <div class="cadastro-card__cabecalho-secao">
+                            <span class="cadastro-card__icone-secao cadastro-card__icone-secao--vermelho">
                                 <i class="fa-solid fa-user" aria-hidden="true"></i>
                             </span>
-                            <h2 class="cadastro-card__section-title">Dados do Solicitante</h2>
+                            <h2 class="cadastro-card__titulo-secao">Dados do Solicitante</h2>
                         </div>
 
                         <div class="cadastro-grid">
@@ -157,12 +154,12 @@
                     </section>
 
                     {{-- ==================== TELEFONE ==================== --}}
-                    <section class="cadastro-card__section">
-                        <div class="cadastro-card__section-header">
-                            <span class="cadastro-card__section-icon cadastro-card__section-icon--green">
+                    <section class="cadastro-card__secao">
+                        <div class="cadastro-card__cabecalho-secao">
+                            <span class="cadastro-card__icone-secao cadastro-card__icone-secao--verde">
                                 <i class="fa-solid fa-phone" aria-hidden="true"></i>
                             </span>
-                            <h2 class="cadastro-card__section-title">Telefone</h2>
+                            <h2 class="cadastro-card__titulo-secao">Telefone</h2>
                         </div>
 
                         <div class="cadastro-grid cadastro-grid--telefone">
@@ -239,12 +236,12 @@
                     </section>
 
                     {{-- ==================== ENDEREÇO ==================== --}}
-                    <section class="cadastro-card__section">
-                        <div class="cadastro-card__section-header">
-                            <span class="cadastro-card__section-icon cadastro-card__section-icon--yellow">
+                    <section class="cadastro-card__secao">
+                        <div class="cadastro-card__cabecalho-secao">
+                            <span class="cadastro-card__icone-secao cadastro-card__icone-secao--amarelo">
                                 <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
                             </span>
-                            <h2 class="cadastro-card__section-title">Endereço</h2>
+                            <h2 class="cadastro-card__titulo-secao">Endereço</h2>
                         </div>
 
                         <div class="cadastro-grid cadastro-grid--endereco">
@@ -369,7 +366,5 @@
                     </div>
                 </form>
 
-            </div>
-        </div>
     </div>
 @endsection
