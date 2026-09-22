@@ -11,21 +11,64 @@
    ========================================================================== */
 
 .cadastro-card {
+  position: relative;
   width: 100%;
-  /* background-color: var(--color-base-white); */
+  background-color: var(--bg-surface);
   color: var(--text-primary);
-  /* border: var
+  border: var
 1px
-(--surface-border-width-sm) solid var(--border-default); */
+(--surface-border-width-sm) solid var(--border-default);
   /* border-radius: var(--surface-rounder-lg); */
-  /* box-shadow: var(--surface-elevation-2); */
+  box-shadow: var(--surface-elevation-4);
   padding: var(--scale-layout-4xb);
+}
+
+.cadastro-card.entrar {
+    max-width: 557px;
+    height: 456px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-inline: auto;
+}
+
+.cadastro-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: var(--surface-rounder-full);
+  background: linear-gradient(
+    90deg,
+    var(--color-tertiary-600) 0%,
+    var(--color-secondary-600) 50%,
+    var(--color-quaternary-600) 100%
+  );
+  opacity: var(--surface-opacity-xl);
 }
 
 @media (min-width: 941px) {
   .cadastro-card {
     padding: var(--scale-layout-5xb);
   }
+}
+
+.cadastro-card__secao {
+  --secao-cor: var(--color-primary-600);
+}
+
+.cadastro-card__secao:has(.cadastro-card__icone-secao--vermelho) {
+  --secao-cor: var(--color-tertiary-600);
+}
+
+.cadastro-card__secao:has(.cadastro-card__icone-secao--amarelo) {
+  --secao-cor: var(--color-secondary-800);
+}
+
+.cadastro-card__secao:has(.cadastro-card__icone-secao--verde) {
+  --secao-cor: var(--color-quaternary-800);
 }
 
 .cadastro-card__cabecalho-secao {
@@ -74,7 +117,6 @@
 .cadastro-card__secao+.cadastro-card__secao {
   margin-top: var(--scale-layout-4xb);
   padding-top: var(--scale-layout-4xb);
-  border-top: var(--surface-border-width-sm) solid var(--border-default);
 }
 
 /* ------------------------------------------------------------------------
@@ -147,7 +189,7 @@
 .cadastro-select {
   width: 100%;
   background-color: transparent;
-  border: solid 1px var(--border-default);
+  border: solid 1px var(--color-primary-600);
   border-radius: 8px;
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -165,13 +207,17 @@
 .cadastro-field input:focus,
 .cadastro-field select:focus {
   outline: none;
-  border-color: var(--border-focus);
+  border-color: var(--secao-cor, var(--border-focus));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--secao-cor, var(--border-focus)) 18%, transparent);
 }
 
 .cadastro-field label:has(+ input:focus),
-.cadastro-field label:has(+ select:focus) {
+.cadastro-field label:has(+ input:not(:placeholder-shown)),
+.cadastro-field label:has(+ select:focus),
+.cadastro-field label:has(+ select:valid) {
   transform: translateY(-51%) translateX(-10px) scale(1.0);
   background-color: var(--bg-surface);
+  color: var(--secao-cor, var(--text-secondary));
   padding: 0px 5px;
   font-weight: bold;
   letter-spacing: 1px;
@@ -179,15 +225,23 @@
   border-radius: 100px;
 }
 
-.cadastro-field input[type="date"] {
-  color: transparent;
+/* Campo de data: o navegador não suporta placeholder real em type="date",
+   então :placeholder-shown nunca funciona nele (ver nota acima, campo
+   excluído da regra de floating label). Aqui o label fica sempre fixo no
+   topo, como um label tradicional, e o "dd/mm/aaaa" nativo do navegador
+   fica visível para indicar que o campo está vazio. */
+.cadastro-field label:has(+ input[type="date"]) {
+  position: static;
+  transform: none;
+  display: block;
+  margin-bottom: var(--scale-fit-half);
 }
 
 
 
 .cadastro-input.is-invalid,
 .cadastro-select.is-invalid {
-  border-bottom-color: var(--feedback-error-text);
+  border-color: var(--feedback-error-text);
 }
 
 .cadastro-error {
@@ -201,7 +255,7 @@
   -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23697077' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right center;
+  background-position: right 16px center;
   padding-right: var(--scale-layout-3xb);
   cursor: pointer;
 }
@@ -288,10 +342,12 @@
 .cadastro-btn:enabled {
   background-color: var(--color-secondary-600);
   color: var(--color-neutral-900);
+  box-shadow: 0 var(--surface-offset-md) var(--surface-blur-md) color-mix(in srgb, var(--color-secondary-600) 45%, transparent);
 }
 
 .cadastro-btn:enabled:hover {
   background-color: var(--color-secondary-800);
+  box-shadow: 0 var(--surface-offset-lg) var(--surface-blur-lg) color-mix(in srgb, var(--color-secondary-600) 55%, transparent);
 }
 
 .cadastro-btn:disabled {
@@ -305,6 +361,7 @@
 
 .cadastro-alert {
   border-radius: var(--surface-rounder-md);
+  border-left: var(--surface-border-width-lg) solid transparent;
   padding: var(--scale-layout-2xb) var(--scale-layout-3xb);
   margin-bottom: var(--scale-layout-3xb);
   font-family: var(--font-body);
@@ -314,9 +371,11 @@
 .cadastro-alert--sucesso {
   background-color: var(--feedback-success-bg);
   color: var(--feedback-success-text);
+  border-left-color: var(--color-quaternary-600);
 }
 
 .cadastro-alert--erro {
   background-color: var(--feedback-error-bg);
   color: var(--feedback-error-text);
+  border-left-color: var(--color-tertiary-600);
 }

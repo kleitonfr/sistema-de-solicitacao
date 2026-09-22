@@ -10,7 +10,11 @@
 .acesso-body {
   margin: 0;
   min-height: 100vh;
-  background-color: var(--bg-surface);
+  background-image: var(--bg-surface);
+}
+
+.acesso-body::-webkit-scrollbar {
+  display: none;
 }
 
 .acesso-split {
@@ -35,15 +39,15 @@
   flex: 1 1 60%;
   display: flex;
   justify-content: center;
-  background-color: var(--bg-surface);
+  background-image: url("../../public/assets/img/prefeitura-gabinete.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   padding: var(--scale-layout-4xb) var(--scale-layout-3xb);
 }
 
-@media (min-width: 941px) {
-  .acesso-split__form-pane {
-    padding: var(--scale-layout-8xb) var(--scale-layout-6xb);
-  }
-}
+@media (min-width: 941px) {}
 
 .acesso-split__form-inner {
   width: 100%;
@@ -57,7 +61,9 @@
 .acesso-alternador {
   position: relative;
   display: grid;
+  margin-inline: auto;
   grid-template-columns: 1fr 1fr;
+  box-shadow: var(--surface-elevation-4);
   background-color: var(--color-neutral-100);
   border-radius: var(--surface-rounder-full);
   padding: var(--scale-fit-half);
@@ -97,6 +103,18 @@
 
 .acesso-alternador__indicador.is-right {
   transform: translateX(100%);
+}
+
+/* ------------------------------------------------------------------------
+   CONTEÚDO DO FORMULÁRIO — transição suave na troca via AJAX
+   ------------------------------------------------------------------------ */
+
+.acesso-conteudo-formulario {
+  transition: opacity 0.18s ease;
+}
+
+.acesso-conteudo-formulario.esta-trocando {
+  opacity: 0;
 }
 
 /* ------------------------------------------------------------------------

@@ -23,6 +23,7 @@
                 <nav class="acesso-alternador" aria-label="Alternar entre entrar e cadastro">
                     <a
                         href="{{ route('acesso.index') }}"
+                        data-fragmento-url="{{ route('fragmentos.entrar') }}"
                         class="acesso-alternador__opcao {{ request()->routeIs('acesso.*') ? 'is-active' : '' }}"
                         @if (request()->routeIs('acesso.*')) aria-current="page" @endif
                     >
@@ -30,6 +31,7 @@
                     </a>
                     <a
                         href="{{ route('cadastro.index') }}"
+                        data-fragmento-url="{{ route('fragmentos.cadastro') }}"
                         class="acesso-alternador__opcao {{ request()->routeIs('cadastro.*') ? 'is-active' : '' }}"
                         @if (request()->routeIs('cadastro.*')) aria-current="page" @endif
                     >
@@ -38,7 +40,9 @@
                     <span class="acesso-alternador__indicador {{ request()->routeIs('cadastro.*') ? 'is-right' : '' }}" aria-hidden="true"></span>
                 </nav>
 
-                @yield('content')
+                <div id="acesso-conteudo-formulario" class="acesso-conteudo-formulario">
+                    @yield('content')
+                </div>
 
             </div>
         </div>
