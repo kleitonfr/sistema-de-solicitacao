@@ -1,0 +1,170 @@
+/* ==========================================================================
+   DESIGN SYSTEM STII — RESPONSIVE.CSS
+   Modelo de breakpoints mobile-first, a ser usado como referência para
+   qualquer regra responsiva do projeto (não apenas para as utilities).
+
+   Fonte: tabela de grid definida por Kleiton — 7 faixas, cada uma com
+   colunas, gutter, margem e max-width próprios (a contagem de colunas NÃO
+   é sempre crescente: tablet-sm-landscape volta pra 8 colunas depois de
+   tablet-lg-portrait ter usado 12 — isso é intencional, mantido como está).
+
+   CSS não permite var() dentro da condição de @media — os valores em
+   px abaixo precisam ficar sincronizados manualmente com os tokens
+   --bp-* em tokens.css. Se mudar um, mude o outro.
+
+   Estratégia: mobile-first. As regras base (fora de qualquer @media) valem
+   para mobile-portrait (0px+); cada media query abaixo SOBRESCREVE apenas
+   o que muda a partir daquele breakpoint.
+   ========================================================================== */
+
+/* ------------------------------------------------------------------------
+   1. TABELA DE REFERÊNCIA (documentação — não é CSS executável)
+   ------------------------------------------------------------------------
+   Nome                                 | Min-width | Colunas | Gutter | Margem     | Max-width
+   --------------------------------------|-----------|---------|--------|------------|----------
+   mobile-portrait                      | 0px       | 4       | 16px   | 8px        | 559px
+   mobile-landscape / tablet-portrait   | 560px     | 8       | 24px   | 40px       | 940px
+   tablet-lg-portrait                   | 941px     | 12      | 24px   | 32px       | 1024px
+   tablet-sm-landscape                  | 1025px    | 8       | 24px   | 40px       | 1150px
+   tablet-lg-landscape                  | 1151px    | 12      | 24px   | 40px (min) | 1400px
+   desktop                              | 1401px    | 12      | 24px   | 40px       | 1519px
+   tv                                   | 1520px    | 12      | 40px   | 40px (min) | 1680px
+   ------------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------------
+   2. GRID RESPONSIVO — sobrescreve os tokens de grid definidos em :root
+   Assim, qualquer componente que use var(--grid-columns), var(--grid-margin),
+   var(--grid-gutter) e .container (var(--container-max)) se adapta
+   automaticamente por breakpoint.
+   ------------------------------------------------------------------------ */
+
+/* mobile-portrait (0px+) — valores já definidos em tokens.css :root,
+   repetidos aqui apenas por clareza documental */
+:root {
+  --grid-columns: 4;
+  --grid-gutter: 16px;
+  --grid-margin: 8px;
+  --container-max: 559px;
+}
+
+@media (min-width: 560px) { /* mobile-landscape / tablet-portrait */
+  :root {
+    --grid-columns: 8;
+    --grid-gutter: 24px;
+    --grid-margin: 40px;
+    --container-max: 940px;
+  }
+}
+
+@media (min-width: 941px) { /* tablet-lg-portrait */
+  :root {
+    --grid-columns: 12;
+    --grid-gutter: 24px;
+    --grid-margin: 32px;
+    --container-max: 1024px;
+  }
+}
+
+@media (min-width: 1025px) { /* tablet-sm-landscape — volta a 8 colunas */
+  :root {
+    --grid-columns: 8;
+    --grid-gutter: 24px;
+    --grid-margin: 40px;
+    --container-max: 1150px;
+  }
+}
+
+@media (min-width: 1151px) { /* tablet-lg-landscape — margem mínima de 40px */
+  :root {
+    --grid-columns: 12;
+    --grid-gutter: 24px;
+    --grid-margin: 40px;
+    --container-max: 1400px;
+  }
+}
+
+@media (min-width: 1401px) { /* desktop */
+  :root {
+    --grid-columns: 12;
+    --grid-gutter: 24px;
+    --grid-margin: 40px;
+    --container-max: 1519px;
+  }
+}
+
+@media (min-width: 1520px) { /* tv — sem max-width definido: container ocupa a tela toda */
+  :root {
+    --grid-columns: 12;
+    --grid-gutter: 40px;
+    --grid-margin: 40px;
+    --container-max: 1680px;
+  }
+}
+
+/* ------------------------------------------------------------------------
+   3. CONTAINER E GRID DE COLUNAS — consumindo os tokens acima
+   ------------------------------------------------------------------------ */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-inline: var(--grid-margin);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gutter);
+}
+
+/* ------------------------------------------------------------------------
+   4. MODELO — utilitários responsivos (padrão a seguir/estender)
+   Sufixo indica a partir de qual breakpoint a regra passa a valer.
+   Exemplo de uso: <div class="d-none d-flex-tablet-lg-portrait"> ... </div>
+   Extenda este padrão para outras utilities conforme a necessidade real
+   do projeto for aparecendo — evite gerar todas de uma vez sem uso.
+   ------------------------------------------------------------------------ */
+
+@media (min-width: 560px) { /* mobile-landscape / tablet-portrait */
+  .d-none-mobile-landscape  { display: none; }
+  .d-block-mobile-landscape { display: block; }
+  .d-flex-mobile-landscape  { display: flex; }
+}
+
+@media (min-width: 941px) { /* tablet-lg-portrait */
+  .d-none-tablet-lg-portrait  { display: none; }
+  .d-block-tablet-lg-portrait { display: block; }
+  .d-flex-tablet-lg-portrait  { display: flex; }
+  .flex-row-tablet-lg-portrait { flex-direction: row; }
+  .flex-col-tablet-lg-portrait { flex-direction: column; }
+}
+
+@media (min-width: 1025px) { /* tablet-sm-landscape */
+  .d-none-tablet-sm-landscape  { display: none; }
+  .d-block-tablet-sm-landscape { display: block; }
+  .d-flex-tablet-sm-landscape  { display: flex; }
+}
+
+@media (min-width: 1151px) { /* tablet-lg-landscape */
+  .d-none-tablet-lg-landscape  { display: none; }
+  .d-block-tablet-lg-landscape { display: block; }
+  .d-flex-tablet-lg-landscape  { display: flex; }
+}
+
+@media (min-width: 1401px) { /* desktop */
+  .d-none-desktop  { display: none; }
+  .d-block-desktop { display: block; }
+  .d-flex-desktop  { display: flex; }
+  .flex-row-desktop { flex-direction: row; }
+  .flex-col-desktop { flex-direction: column; }
+}
+
+@media (min-width: 1520px) { /* tv */
+  .d-none-tv  { display: none; }
+  .d-block-tv { display: block; }
+  .d-flex-tv  { display: flex; }
+}
+
+

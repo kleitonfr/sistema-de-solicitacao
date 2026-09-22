@@ -1,0 +1,64 @@
+/* ==========================================================================
+   DESIGN SYSTEM STII — BASE.CSS
+   Reset mínimo + estilos de elementos HTML nativos usando os tokens.
+   Opcional: mantenha se o projeto não tiver outro reset (ex.: Tailwind Preflight).
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  background-color: var(--bg-default);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 var(--scale-layout-2xb) 0;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+}
+
+h1 { font-size: var(--text-40); }
+h2 { font-size: var(--text-32); }
+h3 { font-size: var(--text-24); }
+h4 { font-size: var(--text-20); }
+h5 { font-size: var(--text-18); }
+h6 { font-size: var(--text-16); font-weight: var(--font-weight-semibold); }
+
+p { margin: 0 0 var(--scale-layout-2xb) 0; }
+
+a {
+  color: var(--action-primary);
+  text-decoration: underline;
+}
+a:hover { color: var(--action-primary-hover); }
+
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+input, select, textarea, button {
+  font-family: inherit;
+  font-size: var(--text-16);
+}
+
+table {
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+img, svg, video { max-width: 100%; display: block; }
+
+hr {
+  border: none;
+  border-top: var(--surface-border-width-sm) solid var(--border-default);
+  margin: var(--scale-layout-4xb) 0;
+}

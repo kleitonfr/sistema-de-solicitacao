@@ -1,0 +1,285 @@
+/* ==========================================================================
+   DESIGN SYSTEM STII — TOKENS.CSS
+   Fonte: Figma — arquivo FUK15CCdVNCVCEr5K5td7B (coleções Primitives/Color,
+   Theme/Color, Theme/Color-Dark, Primitives/Spacing, Primitives/Surface)
+
+   Convenção de nomenclatura: --categoria-subcategoria-variante
+   Os tokens PRIMITIVOS (cores cruas, escala de espaçamento) não devem ser
+   consumidos diretamente em componentes — use sempre os tokens SEMÂNTICOS
+   (--color-*, --bg-*, --text-*, --action-*, --border-*, --feedback-*).
+
+========== */
+
+:root {
+  /* ------------------------------------------------------------------------
+     1. COR — PRIMITIVOS (Primitives/Color)
+     Uso: apenas para compor tokens semânticos ou casos excepcionais.
+     ------------------------------------------------------------------------ */
+
+  /* Azul institucional (primary) — marca real da STII, #007BBB */
+  --color-primary-50:  #F4F8FB;
+  --color-primary-100: #DFEEF6;
+  --color-primary-200: #B5DAEE;
+  --color-primary-400: #3EAFEA; /* não usar como texto — contraste insuficiente */
+  --color-primary-600: #007BBB; /* cor de marca */
+  --color-primary-800: #00517A;
+  --color-primary-900: #002F47;
+
+  /* Amarelo institucional (secondary) — do brasão, #F2CB05 */
+  --color-secondary-50:  #FDFBF2;
+  --color-secondary-100: #FBF6DA;
+  --color-secondary-200: #FAEEB2;
+  --color-secondary-400: #FCE25F;
+  --color-secondary-600: #F2CB05;
+  --color-secondary-800: #A38800; /* usar texto escuro por cima até este tom */
+  --color-secondary-900: #5A4B02;
+
+  /* Vermelho institucional (tertiary) — do brasão, #D90718 */
+  --color-tertiary-50:  #FCF2F3;
+  --color-tertiary-100: #FADBDE;
+  --color-tertiary-200: #F8AAB0;
+  --color-tertiary-400: #F73B4A;
+  --color-tertiary-600: #D90718;
+  --color-tertiary-800: #99000C; /* aceita texto branco a partir daqui */
+  --color-tertiary-900: #500208;
+
+  /* Verde institucional (quaternary) — do brasão, #65A675 */
+  --color-quaternary-50:  #F1F8F3;
+  --color-quaternary-100: #DBF0E0;
+  --color-quaternary-200: #B5E3C0;
+  --color-quaternary-400: #82C994;
+  --color-quaternary-600: #65A675;
+  --color-quaternary-800: #2D763F; /* aceita texto branco a partir daqui */
+  --color-quaternary-900: #183F21;
+
+  /* Neutros (tema claro) */
+  --color-neutral-50:  #F9FAFA;
+  --color-neutral-100: #F2F4F5;
+  --color-neutral-200: #E3E6E8;
+  --color-neutral-400: #9EA3A9; /* não usar como texto */
+  --color-neutral-600: #697077;
+  --color-neutral-800: #383D42;
+  --color-neutral-900: #1C1F22;
+
+  /* Neutros (tema escuro) */
+  --color-neutral-dark-50:  #F1F1F3;
+  --color-neutral-dark-100: #D5D5DD;
+  --color-neutral-dark-200: #9396B9;
+  --color-neutral-dark-400: #4A509C;
+  --color-neutral-dark-600: #111540;
+  --color-neutral-dark-800: #090C2A;
+  --color-neutral-dark-900: #05071E;
+
+  /* Base */
+  --color-base-white: #FFFFFF;
+  --color-base-black: #000000;
+
+  /* ------------------------------------------------------------------------
+     2. COR — SEMÂNTICOS (Theme/Color, modo Light) — tokens padrão do :root
+     ------------------------------------------------------------------------ */
+
+  --bg-default: var(--color-neutral-50);
+  --bg-surface: var(--color-neutral-100);
+  --bg-primary: var(--color-primary-50);
+
+  --text-primary: var(--color-neutral-900);
+  --text-secondary: var(--color-neutral-600);
+  --text-disabled: var(--color-neutral-400);
+
+  --action-primary: var(--color-primary-600);
+  --action-primary-hover: var(--color-primary-800);
+  --action-primary-disabled: var(--color-primary-200);
+
+  --border-default: var(--color-neutral-200);
+  --border-focus: var(--color-secondary-600);
+
+  --feedback-success-bg: var(--color-quaternary-50);
+  --feedback-success-text: var(--color-quaternary-900);
+  --feedback-error-bg: var(--color-tertiary-50);
+  --feedback-error-text: var(--color-tertiary-800);
+  --feedback-warning-bg: var(--color-secondary-200);
+  --feedback-warning-text: var(--color-secondary-900);
+  --feedback-info-bg: var(--color-primary-100);
+  --feedback-info-text: var(--color-primary-800);
+
+  --brand-accent-red: var(--color-tertiary-600);
+  --brand-accent-yellow: var(--color-secondary-600);
+  --brand-accent-green: var(--color-quaternary-600);
+
+  /* ------------------------------------------------------------------------
+     3. ESPAÇAMENTO (Primitives/Spacing)
+     ------------------------------------------------------------------------ */
+
+  /* Escala layout (base-8) — uso estrutural: margens, gaps, seções */
+  --scale-layout-base: 8px;   /* scale/layout/base */
+  --scale-layout-2xb: 16px;  /* scale/layout/2xb */
+  --scale-layout-3xb: 24px;  /* scale/layout/3xb */
+  --scale-layout-4xb: 32px;  /* scale/layout/4xb */
+  --scale-layout-5xb: 40px;  /* scale/layout/5xb */
+  --scale-layout-6xb: 48px;  /* scale/layout/6xb */
+  --scale-layout-7xb: 56px;  /* scale/layout/7xb */
+  --scale-layout-8xb: 64px;  /* scale/layout/8xb */
+  --scale-layout-9xb: 72px;  /* scale/layout/9xb */
+  --scale-layout-10xb: 80px; /* scale/layout/10xb */
+
+  /* Escala fit — ajuste fino dentro de componentes pequenos */
+  --scale-fit-half: 4px;  /* scale/fit/half */
+  --scale-fit-3xh: 12px;  /* scale/fit/3xh */
+  --scale-fit-5xh: 20px;  /* scale/fit/5xh */
+  --scale-fit-7xh: 28px;  /* scale/fit/7xh */
+  --scale-fit-9xh: 36px;  /* scale/fit/9xh */
+  --scale-fit-11xh: 44px; /* scale/fit/11xh — altura mínima de toque acessível */
+
+  /* ------------------------------------------------------------------------
+     4. SUPERFÍCIE (Primitives/Surface)
+     ------------------------------------------------------------------------ */
+
+  /* Raio de borda */
+  --surface-rounder-none: 0px;
+  --surface-rounder-sm: 4px;
+  --surface-rounder-md: 8px;
+  --surface-rounder-lg: 16px;
+  --surface-rounder-full: 9999px;
+
+  /* Espessura de borda */
+  --surface-border-width-none: 0px;
+  --surface-border-width-sm: 1px;
+  --surface-border-width-md: 2px;
+  --surface-border-width-lg: 4px;
+
+  /* Opacidade */
+  --surface-opacity-none: 0;
+  --surface-opacity-default: 0.10;
+  --surface-opacity-xs: 0.16;
+  --surface-opacity-sm: 0.30;
+  --surface-opacity-md: 0.45;
+  --surface-opacity-lg: 0.65;
+  --surface-opacity-xl: 0.85;
+
+  /* Elevação / deslocamento (offset) */
+  --surface-offset-none: 0px;
+  --surface-offset-sm: 1px;
+  --surface-offset-md: 3px;
+  --surface-offset-lg: 6px;
+  --surface-offset-xl: 9px;
+  --surface-offset-sm-n: -1px;
+  --surface-offset-md-n: -3px;
+  --surface-offset-lg-n: -6px;
+  --surface-offset-xl-n: -9px;
+
+  /* Desfoque */
+  --surface-blur-none: 0px;
+  --surface-blur-sm: 1px;
+  --surface-blur-md: 3px;
+  --surface-blur-lg: 6px;
+  --surface-blur-xl: 9px;
+
+  /* Sombras — composição (offset + blur + opacity) sobre neutral-900 */
+  --surface-elevation-0: none;
+  --surface-elevation-1: 0 var(--surface-offset-sm) var(--surface-blur-sm) rgba(28, 31, 34, var(--surface-opacity-default));
+  --surface-elevation-2: 0 var(--surface-offset-md) var(--surface-blur-md) rgba(28, 31, 34, var(--surface-opacity-xs));
+  --surface-elevation-3: 0 var(--surface-offset-lg) var(--surface-blur-lg) rgba(28, 31, 34, var(--surface-opacity-sm));
+  --surface-elevation-4: 0 var(--surface-offset-xl) var(--surface-blur-xl) rgba(28, 31, 34, var(--surface-opacity-md));
+
+  /* Z-index — escala prática de empilhamento (mapeada aos 5 níveis surface/z/layer) */
+  --surface-z-layer-0: 0;   /* conteúdo de página */
+  --surface-z-layer-1: 10;  /* cards / superfícies levemente elevadas */
+  --surface-z-layer-2: 20;  /* hover / foco */
+  --surface-z-layer-3: 30;  /* dropdowns, popovers, tooltips */
+  --surface-z-layer-4: 40;  /* modais e overlays de topo */
+
+  /* ------------------------------------------------------------------------
+     5. TIPOGRAFIA
+     // TODO-CONFIRMAR: escala de tamanho, pesos exatos e line-heights contra
+     // os Text Styles publicados no Figma. Famílias e papéis já validados.
+     ------------------------------------------------------------------------ */
+
+  --font-heading: 'Montserrat', 'Segoe UI', sans-serif; /* títulos */
+  --font-body: 'Inter', 'Segoe UI', sans-serif;          /* corpo de texto / UI */
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace; /* dados numéricos/tabulares */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+--text-12:   0.75rem;   /* 12px */
+--text-14:   0.875rem;  /* 14px */
+--text-16: 1rem;      /* 16px */
+--text-18:   1.125rem;  /* 18px */
+--text-20:   1.25rem;   /* 20px */
+--text-24:   1.5rem;    /* 24px */
+--text-32:  2rem;      /* 32px */
+--text-40:  2.5rem;    /* 40px */
+
+  --leading-tight: 1.2;
+  --leading-snug: 1.4;
+  --leading-normal: 1.5;
+  
+
+/* ------------------------------------------------------------------------
+     6. GRID & BREAKPOINTS
+     Fonte: tabela de grid d (7 breakpoints, min-width
+     sugerido de cada faixa). CSS não permite var() dentro da condição de
+     @media, então estes mesmos valores estão hardcoded em responsive.css —
+     mantenha os dois arquivos sincronizados se algum valor mudar.
+ 
+     Nome                                  | min-width | colunas | gutter | margem      | max-width
+     --------------------------------------|-----------|---------|--------|-------------|----------
+     mobile-portrait                       | 0px       | 4       | 16px   | 8px         | 559px
+     mobile-landscape / tablet-portrait    | 560px     | 8       | 24px   | 40px        | 940px
+     tablet-lg-portrait                    | 941px     | 12      | 24px   | 32px        | 1024px
+     tablet-sm-landscape                   | 1025px    | 8       | 24px   | 40px        | 1150px
+     tablet-lg-landscape                   | 1151px    | 12      | 24px   | 40px (min)  | 1400px
+     desktop                               | 1401px    | 12      | 24px   | 40px        | 1519px
+     tv                                    | 1520px    | 12      | 40px   | 40px (min)  | —
+     ------------------------------------------------------------------------ */
+ 
+  --bp-mobile-portrait: 0px;
+  --bp-mobile-landscape: 560px;
+  --bp-tablet-lg-portrait: 941px;
+  --bp-tablet-sm-landscape: 1025px;
+  --bp-tablet-lg-landscape: 1151px;
+  --bp-desktop: 1401px;
+  --bp-tv: 1520px;
+ 
+  /* Valores base = mobile-portrait (0px+). Sobrescritos por breakpoint em responsive.css */
+  --grid-columns: 4;
+  --grid-gutter: 16px;
+  --grid-margin: 8px;
+  --container-max: 559px;
+}
+/* ==========================================================================
+   TEMA ESCURO (Theme/Color-Dark)
+   Ative com <html data-theme="dark"> ou <body data-theme="dark">.
+   Os tokens de espaçamento, superfície, tipografia e grid são compartilhados
+   entre temas — apenas cor muda.
+   ========================================================================== */
+
+[data-theme="dark"] {
+  --bg-default: var(--color-neutral-dark-900);
+  --bg-surface: var(--color-neutral-dark-800);
+  --bg-primary: var(--color-neutral-dark-400);
+
+  --text-primary: var(--color-neutral-dark-50);
+  --text-secondary: var(--color-neutral-dark-100);
+  --text-disabled: var(--color-neutral-dark-200);
+
+  --action-primary: var(--color-primary-400);
+  --action-primary-hover: var(--color-primary-600);
+  --action-primary-disabled: var(--color-neutral-dark-200);
+
+  --border-default: var(--color-neutral-dark-100);
+  --border-focus: var(--color-neutral-dark-400);
+
+  /* TODO-CONFIRMAR: feedback dark ainda não definido no Figma.
+     Placeholder reaproveitando os tokens do tema claro. */
+  --feedback-success-bg: var(--color-quaternary-50);
+  --feedback-success-text: var(--color-quaternary-900);
+  --feedback-error-bg: var(--color-tertiary-50);
+  --feedback-error-text: var(--color-tertiary-800);
+  --feedback-warning-bg: var(--color-secondary-200);
+  --feedback-warning-text: var(--color-secondary-900);
+  --feedback-info-bg: var(--color-primary-100);
+  --feedback-info-text: var(--color-primary-800);
+}

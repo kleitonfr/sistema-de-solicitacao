@@ -1,0 +1,44 @@
+/* Design System STII — ordem importa: tokens primeiro, depois reset,
+   depois utilities (que consomem os tokens), depois regras responsivas. */
+@import './design-system/tokens.css';
+@import './design-system/base.css';
+@import './design-system/utilities.css';
+@import './design-system/responsive.css';
+
+/* Layout base (header, footer, widget de acessibilidade) */
+@import './layout.css';
+
+/* Página de Autocadastro */
+@import './pages/cadastro.css';
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/fonts/inter-variable.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/fonts/Inter-Italic-VariableFont_opsz,wght.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/montserrat-variable.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/Montserrat-Italic-VariableFont_wght.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+}

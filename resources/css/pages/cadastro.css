@@ -1,0 +1,339 @@
+/* ==========================================================================
+   PÁGINA — AUTOCADASTRO
+   Usa exclusivamente tokens do Design System STII (tokens.css) e classes
+   utilitárias de utilities.css/responsive.css. Nenhuma cor "crua" aqui,
+   exceto onde documentado (rgba com alpha sobre tokens de cor, necessário
+   para o efeito glassmorphism, que não tem token equivalente).
+   ========================================================================== */
+
+.cadastro-page {
+    min-height: 100vh;
+    background: linear-gradient(141deg, var(--color-primary-100) 0%, var(--bg-surface) 58%, var(--color-primary-200) 100%);
+    padding-block: var(--scale-layout-6xb);
+}
+
+/* ------------------------------------------------------------------------
+   CABEÇALHO DA PÁGINA — título e subtítulo fora do card
+   ------------------------------------------------------------------------ */
+
+.cadastro-heading {
+  max-width: 992px;
+  margin-inline: auto;
+  margin-bottom: var(--scale-layout-4xb);
+  text-align: center;
+}
+
+.cadastro-heading__title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-32);
+  color: var(--color-primary-900);
+  margin-bottom: var(--scale-fit-3xh);
+}
+
+.cadastro-heading__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  color: var(--text-secondary);
+}
+
+/* ------------------------------------------------------------------------
+   CARD PRINCIPAL — vidro claro (glassmorphism) sobre o fundo da página
+   ------------------------------------------------------------------------ */
+
+.cadastro-card {
+  width: 100%;
+  max-width: 992px;
+  margin-inline: auto;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(var(--surface-blur-xl));
+  -webkit-backdrop-filter: blur(var(--surface-blur-xl));
+  border: var(--surface-border-width-sm) solid rgba(255, 255, 255, 0.7);
+  color: var(--text-primary);
+  border-radius: var(--surface-rounder-lg);
+  box-shadow: var(--surface-elevation-3);
+  padding: var(--scale-layout-4xb);
+}
+
+@media (min-width: 941px) {
+  .cadastro-card {
+    padding: var(--scale-layout-6xb);
+  }
+}
+
+.cadastro-card__title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-24);
+  color: var(--color-primary-900);
+  margin-bottom: var(--scale-layout-4xb);
+}
+
+.cadastro-card__section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--scale-fit-3xh);
+  margin-bottom: var(--scale-layout-3xb);
+}
+
+.cadastro-card__section-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--scale-layout-5xb);
+  height: var(--scale-layout-5xb);
+  border-radius: var(--surface-rounder-full);
+  font-size: var(--text-16);
+  flex-shrink: 0;
+}
+
+.cadastro-card__section-icon--red {
+  background-color: var(--color-tertiary-100);
+  color: var(--color-tertiary-800);
+}
+
+.cadastro-card__section-icon--yellow {
+  background-color: var(--color-secondary-100);
+  color: var(--color-secondary-800);
+}
+
+.cadastro-card__section-icon--green {
+  background-color: var(--color-quaternary-100);
+  color: var(--color-quaternary-800);
+}
+
+.cadastro-card__section-title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-14);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-primary-800);
+  margin: 0;
+}
+
+.cadastro-card__section+.cadastro-card__section {
+  margin-top: var(--scale-layout-4xb);
+  padding-top: var(--scale-layout-4xb);
+  border-top: var(--surface-border-width-sm) solid var(--border-default);
+}
+
+/* ------------------------------------------------------------------------
+   GRID DE CAMPOS — 2 colunas no desktop, 1 no mobile
+   ------------------------------------------------------------------------ */
+
+.cadastro-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--scale-layout-3xb) var(--scale-layout-4xb);
+}
+
+@media (min-width: 560px) {
+  .cadastro-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.cadastro-grid--telefone {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 560px) {
+  .cadastro-grid--telefone {
+    grid-template-columns: minmax(120px, 0.7fr) minmax(90px, 0.5fr) 1.5fr 1.5fr;
+  }
+}
+
+.cadastro-grid--endereco {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 560px) {
+  .cadastro-grid--endereco {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.cadastro-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-fit-half);
+}
+
+.cadastro-field--span-full {
+  grid-column: 1 / -1;
+}
+
+/* ------------------------------------------------------------------------
+   CAMPOS — estilo "underline" (ver print de referência)
+   ------------------------------------------------------------------------ */
+
+.cadastro-label {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-12);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+}
+
+.cadastro-input,
+.cadastro-select {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-bottom: var(--surface-border-width-sm) solid var(--border-default);
+  border-radius: 0;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  padding-block: var(--scale-fit-3xh);
+  min-height: var(--scale-fit-11xh);
+}
+
+.cadastro-input::placeholder {
+  color: var(--text-disabled);
+  opacity: 1;
+}
+
+.cadastro-input:focus,
+.cadastro-select:focus {
+  outline: none;
+  border-bottom-color: var(--border-focus);
+}
+
+.cadastro-input.is-invalid,
+.cadastro-select.is-invalid {
+  border-bottom-color: var(--feedback-error-text);
+}
+
+.cadastro-error {
+  font-size: var(--text-12);
+  color: var(--feedback-error-text);
+}
+
+/* Select customizado (seta) */
+.cadastro-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23697077' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: var(--scale-layout-3xb);
+  cursor: pointer;
+}
+
+.cadastro-select option {
+  color: var(--text-primary);
+  background-color: var(--color-base-white);
+}
+
+/* Grupo Tipo + DDD (telefone), lado a lado no mobile */
+.cadastro-field-inline {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--scale-layout-3xb);
+}
+
+@media (min-width: 560px) {
+  .cadastro-field-inline {
+    display: contents;
+  }
+}
+
+/* ------------------------------------------------------------------------
+   TERMO DE USO — checkbox
+   ------------------------------------------------------------------------ */
+
+.cadastro-termo {
+  display: flex;
+  align-items: center;
+  gap: var(--scale-fit-3xh);
+  margin-top: var(--scale-layout-4xb);
+}
+
+.cadastro-termo__checkbox {
+  width: var(--scale-layout-2xb);
+  height: var(--scale-layout-2xb);
+  accent-color: var(--color-secondary-600);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.cadastro-termo__label {
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--text-secondary);
+}
+
+.cadastro-termo__label a {
+  color: var(--color-primary-800);
+  text-decoration: underline;
+  font-weight: var(--font-weight-semibold);
+}
+
+.cadastro-termo__label a:hover {
+  color: var(--color-primary-600);
+}
+
+/* ------------------------------------------------------------------------
+   BOTÃO — CADASTRAR
+   ------------------------------------------------------------------------ */
+
+.cadastro-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--scale-layout-5xb);
+}
+
+.cadastro-btn {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-16);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+  background-color: var(--color-neutral-400);
+  border: none;
+  border-radius: var(--surface-rounder-sm);
+  padding: var(--scale-fit-3xh) var(--scale-layout-6xb);
+  min-height: var(--scale-fit-11xh);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.cadastro-btn:enabled {
+  background-color: var(--color-secondary-600);
+  color: var(--color-neutral-900);
+}
+
+.cadastro-btn:enabled:hover {
+  background-color: var(--color-secondary-800);
+}
+
+.cadastro-btn:disabled {
+  cursor: not-allowed;
+  opacity: var(--surface-opacity-lg);
+}
+
+/* ------------------------------------------------------------------------
+   ALERTAS — sucesso/erro de submissão
+   ------------------------------------------------------------------------ */
+
+.cadastro-alert {
+  border-radius: var(--surface-rounder-md);
+  padding: var(--scale-layout-2xb) var(--scale-layout-3xb);
+  margin-bottom: var(--scale-layout-3xb);
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+}
+
+.cadastro-alert--success {
+  background-color: var(--feedback-success-bg);
+  color: var(--feedback-success-text);
+}
+
+.cadastro-alert--error {
+  background-color: var(--feedback-error-bg);
+  color: var(--feedback-error-text);
+}

@@ -1,0 +1,421 @@
+/* ==========================================================================
+   DESIGN SYSTEM STII — UTILITIES.CSS
+   Classes utilitárias derivadas exclusivamente de tokens.css.
+   Requer tokens.css carregado antes deste arquivo.
+
+   Convenção: uma classe = uma propriedade. Combine classes no HTML/Blade
+   em vez de criar novas classes compostas. 
+   ========================================================================== */
+
+/* Reset e estilos de elementos nativos: ver base.css (importado antes deste
+   arquivo em index.css). Aqui ficam apenas classes utilitárias. */
+
+/* ------------------------------------------------------------------------
+   2. DISPLAY
+   ------------------------------------------------------------------------ */
+.d-block        { display: block; }
+.d-inline       { display: inline; }
+.d-inline-block { display: inline-block; }
+.d-flex         { display: flex; }
+.d-inline-flex  { display: inline-flex; }
+.d-grid         { display: grid; }
+.d-none         { display: none; }
+
+/* ------------------------------------------------------------------------
+   3. FLEXBOX
+   ------------------------------------------------------------------------ */
+.flex-row        { flex-direction: row; }
+.flex-row-reverse{ flex-direction: row-reverse; }
+.flex-col        { flex-direction: column; }
+.flex-col-reverse{ flex-direction: column-reverse; }
+.flex-wrap       { flex-wrap: wrap; }
+.flex-nowrap     { flex-wrap: nowrap; }
+
+.items-start   { align-items: flex-start; }
+.items-center  { align-items: center; }
+.items-end     { align-items: flex-end; }
+.items-stretch { align-items: stretch; }
+.items-baseline{ align-items: baseline; }
+
+.justify-start   { justify-content: flex-start; }
+.justify-center  { justify-content: center; }
+.justify-end     { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.justify-around  { justify-content: space-around; }
+.justify-evenly  { justify-content: space-evenly; }
+
+.self-start   { align-self: flex-start; }
+.self-center  { align-self: center; }
+.self-end     { align-self: flex-end; }
+.self-stretch { align-self: stretch; }
+
+.flex-1    { flex: 1 1 0%; }
+.flex-auto { flex: 1 1 auto; }
+.flex-none { flex: none; }
+.flex-grow { flex-grow: 1; }
+.flex-shrink-0 { flex-shrink: 0; }
+
+/* Gap — usa a escala base-8 */
+.gap-0 { gap: 0; }
+.gap-1 { gap: var(--scale-layout-base); }
+.gap-2 { gap: var(--scale-layout-2xb); }
+.gap-3 { gap: var(--scale-layout-3xb); }
+.gap-4 { gap: var(--scale-layout-4xb); }
+.gap-5 { gap: var(--scale-layout-5xb); }
+.gap-6 { gap: var(--scale-layout-6xb); }
+
+/* ------------------------------------------------------------------------
+   4. ALINHAMENTO DE TEXTO / CONTEÚDO
+   ------------------------------------------------------------------------ */
+.text-left   { text-align: left; }
+.text-center { text-align: center; }
+.text-right  { text-align: right; }
+
+.align-top    { vertical-align: top; }
+.align-middle { vertical-align: middle; }
+.align-bottom { vertical-align: bottom; }
+
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+/* ------------------------------------------------------------------------
+   5. ESPAÇAMENTO — margin / padding
+   Escala base-8: 0 a 10 (0px a 80px). Escala "fit" para ajustes finos.
+   ------------------------------------------------------------------------ */
+
+/* -- margin -- */
+.m-0 { margin: 0; }
+.m-auto { margin: auto; }
+
+/* -- padding -- */
+.p-0 { padding: 0; }
+
+/* Loop gerado manualmente para todas as direções (m/p × t/r/b/l/x/y/all) */
+
+/* -- margin — todas as direções -- */
+.m-0 { margin: 0; }
+.m-1 { margin: var(--scale-layout-base); }
+.m-2 { margin: var(--scale-layout-2xb); }
+.m-3 { margin: var(--scale-layout-3xb); }
+.m-4 { margin: var(--scale-layout-4xb); }
+.m-5 { margin: var(--scale-layout-5xb); }
+.m-6 { margin: var(--scale-layout-6xb); }
+.m-7 { margin: var(--scale-layout-7xb); }
+.m-8 { margin: var(--scale-layout-8xb); }
+.m-9 { margin: var(--scale-layout-9xb); }
+.m-10 { margin: var(--scale-layout-10xb); }
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: var(--scale-layout-base); }
+.mt-2 { margin-top: var(--scale-layout-2xb); }
+.mt-3 { margin-top: var(--scale-layout-3xb); }
+.mt-4 { margin-top: var(--scale-layout-4xb); }
+.mt-5 { margin-top: var(--scale-layout-5xb); }
+.mt-6 { margin-top: var(--scale-layout-6xb); }
+.mt-7 { margin-top: var(--scale-layout-7xb); }
+.mt-8 { margin-top: var(--scale-layout-8xb); }
+.mt-9 { margin-top: var(--scale-layout-9xb); }
+.mt-10 { margin-top: var(--scale-layout-10xb); }
+.mr-0 { margin-right: 0; }
+.mr-1 { margin-right: var(--scale-layout-base); }
+.mr-2 { margin-right: var(--scale-layout-2xb); }
+.mr-3 { margin-right: var(--scale-layout-3xb); }
+.mr-4 { margin-right: var(--scale-layout-4xb); }
+.mr-5 { margin-right: var(--scale-layout-5xb); }
+.mr-6 { margin-right: var(--scale-layout-6xb); }
+.mr-7 { margin-right: var(--scale-layout-7xb); }
+.mr-8 { margin-right: var(--scale-layout-8xb); }
+.mr-9 { margin-right: var(--scale-layout-9xb); }
+.mr-10 { margin-right: var(--scale-layout-10xb); }
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: var(--scale-layout-base); }
+.mb-2 { margin-bottom: var(--scale-layout-2xb); }
+.mb-3 { margin-bottom: var(--scale-layout-3xb); }
+.mb-4 { margin-bottom: var(--scale-layout-4xb); }
+.mb-5 { margin-bottom: var(--scale-layout-5xb); }
+.mb-6 { margin-bottom: var(--scale-layout-6xb); }
+.mb-7 { margin-bottom: var(--scale-layout-7xb); }
+.mb-8 { margin-bottom: var(--scale-layout-8xb); }
+.mb-9 { margin-bottom: var(--scale-layout-9xb); }
+.mb-10 { margin-bottom: var(--scale-layout-10xb); }
+.ml-0 { margin-left: 0; }
+.ml-1 { margin-left: var(--scale-layout-base); }
+.ml-2 { margin-left: var(--scale-layout-2xb); }
+.ml-3 { margin-left: var(--scale-layout-3xb); }
+.ml-4 { margin-left: var(--scale-layout-4xb); }
+.ml-5 { margin-left: var(--scale-layout-5xb); }
+.ml-6 { margin-left: var(--scale-layout-6xb); }
+.ml-7 { margin-left: var(--scale-layout-7xb); }
+.ml-8 { margin-left: var(--scale-layout-8xb); }
+.ml-9 { margin-left: var(--scale-layout-9xb); }
+.ml-10 { margin-left: var(--scale-layout-10xb); }
+.mx-0 { margin-left: 0; margin-right: 0; }
+.mx-1 { margin-left: var(--scale-layout-base); margin-right: var(--scale-layout-base); }
+.mx-2 { margin-left: var(--scale-layout-2xb); margin-right: var(--scale-layout-2xb); }
+.mx-3 { margin-left: var(--scale-layout-3xb); margin-right: var(--scale-layout-3xb); }
+.mx-4 { margin-left: var(--scale-layout-4xb); margin-right: var(--scale-layout-4xb); }
+.mx-5 { margin-left: var(--scale-layout-5xb); margin-right: var(--scale-layout-5xb); }
+.mx-6 { margin-left: var(--scale-layout-6xb); margin-right: var(--scale-layout-6xb); }
+.mx-7 { margin-left: var(--scale-layout-7xb); margin-right: var(--scale-layout-7xb); }
+.mx-8 { margin-left: var(--scale-layout-8xb); margin-right: var(--scale-layout-8xb); }
+.mx-9 { margin-left: var(--scale-layout-9xb); margin-right: var(--scale-layout-9xb); }
+.mx-10 { margin-left: var(--scale-layout-10xb); margin-right: var(--scale-layout-10xb); }
+.my-0 { margin-top: 0; margin-bottom: 0; }
+.my-1 { margin-top: var(--scale-layout-base); margin-bottom: var(--scale-layout-base); }
+.my-2 { margin-top: var(--scale-layout-2xb); margin-bottom: var(--scale-layout-2xb); }
+.my-3 { margin-top: var(--scale-layout-3xb); margin-bottom: var(--scale-layout-3xb); }
+.my-4 { margin-top: var(--scale-layout-4xb); margin-bottom: var(--scale-layout-4xb); }
+.my-5 { margin-top: var(--scale-layout-5xb); margin-bottom: var(--scale-layout-5xb); }
+.my-6 { margin-top: var(--scale-layout-6xb); margin-bottom: var(--scale-layout-6xb); }
+.my-7 { margin-top: var(--scale-layout-7xb); margin-bottom: var(--scale-layout-7xb); }
+.my-8 { margin-top: var(--scale-layout-8xb); margin-bottom: var(--scale-layout-8xb); }
+.my-9 { margin-top: var(--scale-layout-9xb); margin-bottom: var(--scale-layout-9xb); }
+.my-10 { margin-top: var(--scale-layout-10xb); margin-bottom: var(--scale-layout-10xb); }
+
+/* -- padding — todas as direções -- */
+.p-0 { padding: 0; }
+.p-1 { padding: var(--scale-layout-base); }
+.p-2 { padding: var(--scale-layout-2xb); }
+.p-3 { padding: var(--scale-layout-3xb); }
+.p-4 { padding: var(--scale-layout-4xb); }
+.p-5 { padding: var(--scale-layout-5xb); }
+.p-6 { padding: var(--scale-layout-6xb); }
+.p-7 { padding: var(--scale-layout-7xb); }
+.p-8 { padding: var(--scale-layout-8xb); }
+.p-9 { padding: var(--scale-layout-9xb); }
+.p-10 { padding: var(--scale-layout-10xb); }
+.pt-0 { padding-top: 0; }
+.pt-1 { padding-top: var(--scale-layout-base); }
+.pt-2 { padding-top: var(--scale-layout-2xb); }
+.pt-3 { padding-top: var(--scale-layout-3xb); }
+.pt-4 { padding-top: var(--scale-layout-4xb); }
+.pt-5 { padding-top: var(--scale-layout-5xb); }
+.pt-6 { padding-top: var(--scale-layout-6xb); }
+.pt-7 { padding-top: var(--scale-layout-7xb); }
+.pt-8 { padding-top: var(--scale-layout-8xb); }
+.pt-9 { padding-top: var(--scale-layout-9xb); }
+.pt-10 { padding-top: var(--scale-layout-10xb); }
+.pr-0 { padding-right: 0; }
+.pr-1 { padding-right: var(--scale-layout-base); }
+.pr-2 { padding-right: var(--scale-layout-2xb); }
+.pr-3 { padding-right: var(--scale-layout-3xb); }
+.pr-4 { padding-right: var(--scale-layout-4xb); }
+.pr-5 { padding-right: var(--scale-layout-5xb); }
+.pr-6 { padding-right: var(--scale-layout-6xb); }
+.pr-7 { padding-right: var(--scale-layout-7xb); }
+.pr-8 { padding-right: var(--scale-layout-8xb); }
+.pr-9 { padding-right: var(--scale-layout-9xb); }
+.pr-10 { padding-right: var(--scale-layout-10xb); }
+.pb-0 { padding-bottom: 0; }
+.pb-1 { padding-bottom: var(--scale-layout-base); }
+.pb-2 { padding-bottom: var(--scale-layout-2xb); }
+.pb-3 { padding-bottom: var(--scale-layout-3xb); }
+.pb-4 { padding-bottom: var(--scale-layout-4xb); }
+.pb-5 { padding-bottom: var(--scale-layout-5xb); }
+.pb-6 { padding-bottom: var(--scale-layout-6xb); }
+.pb-7 { padding-bottom: var(--scale-layout-7xb); }
+.pb-8 { padding-bottom: var(--scale-layout-8xb); }
+.pb-9 { padding-bottom: var(--scale-layout-9xb); }
+.pb-10 { padding-bottom: var(--scale-layout-10xb); }
+.pl-0 { padding-left: 0; }
+.pl-1 { padding-left: var(--scale-layout-base); }
+.pl-2 { padding-left: var(--scale-layout-2xb); }
+.pl-3 { padding-left: var(--scale-layout-3xb); }
+.pl-4 { padding-left: var(--scale-layout-4xb); }
+.pl-5 { padding-left: var(--scale-layout-5xb); }
+.pl-6 { padding-left: var(--scale-layout-6xb); }
+.pl-7 { padding-left: var(--scale-layout-7xb); }
+.pl-8 { padding-left: var(--scale-layout-8xb); }
+.pl-9 { padding-left: var(--scale-layout-9xb); }
+.pl-10 { padding-left: var(--scale-layout-10xb); }
+.px-0 { padding-left: 0; padding-right: 0; }
+.px-1 { padding-left: var(--scale-layout-base); padding-right: var(--scale-layout-base); }
+.px-2 { padding-left: var(--scale-layout-2xb); padding-right: var(--scale-layout-2xb); }
+.px-3 { padding-left: var(--scale-layout-3xb); padding-right: var(--scale-layout-3xb); }
+.px-4 { padding-left: var(--scale-layout-4xb); padding-right: var(--scale-layout-4xb); }
+.px-5 { padding-left: var(--scale-layout-5xb); padding-right: var(--scale-layout-5xb); }
+.px-6 { padding-left: var(--scale-layout-6xb); padding-right: var(--scale-layout-6xb); }
+.px-7 { padding-left: var(--scale-layout-7xb); padding-right: var(--scale-layout-7xb); }
+.px-8 { padding-left: var(--scale-layout-8xb); padding-right: var(--scale-layout-8xb); }
+.px-9 { padding-left: var(--scale-layout-9xb); padding-right: var(--scale-layout-9xb); }
+.px-10 { padding-left: var(--scale-layout-10xb); padding-right: var(--scale-layout-10xb); }
+.py-0 { padding-top: 0; padding-bottom: 0; }
+.py-1 { padding-top: var(--scale-layout-base); padding-bottom: var(--scale-layout-base); }
+.py-2 { padding-top: var(--scale-layout-2xb); padding-bottom: var(--scale-layout-2xb); }
+.py-3 { padding-top: var(--scale-layout-3xb); padding-bottom: var(--scale-layout-3xb); }
+.py-4 { padding-top: var(--scale-layout-4xb); padding-bottom: var(--scale-layout-4xb); }
+.py-5 { padding-top: var(--scale-layout-5xb); padding-bottom: var(--scale-layout-5xb); }
+.py-6 { padding-top: var(--scale-layout-6xb); padding-bottom: var(--scale-layout-6xb); }
+.py-7 { padding-top: var(--scale-layout-7xb); padding-bottom: var(--scale-layout-7xb); }
+.py-8 { padding-top: var(--scale-layout-8xb); padding-bottom: var(--scale-layout-8xb); }
+.py-9 { padding-top: var(--scale-layout-9xb); padding-bottom: var(--scale-layout-9xb); }
+.py-10 { padding-top: var(--scale-layout-10xb); padding-bottom: var(--scale-layout-10xb); }
+
+/* -- escala fit (ajuste fino) — uso pontual em componentes pequenos -- */
+.m-fit-half { margin: var(--scale-fit-half); }
+.m-fit-3xh { margin: var(--scale-fit-3xh); }
+.m-fit-5xh { margin: var(--scale-fit-5xh); }
+.m-fit-7xh { margin: var(--scale-fit-7xh); }
+.m-fit-9xh { margin: var(--scale-fit-9xh); }
+.m-fit-11xh { margin: var(--scale-fit-11xh); }
+.p-fit-half { padding: var(--scale-fit-half); }
+.p-fit-3xh { padding: var(--scale-fit-3xh); }
+.p-fit-5xh { padding: var(--scale-fit-5xh); }
+.p-fit-7xh { padding: var(--scale-fit-7xh); }
+.p-fit-9xh { padding: var(--scale-fit-9xh); }
+.p-fit-11xh { padding: var(--scale-fit-11xh); }
+
+/* ------------------------------------------------------------------------
+   6. TIPOGRAFIA
+   ------------------------------------------------------------------------ */
+
+/* Famílias */
+.font-heading { font-family: var(--font-heading); }
+.font-body    { font-family: var(--font-body); }
+.font-mono    { font-family: var(--font-mono); }
+
+/* Pesos */
+.font-regular  { font-weight: var(--font-weight-regular); }
+.font-medium   { font-weight: var(--font-weight-medium); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+.font-bold     { font-weight: var(--font-weight-bold); }
+
+/* Tamanhos */
+.text-xs  { font-size: var(--text-12); }
+.text-sm  { font-size: var(--text-14); }
+.text-base{ font-size: var(--text-16); }
+.text-md  { font-size: var(--text-18); }
+.text-lg  { font-size: var(--text-20); }
+.text-xl  { font-size: var(--text-24); }
+.text-2xl { font-size: var(--text-32); }
+.text-3xl { font-size: var(--text-40); }
+
+/* Altura de linha */
+.leading-tight   { line-height: var(--leading-tight); }
+.leading-snug    { line-height: var(--leading-snug); }
+.leading-normal  { line-height: var(--leading-normal); }
+
+
+/* Estilos semânticos prontos (heading + peso + tamanho + leading combinados) */
+.heading-1 { font-family: var(--font-heading); font-weight: var(--font-weight-bold); font-size: var(--text-4xl); line-height: var(--leading-tight); }
+.heading-2 { font-family: var(--font-heading); font-weight: var(--font-weight-bold); font-size: var(--text-3xl); line-height: var(--leading-tight); }
+.heading-3 { font-family: var(--font-heading); font-weight: var(--font-weight-semibold); font-size: var(--text-2xl); line-height: var(--leading-snug); }
+.heading-4 { font-family: var(--font-heading); font-weight: var(--font-weight-semibold); font-size: var(--text-xl); line-height: var(--leading-snug); }
+.body-text { font-family: var(--font-body); font-weight: var(--font-weight-regular); font-size: var(--text-base); line-height: var(--leading-normal); }
+.caption   { font-family: var(--font-body); font-weight: var(--font-weight-regular); font-size: var(--text-sm); line-height: var(--leading-normal); color: var(--text-secondary); }
+.mono-data { font-family: var(--font-mono); font-weight: var(--font-weight-regular); font-variant-numeric: tabular-nums; }
+
+/* Truncamento */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------------
+   7. COR — texto e fundo (tokens semânticos)
+   ------------------------------------------------------------------------ */
+
+.text-color-primary   { color: var(--text-primary); }
+.text-color-secondary { color: var(--text-secondary); }
+.text-color-disabled  { color: var(--text-disabled); }
+.text-color-inverse   { color: var(--color-base-white); }
+.text-color-success   { color: var(--feedback-success-text); }
+.text-color-error     { color: var(--feedback-error-text); }
+.text-color-warning   { color: var(--feedback-warning-text); }
+.text-color-info      { color: var(--feedback-info-text); }
+.text-color-brand     { color: var(--action-primary); }
+
+.bg-default { background-color: var(--bg-default); }
+.bg-surface { background-color: var(--bg-surface); }
+.bg-primary { background-color: var(--bg-primary); }
+.bg-action  { background-color: var(--action-primary); }
+.bg-action-hover:hover { background-color: var(--action-primary-hover); }
+.bg-success { background-color: var(--feedback-success-bg); }
+.bg-error   { background-color: var(--feedback-error-bg); }
+.bg-warning { background-color: var(--feedback-warning-bg); }
+.bg-info    { background-color: var(--feedback-info-bg); }
+.bg-transparent { background-color: transparent; }
+
+/* ------------------------------------------------------------------------
+   8. BORDA & RAIO
+   ------------------------------------------------------------------------ */
+
+.border-none { border: none; }
+.border      { border: var(--surface-border-width-sm) solid var(--border-default); }
+.border-sm   { border-width: var(--surface-border-width-sm); border-style: solid; border-color: var(--border-default); }
+.border-md   { border-width: var(--surface-border-width-md); border-style: solid; border-color: var(--border-default); }
+.border-lg   { border-width: var(--surface-border-width-lg); border-style: solid; border-color: var(--border-default); }
+.border-focus {
+  border-color: var(--border-focus);
+  outline: var(--surface-border-width-md) solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.rounded-none { border-radius: var(--surface-rounder-none); }
+.rounded-sm   { border-radius: var(--surface-rounder-sm); }
+.rounded-md   { border-radius: var(--surface-rounder-md); }
+.rounded-lg   { border-radius: var(--surface-rounder-lg); }
+.rounded-pill { border-radius: var(--surface-rounder-full); }
+
+/* ------------------------------------------------------------------------
+   9. SOMBRA / ELEVAÇÃO
+   ------------------------------------------------------------------------ */
+
+.shadow-0 { box-shadow: var(--surface-elevation-0); }
+.shadow-1 { box-shadow: var(--surface-elevation-1); }
+.shadow-2 { box-shadow: var(--surface-elevation-2); }
+.shadow-3 { box-shadow: var(--surface-elevation-3); }
+.shadow-4 { box-shadow: var(--surface-elevation-4); }
+
+/* ------------------------------------------------------------------------
+   10. OPACIDADE
+   ------------------------------------------------------------------------ */
+
+.opacity-0       { opacity: var(--surface-opacity-none); }
+.opacity-default { opacity: var(--surface-opacity-default); }
+.opacity-xs      { opacity: var(--surface-opacity-xs); }
+.opacity-sm      { opacity: var(--surface-opacity-sm); }
+.opacity-md      { opacity: var(--surface-opacity-md); }
+.opacity-lg      { opacity: var(--surface-opacity-lg); }
+.opacity-xl      { opacity: var(--surface-opacity-xl); }
+.opacity-100     { opacity: 1; }
+
+/* ------------------------------------------------------------------------
+   11. Z-INDEX
+   ------------------------------------------------------------------------ */
+
+.z-0 { z-index: var(--surface-z-layer-0); }
+.z-1 { z-index: var(--surface-z-layer-1); }
+.z-2 { z-index: var(--surface-z-layer-2); }
+.z-3 { z-index: var(--surface-z-layer-3); }
+.z-4 { z-index: var(--surface-z-layer-4); }
+
+/* ------------------------------------------------------------------------
+   12. WIDTH / HEIGHT básicos
+   ------------------------------------------------------------------------ */
+
+.w-full  { width: 100%; }
+.w-auto  { width: auto; }
+.h-full  { height: 100%; }
+.h-auto  { height: auto; }
+.min-h-screen { min-height: 100vh; }
+
+/* ------------------------------------------------------------------------
+   13. ACESSIBILIDADE
+   ------------------------------------------------------------------------ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.focus-visible-ring:focus-visible {
+  outline: var(--surface-border-width-md) solid var(--border-focus);
+  outline-offset: 2px;
+}
