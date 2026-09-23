@@ -39,11 +39,11 @@
   flex: 1 1 60%;
   display: flex;
   justify-content: center;
-  background-image: url("../../public/assets/img/prefeitura-gabinete.png");
+  /* background-image: url("../../public/assets/img/mural-caraguatatuba-01-claro.svg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: fixed; */
   padding: var(--scale-layout-4xb) var(--scale-layout-3xb);
 }
 
@@ -63,7 +63,7 @@
   display: grid;
   margin-inline: auto;
   grid-template-columns: 1fr 1fr;
-  box-shadow: var(--surface-elevation-4);
+  box-shadow: var(--surface-elevation-3);
   background-color: var(--color-neutral-100);
   border-radius: var(--surface-rounder-full);
   padding: var(--scale-fit-half);
@@ -87,6 +87,7 @@
 
 .acesso-alternador__opcao.is-active {
   color: var(--color-primary-900);
+  background-color: var(--color-secondary-600);
 }
 
 .acesso-alternador__indicador {
@@ -95,13 +96,14 @@
   left: var(--scale-fit-half);
   width: calc(50% - var(--scale-fit-half));
   height: calc(100% - (var(--scale-fit-half) * 2));
-  background-color: var(--color-base-white);
+  background-color: var(--color-secondary-600);
   border-radius: var(--surface-rounder-full);
   box-shadow: var(--surface-elevation-1);
   transition: transform 0.25s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .acesso-alternador__indicador.is-right {
+  background-color: var(--color-secondary-600);
   transform: translateX(100%);
 }
 
@@ -110,10 +112,12 @@
    ------------------------------------------------------------------------ */
 
 .acesso-conteudo-formulario {
-  transition: opacity 0.18s ease;
+  transform: translateX(50);
+  transition: transform 0.18s ease, opacity 0.18s ease;
 }
 
 .acesso-conteudo-formulario.esta-trocando {
+  transform: translateX(-50px);
   opacity: 0;
 }
 
@@ -166,9 +170,11 @@
 .acesso-split__marca-pane {
   flex: 1 1 40%;
   position: relative;
-  overflow: hidden;
   background: linear-gradient(160deg, var(--color-primary-900) 0%, var(--color-primary-800) 100%);
   color: var(--color-base-white);
+  box-shadow:
+    -6px 0 12px rgba(0, 47, 71, 0.45),
+    -20px 0 40px rgba(0, 47, 71, 0.25);
 }
 
 @media (min-width: 941px) {
@@ -209,12 +215,11 @@
 }
 
 .acesso-marca__identificacao {
-  height: 300%;
+  height: 170%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: var(--scale-layout-4xb);
 }
 
 .acesso-marca__identificacao p {
@@ -264,6 +269,43 @@
   font-size: var(--text-24);
   line-height: var(--leading-snug);
   color: rgba(255, 255, 255, 0.76);
+}
+
+/* ------------------------------------------------------------------------
+   E-SIC — card clicável, centralizado entre o subtítulo e os contatos
+   ------------------------------------------------------------------------ */
+
+.acesso-marca__esic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--scale-layout-2xb);
+  width: fit-content;
+  margin: 0 auto var(--scale-layout-6xb);
+  padding: var(--scale-layout-2xb) var(--scale-layout-4xb);
+  border-left: var(--surface-border-width-lg) solid var(--color-primary-400);
+  border-radius: var(--surface-rounder-md);
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(var(--surface-blur-md));
+  -webkit-backdrop-filter: blur(var(--surface-blur-md));
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.acesso-marca__esic:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.acesso-marca__esic-texto {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-16);
+  color: var(--color-base-white);
+}
+
+.acesso-marca__esic-icone {
+  font-size: var(--text-14);
+  color: var(--color-primary-400);
 }
 
 .acesso-marca__contato {

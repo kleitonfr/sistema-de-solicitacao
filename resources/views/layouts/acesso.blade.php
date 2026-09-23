@@ -77,6 +77,11 @@
                 </div>
 
 
+                <a href="#" class="acesso-marca__esic">
+                    <span class="acesso-marca__esic-texto">Acesse o ESIC por aqui</span>
+                    <i class="fa-solid fa-arrow-right acesso-marca__esic-icone" aria-hidden="true"></i>
+                </a>
+
                 <div class="acesso-marca__contato">
                     <div class="acesso-marca__contato-item">
                         <span class="acesso-marca__contato-rotulo">Prefeitura</span>

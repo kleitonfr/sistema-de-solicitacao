@@ -1,15 +1,3 @@
-{{--
-    Parcial do formulário de Entrar.
-    Reaproveitado tanto pela view completa (acesso/entrar.blade.php, no
-    primeiro carregamento da página) quanto pelo fragmento servido via AJAX
-    ao alternador (ver FragmentoAcessoController) — mesma marcação nos dois
-    casos, sem duplicação (DRY).
-
-    Nota: placeholder=" " (espaço em branco, sem texto visível) é
-    propositalmente adicionado — ativa a pseudo-classe CSS
-    :placeholder-shown, usada em cadastro.css para o label "flutuar" apenas
-    quando o campo tem conteúdo real digitado.
---}}
 <div class="cadastro-card entrar">
 
     @if ($errors->any())
@@ -53,5 +41,13 @@
             <button type="submit" class="cadastro-btn">Entrar</button>
         </div>
     </form>
+
+    <a href="#" class="acesso-denuncia-anonima">
+        <span class="acesso-denuncia-anonima__icone">
+            <i class="fa-solid fa-user-secret" aria-hidden="true"></i>
+        </span>
+        <span class="acesso-denuncia-anonima__texto">Prefere não se identificar? Faça uma denúncia anônima</span>
+    </a>
+
 
 </div>

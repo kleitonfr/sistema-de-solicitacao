@@ -19,7 +19,7 @@
 1px
 (--surface-border-width-sm) solid var(--border-default);
   /* border-radius: var(--surface-rounder-lg); */
-  box-shadow: var(--surface-elevation-4);
+  box-shadow: var(--surface-elevation-3);
   padding: var(--scale-layout-4xb);
 }
 
@@ -378,4 +378,45 @@
   background-color: var(--feedback-error-bg);
   color: var(--feedback-error-text);
   border-left-color: var(--color-tertiary-600);
+}
+
+/* ------------------------------------------------------------------------
+   DENÚNCIA ANÔNIMA — tela de Entrar
+   ------------------------------------------------------------------------ */
+
+.acesso-denuncia-anonima {
+  display: flex;
+  align-items: center;
+  gap: var(--scale-fit-3xh);
+  margin-top: var(--scale-layout-3xb);
+  padding: var(--scale-layout-2xb) var(--scale-layout-3xb);
+  border-radius: var(--surface-rounder-md);
+  border-left: var(--surface-border-width-lg) solid var(--color-tertiary-600);
+  background-color: var(--color-tertiary-100);
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.acesso-denuncia-anonima:hover {
+  background-color: var(--color-tertiary-200);
+}
+
+.acesso-denuncia-anonima__icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--scale-layout-5xb);
+  height: var(--scale-layout-5xb);
+  border-radius: var(--surface-rounder-full);
+  background-color: var(--color-tertiary-600);
+  color: var(--color-base-white);
+  font-size: var(--text-16);
+  flex-shrink: 0;
+}
+
+.acesso-denuncia-anonima__texto {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-14);
+  color: var(--color-tertiary-800);
 }

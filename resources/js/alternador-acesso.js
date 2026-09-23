@@ -23,6 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const opcoes = alternador.querySelectorAll('.acesso-alternador__opcao');
 
+    opcoes.forEach((opcao) => {
+        opcao.addEventListener('click', (evento) => {
+            evento.preventDefault();
+            trocarFormulario(opcao);
+        });
+    });
+
     let trocaEmAndamento = false;
 
     async function trocarFormulario(opcaoClicada) {
@@ -87,18 +94,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function aguardarFimDaTransicao(elemento) {
         return new Promise((resolver) => {
-            const duracaoMs = 180; // deve acompanhar a transition-duration de .acesso-conteudo-formulario
+            const duracaoMs = 180;
             elemento.addEventListener('transitionend', resolver, { once: true });
             setTimeout(resolver, duracaoMs + 50);
         });
     }
 
-    opcoes.forEach((opcao) => {
-        opcao.addEventListener('click', (evento) => {
-            evento.preventDefault();
-            trocarFormulario(opcao);
-        });
-    });
+
 
     window.addEventListener('popstate', () => {
         window.location.reload();
