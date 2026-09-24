@@ -120,6 +120,41 @@
 }
 
 /* ------------------------------------------------------------------------
+   RADIO GROUP — Tipo de Pessoa (Física/Jurídica)
+   ------------------------------------------------------------------------ */
+
+.cadastro-radio-grupo {
+  display: flex;
+  gap: var(--scale-layout-4xb);
+  margin-bottom: var(--scale-layout-3xb);
+}
+
+.cadastro-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--scale-fit-3xh);
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.cadastro-radio input[type="radio"] {
+  width: var(--scale-layout-2xb);
+  height: var(--scale-layout-2xb);
+  accent-color: var(--secao-cor, var(--color-primary-600));
+  cursor: pointer;
+}
+
+.cadastro-texto-auxiliar {
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--text-secondary);
+  margin: 0 0 var(--scale-layout-3xb);
+}
+
+/* ------------------------------------------------------------------------
    GRID DE CAMPOS — 2 colunas no desktop, 1 no mobile
    ------------------------------------------------------------------------ */
 
@@ -153,6 +188,10 @@
   .cadastro-grid--endereco {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+.cadastro-grid + .cadastro-grid {
+  margin-top: var(--scale-layout-3xb);
 }
 
 .cadastro-field {

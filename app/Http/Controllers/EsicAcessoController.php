@@ -6,16 +6,16 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class AcessoController extends Controller
+class EsicAcessoController extends Controller
 {
     public function index(): View
     {
-        return view('acesso.entrar');
+        return view('esic.entrar');
     }
 
     /**
      * TODO(integração): substituir pela chamada real à API de autenticação
-     * assim que o contrato for definido pela equipe de backend.
+     * do ESIC assim que o contrato for definido pela equipe de backend.
      */
     public function store(Request $request): RedirectResponse
     {
@@ -25,7 +25,7 @@ class AcessoController extends Controller
         ]);
 
         return redirect()
-            ->route('acesso.index')
-            ->withErrors(['email' => 'Acesso ainda não disponível — aguardando integração com a API de autenticação.']);
+            ->route('esic.acesso.index')
+            ->withErrors(['email' => 'Acesso ao ESIC ainda não disponível — aguardando integração com a API de autenticação.']);
     }
 }

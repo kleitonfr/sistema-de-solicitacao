@@ -45,6 +45,7 @@
   background-repeat: no-repeat;
   background-attachment: fixed; */
   padding: var(--scale-layout-4xb) var(--scale-layout-3xb);
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
 @media (min-width: 941px) {}
@@ -170,11 +171,12 @@
 .acesso-split__marca-pane {
   flex: 1 1 40%;
   position: relative;
+  z-index: var(--surface-z-layer-2);
   background: linear-gradient(160deg, var(--color-primary-900) 0%, var(--color-primary-800) 100%);
   color: var(--color-base-white);
-  box-shadow:
-    -6px 0 12px rgba(0, 47, 71, 0.45),
-    -20px 0 40px rgba(0, 47, 71, 0.25);
+  /* border-left: var(--surface-border-width-sm) solid rgba(255, 255, 255, 0.12); */
+  box-shadow: -4px 0px 18px rgb(0 0 0 / 62%), -24px 0px 67px rgb(0 7 10 / 25%);
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
 @media (min-width: 941px) {
@@ -306,6 +308,87 @@
 .acesso-marca__esic-icone {
   font-size: var(--text-14);
   color: var(--color-primary-400);
+}
+
+.acesso-marca__esic-icone--voltar,
+.acesso-marca__esic-texto--voltar {
+  display: none;
+}
+
+/* js adicona a classe .modo-esic quando o botão E-SIC estiver ativo */
+.acesso-split.modo-esic .acesso-marca__esic-icone--ir,
+.acesso-split.modo-esic .acesso-marca__esic-texto--ir {
+  display: none;
+}
+
+.acesso-split.modo-esic .acesso-marca__esic-icone--voltar,
+.acesso-split.modo-esic .acesso-marca__esic-texto--voltar {
+  display: block;
+}
+
+.acesso-split.modo-esic .acesso-marca__esic {
+  border-left: none;
+  border-right: var(--surface-border-width-lg) solid var(--color-primary-400);
+}
+
+.acesso-split.modo-esic .acesso-split__marca-pane {
+  transform: translateX(-150%);
+}
+
+.acesso-split.modo-esic .acesso-split__form-pane {
+  transform: translateX(10%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------------
+   PAINEL ESIC — fica fora da tela por padrão (posicionado à direita, fora
+   do fluxo flex, para não disputar espaço com os outros dois painéis
+   nem "vazar" no layout normal). No modo ESIC, desliza para dentro,
+   ocupando o espaço que o painel de marca deixou ao ir para a esquerda.
+   ------------------------------------------------------------------------ */
+
+.acesso-split__esic-pane {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  z-index: var(--surface-z-layer-1);
+}
+
+@media (min-width: 941px) {
+  .acesso-split__esic-pane {
+    position: fixed;
+  }
+}
+
+.acesso-split.modo-esic .acesso-split__esic-pane {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.acesso-split__esic-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--scale-layout-6xb) var(--scale-layout-4xb);
+  background-color: var(--bg-surface);
+  overflow-y: auto;
+}
+
+.acesso-split__esic-inner .acesso-alternador,
+.acesso-split__esic-inner .cadastro-card {
+  width: 100%;
+  max-width: 420px;
 }
 
 .acesso-marca__contato {
