@@ -3,5 +3,5 @@
 @section('title', 'Cadastro — Sistema 651')
 
 @section('content')
-    @include('cadastro.parciais.formulario-cadastro')
+    @include('portal.parciais.formulario-cadastro')
 @endsection

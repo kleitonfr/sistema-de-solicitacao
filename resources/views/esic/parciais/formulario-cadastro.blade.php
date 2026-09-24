@@ -137,8 +137,8 @@
 
             <div class="cadastro-grid">
                 <div class="cadastro-field">
-                    <label for="esic_faixa_etaria" class="cadastro-label">Faixa Etária (opcional)</label>
-                    <select id="esic_faixa_etaria" name="faixa_etaria" class="cadastro-select @error('faixa_etaria') is-invalid @enderror">
+                    <label for="esic_faixa_etaria" class="cadastro-label">Faixa Etária</label>
+                    <select id="esic_faixa_etaria" name="faixa_etaria" class="cadastro-select @error('faixa_etaria') is-invalid @enderror" required>
                         <option value="" disabled {{ old('faixa_etaria') ? '' : 'selected' }}></option>
                         <option value="ate_17" @selected(old('faixa_etaria') === 'ate_17')>Até 17 anos</option>
                         <option value="18_24" @selected(old('faixa_etaria') === '18_24')>18 a 24 anos</option>
@@ -153,8 +153,8 @@
                 </div>
 
                 <div class="cadastro-field">
-                    <label for="esic_escolaridade" class="cadastro-label">Escolaridade (opcional)</label>
-                    <select id="esic_escolaridade" name="escolaridade" class="cadastro-select @error('escolaridade') is-invalid @enderror">
+                    <label for="esic_escolaridade" class="cadastro-label">Escolaridade</label>
+                    <select id="esic_escolaridade" name="escolaridade" class="cadastro-select @error('escolaridade') is-invalid @enderror" required>
                         <option value="" disabled {{ old('escolaridade') ? '' : 'selected' }}></option>
                         <option value="fundamental" @selected(old('escolaridade') === 'fundamental')>Ensino Fundamental</option>
                         <option value="medio" @selected(old('escolaridade') === 'medio')>Ensino Médio</option>
@@ -184,8 +184,8 @@
 
                 <div class="cadastro-field-inline">
                     <div class="cadastro-field">
-                        <label for="esic_telefone_tipo" class="cadastro-label">Tipo Telefone (opcional)</label>
-                        <select id="esic_telefone_tipo" name="telefone_tipo" class="cadastro-select @error('telefone_tipo') is-invalid @enderror">
+                        <label for="esic_telefone_tipo" class="cadastro-label">Tipo Telefone</label>
+                        <select id="esic_telefone_tipo" name="telefone_tipo" class="cadastro-select @error('telefone_tipo') is-invalid @enderror" required>
                             <option value="" disabled {{ old('telefone_tipo') ? '' : 'selected' }}></option>
                             <option value="celular" @selected(old('telefone_tipo') === 'celular')>Celular</option>
                             <option value="residencial" @selected(old('telefone_tipo') === 'residencial')>Residencial</option>
@@ -327,8 +327,8 @@
                     </div>
 
                     <div class="cadastro-field">
-                        <label for="esic_uf" class="cadastro-label">UF (opcional)</label>
-                        <select id="esic_uf" name="uf" class="cadastro-select @error('uf') is-invalid @enderror">
+                        <label for="esic_uf" class="cadastro-label">UF</label>
+                        <select id="esic_uf" name="uf" class="cadastro-select @error('uf') is-invalid @enderror" required>
                             <option value="" disabled {{ old('uf') ? '' : 'selected' }}></option>
                             <option value="SP" @selected(old('uf') === 'SP')>SP</option>
                             <option value="RJ" @selected(old('uf') === 'RJ')>RJ</option>

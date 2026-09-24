@@ -13,14 +13,14 @@ class FragmentoAcessoController extends Controller
     {
         $this->exigirRequisicaoAjax($request);
 
-        return view('acesso.parciais.formulario-entrar');
+        return view('portal.parciais.formulario-entrar');
     }
 
     public function cadastro(Request $request): View
     {
         $this->exigirRequisicaoAjax($request);
 
-        return view('cadastro.parciais.formulario-cadastro');
+        return view('portal.parciais.formulario-cadastro');
     }
 
 

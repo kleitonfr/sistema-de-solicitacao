@@ -10,7 +10,7 @@ class AutocadastroController extends Controller
 {
     public function index(): View
     {
-        return view('cadastro.index');
+        return view('portal.cadastro');
     }
 
     public function store(Request $request): RedirectResponse

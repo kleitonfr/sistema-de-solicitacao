@@ -10,7 +10,7 @@ class AcessoController extends Controller
 {
     public function index(): View
     {
-        return view('acesso.entrar');
+        return view('portal.entrar');
     }
 
     /**

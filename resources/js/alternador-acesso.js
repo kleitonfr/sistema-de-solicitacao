@@ -92,7 +92,7 @@ export async function buscarFragmento(fragmentoUrl) {
     return resposta.text();
 }
 
-function atualizarEstadoAtivo(alternador, opcaoClicada) {
+export function atualizarEstadoAtivo(alternador, opcaoClicada) {
     const opcoes = alternador.querySelectorAll('.acesso-alternador__opcao');
     const indicador = alternador.querySelector('.acesso-alternador__indicador');
 

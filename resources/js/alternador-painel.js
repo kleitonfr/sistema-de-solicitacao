@@ -3,24 +3,31 @@
  *
  * Ao clicar em "Acesse o ESIC por aqui" / "Acesse o Portal 156", alterna a
  * classe .modo-esic no elemento .acesso-split (dispara a animação CSS de
- * deslize dos painéis — ver acesso.css) e, ao entrar no modo ESIC, busca
- * o fragmento do formulário de Entrar do ESIC via AJAX, populando o painel
- * que acabou de aparecer. Ao sair do modo ESIC, apenas navega de volta
- * para o Sistema 651 (já visível por trás, conforme decisão de produto).
+ * deslize dos painéis — ver acesso.css). Em ambos os sentidos, busca o
+ * fragmento de Entrar do lado de destino via AJAX e o injeta no painel
+ * correspondente, garantindo que tanto o Sistema 651 quanto o ESIC sempre
+ * reapareçam no estado "Entrar" (nunca com "Cadastrar" preso de uma troca
+ * anterior no alternador Entrar/Cadastrar daquele lado) — e resincroniza
+ * o próprio alternador (opção ativa + indicador) de cada lado.
  *
- * Reaproveita buscarFragmento de alternador-acesso.js (DRY) — mesma lógica
- * de requisição usada pelo alternador Entrar/Cadastrar.
+ * Reaproveita buscarFragmento e atualizarEstadoAtivo de
+ * alternador-acesso.js (DRY) — mesma lógica de requisição e de estado
+ * visual usada pelo alternador Entrar/Cadastrar.
  */
-import { buscarFragmento } from './alternador-acesso';
+import { buscarFragmento, atualizarEstadoAtivo } from './alternador-acesso';
 
 document.addEventListener('DOMContentLoaded', () => {
     const botaoEsic = document.getElementById('acesso-toggle-esic');
     const split = document.querySelector('.acesso-split');
     const conteudoEsic = document.getElementById('esic-conteudo-formulario');
+    const conteudoPortal = document.getElementById('acesso-conteudo-formulario');
 
-    if (!botaoEsic || !split || !conteudoEsic) {
+    if (!botaoEsic || !split || !conteudoEsic || !conteudoPortal) {
         return;
     }
+
+    const alternadorEsic = conteudoEsic.closest('.acesso-split__esic-conteudo')?.querySelector('.acesso-alternador');
+    const alternadorPortal = conteudoPortal.closest('.acesso-split__form-inner')?.querySelector('.acesso-alternador');
 
     let trocaEmAndamento = false;
 
@@ -31,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const paginaUrl = botaoEsic.getAttribute('href');
+        let paginaUrl = botaoEsic.getAttribute('href');
         const entrandoNoEsic = !split.classList.contains('modo-esic');
 
         trocaEmAndamento = true;
@@ -41,6 +48,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 const fragmentoUrl = botaoEsic.dataset.fragmentoEsicEntrar;
                 const html = await buscarFragmento(fragmentoUrl);
                 conteudoEsic.innerHTML = html;
+                paginaUrl = botaoEsic.dataset.urlEsic;
+
+                const opcaoEntrarEsic = alternadorEsic?.querySelector('.acesso-alternador__opcao');
+                if (alternadorEsic && opcaoEntrarEsic) {
+                    atualizarEstadoAtivo(alternadorEsic, opcaoEntrarEsic);
+                }
+            }
+            else {
+                const fragmentoUrl = botaoEsic.dataset.fragmentoPortalEntrar;
+                const html = await buscarFragmento(fragmentoUrl);
+                conteudoPortal.innerHTML = html;
+                paginaUrl = botaoEsic.dataset.urlPortal;
+
+                const opcaoEntrarPortal = alternadorPortal?.querySelector('.acesso-alternador__opcao');
+                if (alternadorPortal && opcaoEntrarPortal) {
+                    atualizarEstadoAtivo(alternadorPortal, opcaoEntrarPortal);
+                }
             }
 
             split.classList.toggle('modo-esic');

@@ -3,7 +3,7 @@
 use App\Http\Controllers\AcessoController;
 use App\Http\Controllers\AutocadastroController;
 use App\Http\Controllers\EsicAcessoController;
-use App\Http\Controllers\EsicCadastroController;
+use App\Http\Controllers\EsicAutocadastroController;
 use App\Http\Controllers\FragmentoAcessoController;
 use App\Http\Controllers\FragmentoEsicController;
 use Illuminate\Support\Facades\Route;
@@ -27,8 +27,8 @@ Route::get('/fragmentos/cadastro', [FragmentoAcessoController::class, 'cadastro'
 Route::get('/esic/entrar', [EsicAcessoController::class, 'index'])->name('esic.acesso.index');
 Route::post('/esic/entrar', [EsicAcessoController::class, 'store'])->name('esic.acesso.store');
 
-Route::get('/esic/cadastro', [EsicCadastroController::class, 'index'])->name('esic.cadastro.index');
-Route::post('/esic/cadastro', [EsicCadastroController::class, 'store'])->name('esic.cadastro.store');
+Route::get('/esic/cadastro', [EsicAutocadastroController::class, 'index'])->name('esic.cadastro.index');
+Route::post('/esic/cadastro', [EsicAutocadastroController::class, 'store'])->name('esic.cadastro.store');
 
 Route::get('/esic/fragmentos/entrar', [FragmentoEsicController::class, 'entrar'])->name('fragmentos.esic.entrar');
 Route::get('/esic/fragmentos/cadastro', [FragmentoEsicController::class, 'cadastro'])->name('fragmentos.esic.cadastro');
