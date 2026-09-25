@@ -9,8 +9,11 @@
  * de compartilhar o link direto de cada formulário.
  *
  * Rotas consumidas (ver routes/web.php): fragmentos.entrar e
- * fragmentos.cadastro — servidas por FragmentoAcessoController, endpoint
- * dedicado que devolve só o HTML do formulário, sem o layout ao redor.
+ * fragmentos.cadastro.fisica — servidas por FragmentoAcessoController,
+ * endpoint dedicado que devolve só o HTML do formulário, sem o layout
+ * ao redor. O botão "Cadastrar" sempre aponta para o fragmento de Pessoa
+ * Física (o padrão); a troca para Jurídica acontece depois, dentro do
+ * próprio formulário de cadastro (ver alternador-tipo-pessoa.js).
  */
 document.addEventListener('DOMContentLoaded', () => {
     const alternador = document.querySelector('.acesso-alternador');

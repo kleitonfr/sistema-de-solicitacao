@@ -31,7 +31,7 @@
                     </a>
                     <a
                         href="{{ route('cadastro.index') }}"
-                        data-fragmento-url="{{ route('fragmentos.cadastro') }}"
+                        data-fragmento-url="{{ route('fragmentos.cadastro.fisica') }}"
                         class="acesso-alternador__opcao {{ request()->routeIs('cadastro.*') ? 'is-active' : '' }}"
                         @if (request()->routeIs('cadastro.*')) aria-current="page" @endif
                     >

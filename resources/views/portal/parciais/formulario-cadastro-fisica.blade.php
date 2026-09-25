@@ -1,22 +1,25 @@
 {{--
-    Parcial do formulário de Cadastro (Sistema 651).
+    Parcial do formulário de Cadastro — Pessoa Física.
     Reaproveitada tanto pela view completa (portal/cadastro.blade.php, no
-    primeiro carregamento da página) quanto pelo fragmento servido via AJAX
-    ao alternador (ver FragmentoAcessoController) — mesma marcação nos dois
-    casos, sem duplicação (DRY).
+    primeiro carregamento da página, quando Física é o tipo padrão) quanto
+    pelo fragmento servido via AJAX ao alternador Física/Jurídica (ver
+    FragmentoAcessoController::cadastroFisica).
 
-    Campos unificam o cadastro original do Portal (Nome Social, Nome da
-    Mãe, Data de Nascimento, Sexo, Telefone completo com DDD) com o padrão
-    de cadastro do e-SIC (Tipo de Pessoa Física/Jurídica, Faixa Etária,
-    Escolaridade, Profissão, confirmação de e-mail, Acesso com senha).
+    Este arquivo é INDEPENDENTE de formulario-cadastro-juridica.blade.php
+    por decisão explícita: os campos comuns (Telefone, Endereço, Acesso,
+    Termo de Uso) estão duplicados nos dois arquivos, em vez de virem de
+    uma parcial única compartilhada. Ao alterar um desses campos comuns,
+    replique a mudança manualmente no outro arquivo.
+
+    Envia para POST /cadastro/fisica (rota cadastro.store.fisica), tratada
+    por AutocadastroController::storeFisica — método separado de
+    storeJuridica, mas ambos gravam no mesmo destino de dados (mesma
+    "planilha"/base de cadastros de cidadão).
 
     Nota: todo <input> de texto/email tem placeholder=" " (espaço em
     branco, sem texto visível) propositalmente — é o que ativa a pseudo-
     classe CSS :placeholder-shown, usada em cadastro.css para o label
     "flutuar" apenas quando o campo tem conteúdo real digitado.
-
-    Tipo de Pessoa (Física/Jurídica) alterna os campos seguintes via JS —
-    ver alternador-tipo-pessoa.js.
 --}}
 <div class="cadastro-card">
 
@@ -33,15 +36,17 @@
         </div>
     @endif
 
-    {{-- Tipo de Pessoa — alterna os campos de Física/Jurídica abaixo via JS (ver alternador-tipo-pessoa.js) --}}
+    {{-- Alternador Física / Jurídica — troca o formulário inteiro via AJAX
+         (ver alternador-tipo-pessoa.js), sem reload. --}}
     <div class="cadastro-radio-grupo" role="radiogroup" aria-label="Tipo de Pessoa">
         <label class="cadastro-radio">
             <input
                 type="radio"
                 name="tipo_pessoa"
                 value="fisica"
-                {{ old('tipo_pessoa', 'fisica') === 'fisica' ? 'checked' : '' }}
+                checked
                 data-alterna-tipo-pessoa="fisica"
+                data-fragmento-tipo-pessoa="{{ route('fragmentos.cadastro.fisica') }}"
             >
             <span>Física</span>
         </label>
@@ -50,14 +55,14 @@
                 type="radio"
                 name="tipo_pessoa"
                 value="juridica"
-                {{ old('tipo_pessoa') === 'juridica' ? 'checked' : '' }}
                 data-alterna-tipo-pessoa="juridica"
+                data-fragmento-tipo-pessoa="{{ route('fragmentos.cadastro.juridica') }}"
             >
             <span>Jurídica</span>
         </label>
     </div>
 
-    <form action="{{ route('cadastro.store') }}" method="POST" novalidate>
+    <form action="{{ route('cadastro.store.fisica') }}" method="POST" novalidate>
         @csrf
 
         {{-- ==================== DADOS PESSOAIS ==================== --}}
@@ -69,8 +74,7 @@
                 <h2 class="cadastro-card__titulo-secao">Dados Pessoais</h2>
             </div>
 
-            {{-- Campos exibidos quando Tipo de Pessoa = Física --}}
-            <div class="cadastro-grid" data-campos-tipo-pessoa="fisica">
+            <div class="cadastro-grid">
                 <div class="cadastro-field">
                     <label for="nome_completo" class="cadastro-label">Nome Completo</label>
                     <input
@@ -106,46 +110,7 @@
                         <span class="cadastro-error">{{ $message }}</span>
                     @enderror
                 </div>
-            </div>
 
-            {{-- Campos exibidos quando Tipo de Pessoa = Jurídica --}}
-            <div class="cadastro-grid" data-campos-tipo-pessoa="juridica" hidden>
-                <div class="cadastro-field">
-                    <label for="razao_social" class="cadastro-label">Razão Social</label>
-                    <input
-                        type="text"
-                        id="razao_social"
-                        name="razao_social"
-                        class="cadastro-input @error('razao_social') is-invalid @enderror"
-                        value="{{ old('razao_social') }}"
-                        placeholder=" "
-                        autocomplete="organization"
-                    >
-                    @error('razao_social')
-                        <span class="cadastro-error">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="cadastro-field">
-                    <label for="cnpj" class="cadastro-label">CNPJ</label>
-                    <input
-                        type="text"
-                        id="cnpj"
-                        name="cnpj"
-                        class="cadastro-input @error('cnpj') is-invalid @enderror"
-                        value="{{ old('cnpj') }}"
-                        placeholder=" "
-                        inputmode="numeric"
-                        maxlength="18"
-                        data-mask="cnpj"
-                    >
-                    @error('cnpj')
-                        <span class="cadastro-error">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="cadastro-grid">
                 <div class="cadastro-field">
                     <label for="nome_social" class="cadastro-label">Nome Social (opcional)</label>
                     <input

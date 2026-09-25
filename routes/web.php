@@ -13,7 +13,9 @@ Route::get('/entrar', [AcessoController::class, 'index'])->name('acesso.index');
 Route::post('/entrar', [AcessoController::class, 'store'])->name('acesso.store');
 
 Route::get('/cadastro', [AutocadastroController::class, 'index'])->name('cadastro.index');
-Route::post('/cadastro', [AutocadastroController::class, 'store'])->name('cadastro.store');
+Route::post('/cadastro/fisica', [AutocadastroController::class, 'storeFisica'])->name('cadastro.store.fisica');
+Route::post('/cadastro/juridica', [AutocadastroController::class, 'storeJuridica'])->name('cadastro.store.juridica');
 
 Route::get('/fragmentos/entrar', [FragmentoAcessoController::class, 'entrar'])->name('fragmentos.entrar');
-Route::get('/fragmentos/cadastro', [FragmentoAcessoController::class, 'cadastro'])->name('fragmentos.cadastro');
+Route::get('/fragmentos/cadastro/fisica', [FragmentoAcessoController::class, 'cadastroFisica'])->name('fragmentos.cadastro.fisica');
+Route::get('/fragmentos/cadastro/juridica', [FragmentoAcessoController::class, 'cadastroJuridica'])->name('fragmentos.cadastro.juridica');
