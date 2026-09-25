@@ -15,10 +15,7 @@
   width: 100%;
   background-color: var(--bg-surface);
   color: var(--text-primary);
-  border: var
-1px
-(--surface-border-width-sm) solid var(--border-default);
-  /* border-radius: var(--surface-rounder-lg); */
+  border: 1px solid var(--border-default);
   box-shadow: var(--surface-elevation-3);
   padding: var(--scale-layout-4xb);
 }

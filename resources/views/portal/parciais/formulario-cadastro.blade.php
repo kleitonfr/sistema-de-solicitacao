@@ -1,14 +1,22 @@
 {{--
-    Parcial do formulário de Cadastro.
-    Reaproveitado tanto pela view completa (cadastro/index.blade.php, no
+    Parcial do formulário de Cadastro (Sistema 651).
+    Reaproveitada tanto pela view completa (portal/cadastro.blade.php, no
     primeiro carregamento da página) quanto pelo fragmento servido via AJAX
     ao alternador (ver FragmentoAcessoController) — mesma marcação nos dois
     casos, sem duplicação (DRY).
+
+    Campos unificam o cadastro original do Portal (Nome Social, Nome da
+    Mãe, Data de Nascimento, Sexo, Telefone completo com DDD) com o padrão
+    de cadastro do e-SIC (Tipo de Pessoa Física/Jurídica, Faixa Etária,
+    Escolaridade, Profissão, confirmação de e-mail, Acesso com senha).
 
     Nota: todo <input> de texto/email tem placeholder=" " (espaço em
     branco, sem texto visível) propositalmente — é o que ativa a pseudo-
     classe CSS :placeholder-shown, usada em cadastro.css para o label
     "flutuar" apenas quando o campo tem conteúdo real digitado.
+
+    Tipo de Pessoa (Física/Jurídica) alterna os campos seguintes via JS —
+    ver alternador-tipo-pessoa.js.
 --}}
 <div class="cadastro-card">
 
@@ -25,19 +33,44 @@
         </div>
     @endif
 
+    {{-- Tipo de Pessoa — alterna os campos de Física/Jurídica abaixo via JS (ver alternador-tipo-pessoa.js) --}}
+    <div class="cadastro-radio-grupo" role="radiogroup" aria-label="Tipo de Pessoa">
+        <label class="cadastro-radio">
+            <input
+                type="radio"
+                name="tipo_pessoa"
+                value="fisica"
+                {{ old('tipo_pessoa', 'fisica') === 'fisica' ? 'checked' : '' }}
+                data-alterna-tipo-pessoa="fisica"
+            >
+            <span>Física</span>
+        </label>
+        <label class="cadastro-radio">
+            <input
+                type="radio"
+                name="tipo_pessoa"
+                value="juridica"
+                {{ old('tipo_pessoa') === 'juridica' ? 'checked' : '' }}
+                data-alterna-tipo-pessoa="juridica"
+            >
+            <span>Jurídica</span>
+        </label>
+    </div>
+
     <form action="{{ route('cadastro.store') }}" method="POST" novalidate>
         @csrf
 
-        {{-- ==================== DADOS DO SOLICITANTE ==================== --}}
+        {{-- ==================== DADOS PESSOAIS ==================== --}}
         <section class="cadastro-card__secao">
             <div class="cadastro-card__cabecalho-secao">
                 <span class="cadastro-card__icone-secao cadastro-card__icone-secao--vermelho">
                     <i class="fa-solid fa-user" aria-hidden="true"></i>
                 </span>
-                <h2 class="cadastro-card__titulo-secao">Dados do Solicitante</h2>
+                <h2 class="cadastro-card__titulo-secao">Dados Pessoais</h2>
             </div>
 
-            <div class="cadastro-grid">
+            {{-- Campos exibidos quando Tipo de Pessoa = Física --}}
+            <div class="cadastro-grid" data-campos-tipo-pessoa="fisica">
                 <div class="cadastro-field">
                     <label for="nome_completo" class="cadastro-label">Nome Completo</label>
                     <input
@@ -51,38 +84,6 @@
                         autocomplete="name"
                     >
                     @error('nome_completo')
-                        <span class="cadastro-error">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="cadastro-field">
-                    <label for="nome_social" class="cadastro-label">Nome Social (opcional)</label>
-                    <input
-                        type="text"
-                        id="nome_social"
-                        name="nome_social"
-                        class="cadastro-input @error('nome_social') is-invalid @enderror"
-                        value="{{ old('nome_social') }}"
-                        placeholder=" "
-                    >
-                    @error('nome_social')
-                        <span class="cadastro-error">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="cadastro-field">
-                    <label for="email" class="cadastro-label">E-mail</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        class="cadastro-input @error('email') is-invalid @enderror"
-                        value="{{ old('email') }}"
-                        placeholder=" "
-                        required
-                        autocomplete="email"
-                    >
-                    @error('email')
                         <span class="cadastro-error">{{ $message }}</span>
                     @enderror
                 </div>
@@ -102,6 +103,60 @@
                         required
                     >
                     @error('cpf')
+                        <span class="cadastro-error">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+
+            {{-- Campos exibidos quando Tipo de Pessoa = Jurídica --}}
+            <div class="cadastro-grid" data-campos-tipo-pessoa="juridica" hidden>
+                <div class="cadastro-field">
+                    <label for="razao_social" class="cadastro-label">Razão Social</label>
+                    <input
+                        type="text"
+                        id="razao_social"
+                        name="razao_social"
+                        class="cadastro-input @error('razao_social') is-invalid @enderror"
+                        value="{{ old('razao_social') }}"
+                        placeholder=" "
+                        autocomplete="organization"
+                    >
+                    @error('razao_social')
+                        <span class="cadastro-error">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="cadastro-field">
+                    <label for="cnpj" class="cadastro-label">CNPJ</label>
+                    <input
+                        type="text"
+                        id="cnpj"
+                        name="cnpj"
+                        class="cadastro-input @error('cnpj') is-invalid @enderror"
+                        value="{{ old('cnpj') }}"
+                        placeholder=" "
+                        inputmode="numeric"
+                        maxlength="18"
+                        data-mask="cnpj"
+                    >
+                    @error('cnpj')
+                        <span class="cadastro-error">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="cadastro-grid">
+                <div class="cadastro-field">
+                    <label for="nome_social" class="cadastro-label">Nome Social (opcional)</label>
+                    <input
+                        type="text"
+                        id="nome_social"
+                        name="nome_social"
+                        class="cadastro-input @error('nome_social') is-invalid @enderror"
+                        value="{{ old('nome_social') }}"
+                        placeholder=" "
+                    >
+                    @error('nome_social')
                         <span class="cadastro-error">{{ $message }}</span>
                     @enderror
                 </div>
@@ -155,6 +210,86 @@
                             <span class="cadastro-error">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
+
+                <div class="cadastro-field">
+                    <label for="faixa_etaria" class="cadastro-label">Faixa Etária</label>
+                    <select id="faixa_etaria" name="faixa_etaria" class="cadastro-select @error('faixa_etaria') is-invalid @enderror" required>
+                        <option value="" disabled {{ old('faixa_etaria') ? '' : 'selected' }}></option>
+                        <option value="ate_17" @selected(old('faixa_etaria') === 'ate_17')>Até 17 anos</option>
+                        <option value="18_24" @selected(old('faixa_etaria') === '18_24')>18 a 24 anos</option>
+                        <option value="25_34" @selected(old('faixa_etaria') === '25_34')>25 a 34 anos</option>
+                        <option value="35_44" @selected(old('faixa_etaria') === '35_44')>35 a 44 anos</option>
+                        <option value="45_59" @selected(old('faixa_etaria') === '45_59')>45 a 59 anos</option>
+                        <option value="60_mais" @selected(old('faixa_etaria') === '60_mais')>60 anos ou mais</option>
+                    </select>
+                    @error('faixa_etaria')
+                        <span class="cadastro-error">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="cadastro-field">
+                    <label for="escolaridade" class="cadastro-label">Escolaridade</label>
+                    <select id="escolaridade" name="escolaridade" class="cadastro-select @error('escolaridade') is-invalid @enderror" required>
+                        <option value="" disabled {{ old('escolaridade') ? '' : 'selected' }}></option>
+                        <option value="fundamental" @selected(old('escolaridade') === 'fundamental')>Ensino Fundamental</option>
+                        <option value="medio" @selected(old('escolaridade') === 'medio')>Ensino Médio</option>
+                        <option value="superior" @selected(old('escolaridade') === 'superior')>Ensino Superior</option>
+                        <option value="pos_graduacao" @selected(old('escolaridade') === 'pos_graduacao')>Pós-graduação</option>
+                        <option value="nao_informar" @selected(old('escolaridade') === 'nao_informar')>Prefiro não informar</option>
+                    </select>
+                    @error('escolaridade')
+                        <span class="cadastro-error">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="cadastro-field">
+                    <label for="profissao" class="cadastro-label">Profissão (opcional)</label>
+                    <input
+                        type="text"
+                        id="profissao"
+                        name="profissao"
+                        class="cadastro-input @error('profissao') is-invalid @enderror"
+                        value="{{ old('profissao') }}"
+                        placeholder=" "
+                    >
+                    @error('profissao')
+                        <span class="cadastro-error">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="cadastro-field">
+                    <label for="email" class="cadastro-label">E-mail</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="cadastro-input @error('email') is-invalid @enderror"
+                        value="{{ old('email') }}"
+                        placeholder=" "
+                        required
+                        autocomplete="email"
+                    >
+                    @error('email')
+                        <span class="cadastro-error">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="cadastro-field">
+                    <label for="email_confirmacao" class="cadastro-label">Confirme o E-mail</label>
+                    <input
+                        type="email"
+                        id="email_confirmacao"
+                        name="email_confirmacao"
+                        class="cadastro-input @error('email_confirmacao') is-invalid @enderror"
+                        value="{{ old('email_confirmacao') }}"
+                        placeholder=" "
+                        required
+                        autocomplete="email"
+                    >
+                    @error('email_confirmacao')
+                        <span class="cadastro-error">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
         </section>
@@ -272,22 +407,6 @@
                 </div>
 
                 <div class="cadastro-field">
-                    <label for="endereco_bairro" class="cadastro-label">Bairro</label>
-                    <input
-                        type="text"
-                        id="endereco_bairro"
-                        name="endereco_bairro"
-                        class="cadastro-input @error('endereco_bairro') is-invalid @enderror"
-                        value="{{ old('endereco_bairro') }}"
-                        placeholder=" "
-                        required
-                    >
-                    @error('endereco_bairro')
-                        <span class="cadastro-error">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="cadastro-field">
                     <label for="endereco_logradouro" class="cadastro-label">Logradouro</label>
                     <input
                         type="text"
@@ -304,19 +423,53 @@
                 </div>
 
                 <div class="cadastro-field">
-                    <label for="endereco_cidade" class="cadastro-label">Cidade</label>
+                    <label for="endereco_bairro" class="cadastro-label">Bairro</label>
                     <input
                         type="text"
-                        id="endereco_cidade"
-                        name="endereco_cidade"
-                        class="cadastro-input @error('endereco_cidade') is-invalid @enderror"
-                        value="{{ old('endereco_cidade', '') }}"
+                        id="endereco_bairro"
+                        name="endereco_bairro"
+                        class="cadastro-input @error('endereco_bairro') is-invalid @enderror"
+                        value="{{ old('endereco_bairro') }}"
                         placeholder=" "
                         required
                     >
-                    @error('endereco_cidade')
+                    @error('endereco_bairro')
                         <span class="cadastro-error">{{ $message }}</span>
                     @enderror
+                </div>
+
+                <div class="cadastro-field-inline">
+                    <div class="cadastro-field">
+                        <label for="endereco_cidade" class="cadastro-label">Cidade</label>
+                        <input
+                            type="text"
+                            id="endereco_cidade"
+                            name="endereco_cidade"
+                            class="cadastro-input @error('endereco_cidade') is-invalid @enderror"
+                            value="{{ old('endereco_cidade') }}"
+                            placeholder=" "
+                            required
+                        >
+                        @error('endereco_cidade')
+                            <span class="cadastro-error">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="cadastro-field">
+                        <label for="endereco_uf" class="cadastro-label">UF</label>
+                        <select id="endereco_uf" name="endereco_uf" class="cadastro-select @error('endereco_uf') is-invalid @enderror" required>
+                            <option value="" disabled {{ old('endereco_uf') ? '' : 'selected' }}></option>
+                            <option value="SP" @selected(old('endereco_uf') === 'SP')>SP</option>
+                            <option value="RJ" @selected(old('endereco_uf') === 'RJ')>RJ</option>
+                            <option value="MG" @selected(old('endereco_uf') === 'MG')>MG</option>
+                            <option value="PR" @selected(old('endereco_uf') === 'PR')>PR</option>
+                            <option value="SC" @selected(old('endereco_uf') === 'SC')>SC</option>
+                            <option value="RS" @selected(old('endereco_uf') === 'RS')>RS</option>
+                        </select>
+                        @error('endereco_uf')
+                            <span class="cadastro-error">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
 
                 <div class="cadastro-field">
@@ -337,16 +490,62 @@
                 </div>
 
                 <div class="cadastro-field">
-                    <label for="endereco_referencia" class="cadastro-label">Ponto de referência (opcional)</label>
+                    <label for="endereco_complemento" class="cadastro-label">Complemento (opcional)</label>
                     <input
                         type="text"
-                        id="endereco_referencia"
-                        name="endereco_referencia"
-                        class="cadastro-input @error('endereco_referencia') is-invalid @enderror"
-                        value="{{ old('endereco_referencia') }}"
+                        id="endereco_complemento"
+                        name="endereco_complemento"
+                        class="cadastro-input @error('endereco_complemento') is-invalid @enderror"
+                        value="{{ old('endereco_complemento') }}"
                         placeholder=" "
                     >
-                    @error('endereco_referencia')
+                    @error('endereco_complemento')
+                        <span class="cadastro-error">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+        </section>
+
+        {{-- ==================== ACESSO ==================== --}}
+        <section class="cadastro-card__secao">
+            <div class="cadastro-card__cabecalho-secao">
+                <span class="cadastro-card__icone-secao cadastro-card__icone-secao--vermelho">
+                    <i class="fa-solid fa-lock" aria-hidden="true"></i>
+                </span>
+                <h2 class="cadastro-card__titulo-secao">Acesso</h2>
+            </div>
+
+            <p class="cadastro-texto-auxiliar">O acesso é feito com o e-mail informado acima.</p>
+
+            <div class="cadastro-grid">
+                <div class="cadastro-field">
+                    <label for="senha" class="cadastro-label">Senha</label>
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        class="cadastro-input @error('senha') is-invalid @enderror"
+                        placeholder=" "
+                        required
+                        autocomplete="new-password"
+                    >
+                    @error('senha')
+                        <span class="cadastro-error">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="cadastro-field">
+                    <label for="senha_confirmacao" class="cadastro-label">Confirme a Senha</label>
+                    <input
+                        type="password"
+                        id="senha_confirmacao"
+                        name="senha_confirmacao"
+                        class="cadastro-input @error('senha_confirmacao') is-invalid @enderror"
+                        placeholder=" "
+                        required
+                        autocomplete="new-password"
+                    >
+                    @error('senha_confirmacao')
                         <span class="cadastro-error">{{ $message }}</span>
                     @enderror
                 </div>

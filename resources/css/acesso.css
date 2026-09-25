@@ -43,12 +43,9 @@
   flex: 1 1 60%;
   display: flex;
   justify-content: center;
-  background-color: #f0e8e8b4;
+  background-color: #3b8bb766;
   padding: var(--scale-layout-4xb) var(--scale-layout-3xb);
-  transition: transform 0.4s ease, opacity 0.4s ease;
 }
-
-@media (min-width: 941px) {}
 
 .acesso-split__form-inner {
   width: 100%;
@@ -113,7 +110,7 @@
    ------------------------------------------------------------------------ */
 
 .acesso-conteudo-formulario {
-  transform: translateX(50);
+  transform: translateX(0);
   transition: transform 0.18s ease, opacity 0.18s ease;
 }
 
@@ -174,9 +171,7 @@
   z-index: var(--surface-z-layer-2);
   background: linear-gradient(160deg, var(--color-primary-900) 0%, var(--color-primary-800) 100%);
   color: var(--color-base-white);
-  /* border-left: var(--surface-border-width-sm) solid rgba(255, 255, 255, 0.12); */
   box-shadow: -4px 0px 18px rgb(0 0 0 / 62%), -24px 0px 67px rgb(0 7 10 / 25%);
-  transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
 @media (min-width: 941px) {
@@ -271,138 +266,6 @@
   font-size: var(--text-24);
   line-height: var(--leading-snug);
   color: rgba(255, 255, 255, 0.76);
-}
-
-/* ------------------------------------------------------------------------
-   E-SIC — card clicável, centralizado entre o subtítulo e os contatos
-   ------------------------------------------------------------------------ */
-
-.acesso-marca__esic {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--scale-layout-2xb);
-  width: fit-content;
-  margin: 0 auto var(--scale-layout-6xb);
-  padding: var(--scale-layout-2xb) var(--scale-layout-4xb);
-  border-left: var(--surface-border-width-lg) solid var(--color-primary-400);
-  border-radius: var(--surface-rounder-md);
-  background-color: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(var(--surface-blur-md));
-  -webkit-backdrop-filter: blur(var(--surface-blur-md));
-  text-decoration: none;
-  transition: background-color 0.15s ease;
-}
-
-.acesso-marca__esic:hover {
-  background-color: rgba(255, 255, 255, 0.14);
-}
-
-.acesso-marca__esic-texto {
-  font-family: var(--font-body);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--text-16);
-  color: var(--color-base-white);
-}
-
-.acesso-marca__esic-icone {
-  font-size: var(--text-14);
-  color: var(--color-primary-400);
-}
-
-.acesso-marca__esic-icone--voltar,
-.acesso-marca__esic-texto--voltar {
-  display: none;
-}
-
-/* js adicona a classe .modo-esic quando o botão E-SIC estiver ativo */
-.acesso-split.modo-esic .acesso-marca__esic-icone--ir,
-.acesso-split.modo-esic .acesso-marca__esic-texto--ir {
-  display: none;
-}
-
-.acesso-split.modo-esic .acesso-marca__esic-icone--voltar,
-.acesso-split.modo-esic .acesso-marca__esic-texto--voltar {
-  display: block;
-}
-
-.acesso-split.modo-esic .acesso-marca__esic {
-  border-left: none;
-  border-right: var(--surface-border-width-lg) solid var(--color-primary-400);
-}
-
-.acesso-split.modo-esic .acesso-split__marca-pane {
-  transform: translateX(-150%);
-}
-
-.acesso-split.modo-esic .acesso-split__form-pane {
-  transform: translateX(10%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* ------------------------------------------------------------------------
-   PAINEL ESIC — fica fora da tela por padrão (posicionado à direita, fora
-   do fluxo flex, para não disputar espaço com os outros dois painéis
-   nem "vazar" no layout normal). No modo ESIC, desliza para dentro,
-   ocupando o espaço que o painel de marca deixou ao ir para a esquerda.
-   ------------------------------------------------------------------------ */
-
-.acesso-split__esic-pane {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: var(--surface-z-layer-1);
-}
-
-@media (min-width: 941px) {
-  .acesso-split__esic-pane {
-    position: fixed;
-    width: 60%;
-  }
-}
-
-.acesso-split.modo-esic .acesso-split__esic-pane {
-  transform: translateX(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.acesso-split__esic-inner {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  padding: var(--scale-layout-6xb) var(--scale-layout-4xb);
-  background-color: #f0e8e8b4;
-  overflow-y: auto;
-}
-
-.acesso-split__esic-conteudo {
-  width: 100%;
-  max-width: 950px;
-}
-
-/* O card de Entrar do ESIC reaproveita a parcial do Sistema 651, que traz
-   a classe .entrar (card compacto, largura menor — ver .cadastro-card.entrar
-   em pages/cadastro.css). Dentro do painel ESIC, sobrescrevemos para que
-   ele ocupe a mesma largura do card de Cadastro, mantendo os dois lados
-   do split-screen com espaço equivalente. Também neutralizamos o
-   display:flex/justify-content:center do original: eles existiam para
-   centralizar verticalmente dentro de uma altura FIXA (456px); sem essa
-   altura fixa (height:auto), esse flex sobrando distorcia o posicionamento
-   absoluto dos labels flutuantes dentro dos campos. */
-.acesso-split__esic-conteudo .cadastro-card.entrar {
-  height: auto;
-  display: block;
-  justify-content: normal;
 }
 
 .acesso-marca__contato {

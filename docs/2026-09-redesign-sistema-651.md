@@ -1,117 +1,162 @@
-# Redesign — Sistema 651 (tela de Login/Cadastro em split-screen)
+# Telas de Acesso — Sistema 651 (Entrar / Cadastro)
 
-**Data:** ver histórico do Git
-**Contexto:** redesign da experiência de autenticação (login e cadastro),
-inspirado em uma referência visual de layout editorial split-screen (painel
-de conteúdo claro à esquerda + painel de marca em bloco de cor à direita).
-Adaptado à paleta institucional da Prefeitura de Caraguatatuba e ao Design
-System STII já existente no projeto.
+**Contexto:** tela de autenticação em layout split-screen (formulário à
+esquerda, painel institucional à direita), com troca de formulário via
+AJAX sem reload de página. Documento reescrito após um reset de
+arquitetura que **extinguiu a área separada do e-SIC** e unificou os
+formulários de cadastro em um só.
 
-O nome do sistema foi definido como **"Sistema 651"** — nome provisório
-até que a equipe/produto defina o nome oficial.
+O nome do sistema, **"Sistema 651"**, é provisório até definição oficial.
 
 ---
 
-## 1. Visão geral da mudança
+## 1. Histórico resumido
 
-Antes, a página de cadastro (`/cadastro`) usava o layout institucional
-completo (`layouts/app.blade.php`): header fixo com brasão + menu de
-navegação, e footer completo com colunas de links e redes sociais.
+1. Criação inicial do split-screen com formulário de Cadastro do Sistema
+   651 (Nome, Nome Social, CPF, Nome da Mãe, Data de Nascimento, Sexo,
+   Telefone completo, Endereço) e formulário de Entrar (e-mail + senha).
+2. Criação de uma área **separada** para o e-SIC: rotas `/esic/entrar` e
+   `/esic/cadastro`, controllers próprios, um terceiro painel que
+   deslizava por cima do painel de marca, e um formulário de cadastro
+   próprio do e-SIC (Pessoa Física/Jurídica, Faixa Etária, Escolaridade,
+   Acesso com senha).
+3. **Reset de arquitetura (este documento):** a área separada do e-SIC
+   foi removida por completo. Os campos que só existiam nela foram
+   **fundidos** no único formulário de Cadastro do Sistema 651. Não há
+   mais painel deslizante, botão "Acesse o ESIC" nem rotas `esic.*`.
 
-Agora, `/cadastro` e a nova página `/login` usam um **layout dedicado de
-autenticação** (`layouts/auth.blade.php`), sem header, sem menu de
-navegação e sem footer institucional — apenas:
-
-- **Painel esquerdo:** formulário ativo (login OU cadastro, nunca os
-  dois ao mesmo tempo) + um toggle switch para alternar entre eles.
-- **Painel direito:** identidade do "Sistema 651" (brasão + nome do
-  sistema), uma frase de propósito, e um resumo de contatos institucionais
-  (telefones), reaproveitando os dados que já existiam no footer antigo.
-
-O footer institucional completo (5 colunas de links, redes sociais)
-**não foi alterado** e continua existindo em `layouts/app.blade.php`,
-disponível para outras páginas do sistema que venham a usá-lo no futuro.
+O motivo do reset: manter dois fluxos de cadastro paralelos (Portal e
+e-SIC) exigia duplicar controllers, rotas, parciais, scripts de troca de
+painel e lógica de sincronização de estado entre os dois lados — nenhuma
+regra de negócio justificava essa separação além da origem dos campos.
+Um único formulário, com Pessoa Física/Jurídica como uma alternância
+interna (Seção 36 — DRY: preferir uma solução ao problema real, não uma
+arquitetura paralela para um mesmo conceito de domínio: "cadastro de
+cidadão").
 
 ---
 
-## 2. Decisões de UX
+## 2. Estrutura atual
+
+### Rotas (`routes/web.php`)
+
+| Rota | Nome | Controller |
+|---|---|---|
+| `GET /entrar` | `acesso.index` | `AcessoController@index` |
+| `POST /entrar` | `acesso.store` | `AcessoController@store` |
+| `GET /cadastro` | `cadastro.index` | `AutocadastroController@index` |
+| `POST /cadastro` | `cadastro.store` | `AutocadastroController@store` |
+| `GET /fragmentos/entrar` | `fragmentos.entrar` | `FragmentoAcessoController@entrar` |
+| `GET /fragmentos/cadastro` | `fragmentos.cadastro` | `FragmentoAcessoController@cadastro` |
+
+Não há mais rotas `esic.*` nem `fragmentos.esic.*`.
+
+### Views
+
+```
+resources/views/layouts/acesso.blade.php   — layout split-screen único
+resources/views/portal/entrar.blade.php    — view completa de Entrar
+resources/views/portal/cadastro.blade.php  — view completa de Cadastro
+resources/views/portal/parciais/formulario-entrar.blade.php
+resources/views/portal/parciais/formulario-cadastro.blade.php
+```
+
+As parciais existem para serem reaproveitadas tanto na view completa
+quanto no fragmento servido via AJAX (`FragmentoAcessoController`), sem
+duplicar HTML (DRY).
+
+### JavaScript (`resources/js/`)
+
+| Arquivo | Responsabilidade |
+|---|---|
+| `alternador-acesso.js` | Troca Entrar/Cadastro via `fetch` + `history.pushState`, sem reload. Único alternador na página — usa `querySelector` direto (delegação de evento não é mais necessária, já que não há mais um segundo alternador do e-SIC concorrendo). |
+| `alternador-tipo-pessoa.js` | Alterna os campos de Pessoa Física/Jurídica no formulário de Cadastro (`hidden`, sem regra de negócio). Renomeado de `alternador-tipo-pessoa-esic.js` — a lógica é genérica e nunca dependeu do e-SIC como área. |
+
+### CSS
+
+`resources/css/acesso.css` — layout split-screen (painel de formulário,
+painel de marca). Removidas todas as regras do painel do e-SIC (`.acesso-split__esic-*`,
+`.acesso-marca__esic*`, `.modo-esic`) e da transição de deslize entre
+painéis.
+
+`resources/css/pages/cadastro.css` — componentes de formulário
+(`.cadastro-card`, `.cadastro-field`, `.cadastro-radio-grupo`, etc.),
+compartilhados pelos formulários de Entrar e Cadastro. Corrigido um erro
+de sintaxe pré-existente na propriedade `border` de `.cadastro-card`.
+
+---
+
+## 3. Formulário único de Cadastro
+
+Campos, por seção:
+
+**Dados Pessoais** — Tipo de Pessoa (Física/Jurídica, radio) alterna:
+- Física: Nome Completo, CPF
+- Jurídica: Razão Social, CNPJ
+
+Comuns às duas: Nome Social (opcional), Nome Completo da Mãe (opcional),
+Data de Nascimento, Sexo, Faixa Etária, Escolaridade, Profissão
+(opcional), E-mail, Confirme o E-mail.
+
+**Telefone** — Tipo, DDD, Telefone, Observação (opcional).
+
+**Endereço** — CEP, Logradouro, Bairro, Cidade, UF, Número, Complemento
+(opcional).
+
+**Acesso** — Senha, Confirme a Senha.
+
+Mais o checkbox de Termo de Uso.
+
+A validação server-side (`AutocadastroController::store`) usa
+`required_if:tipo_pessoa,fisica` / `required_if:tipo_pessoa,juridica`
+para exigir CPF+Nome ou CNPJ+Razão Social conforme o tipo escolhido, sem
+tornar os dois pares obrigatórios ao mesmo tempo.
+
+---
+
+## 4. Decisões de UX mantidas do design original
 
 | Decisão | Racional |
 |---|---|
-| Painel direito com `position: sticky` no desktop | O formulário de cadastro é longo (3 seções); a página inteira rola normalmente (decisão do time). Sem `sticky`, o painel de marca — que tem pouco conteúdo — ficaria esticado e com espaço vazio ao final do scroll. Com `sticky`, ele acompanha o scroll até o fim da sua própria altura (100vh) e depois é ultrapassado pelo formulário, sem parecer vazio. |
-| Toggle como **navegação real** (`<a href>` entre `/login` e `/cadastro`), não JS de exibir/ocultar | Mais robusto: funciona sem JavaScript, com URL própria por estado (compartilhável, indexável, funciona com botão voltar do navegador), e evita duplicar dois `<form>` completos na mesma página. |
-| `role="tablist"/"tab"` **não foi usado** no toggle | Esse padrão ARIA é para abas que trocam conteúdo *sem* navegação (um único painel). Como aqui há navegação real entre páginas, o padrão correto é uma `<nav>` simples com `aria-current="page"` no link ativo. |
-| Card de formulário sem glassmorphism/blur | No layout anterior (fundo com imagem de mural), o glass fazia sentido. No novo layout, o fundo do painel esquerdo é sólido e claro (`--bg-surface`) — um card com blur não teria nada relevante para "borrar" atrás dele, então virou um card sólido, limpo, com sombra e borda sutil (mais alinhado ao tom "editorial" da referência). |
-| Formulário de cadastro mantido **completo** (3 seções) dentro do novo layout | Decisão do time: não simplificar o formulário nesta fase, apenas o layout ao redor dele. |
-| Rota e Controller de Login criados como **stub visual** | Login ainda não existe no sistema. Criado `LoginController` com `index()` (renderiza o formulário) e `store()` (simula um erro de "aguardando integração", já que a autenticação real será implementada pela equipe de backend). |
+| Painel direito com `position: sticky` no desktop | Evita que o painel de marca (pouco conteúdo) fique esticado/vazio enquanto o formulário de cadastro, mais longo, rola por baixo. |
+| Troca de formulário via `fetch` + `pushState`, não SPA completo | Mantém URL própria por estado (compartilhável, funciona com voltar/avançar do navegador) sem exigir um framework JS. |
+| Cor de destaque por seção (`--secao-cor`, definida via `:has()` no ícone) | Vermelho/verde/amarelo institucionais aplicados ao foco dos campos e ao radio, conforme a seção em que estão. |
+| Labels flutuantes via `:placeholder-shown` (inputs) e `:valid` com `required` (selects) | `:valid` sozinho, sem `required`, é verdadeiro mesmo em campo vazio — por isso todo `<select>` do formulário tem `required`, mesmo quando o dado em si não é estritamente obrigatório para o negócio (decisão de trade-off: comportamento visual correto teve prioridade sobre a nuance de "campo opcional"). |
 
 ---
 
-## 3. Arquivos criados
+## 5. Pendências conhecidas
 
-| Arquivo | Descrição |
-|---|---|
-| `resources/views/layouts/auth.blade.php` | Novo layout split-screen. Sem header/menu/footer institucional. Contém o painel de marca (brasão, nome do sistema, contatos) e o toggle Login/Cadastro. |
-| `resources/views/auth/login.blade.php` | Nova view do formulário de login (e-mail + senha), usando o layout `auth`. |
-| `resources/css/auth.css` | Novo arquivo de estilos: `.auth-split`, `.auth-toggle` (switch deslizante), `.auth-split__brand-pane` (painel direito, incluindo a textura diagonal sutil), `.auth-form-header`, etc. |
-| `app/Http/Controllers/LoginController.php` | Controller stub: `index()` renderiza a view; `store()` valida e retorna erro de integração pendente. |
-| `docs/2026-09-redesign-sistema-651.md` | Este documento. |
-
----
-
-## 4. Arquivos alterados
-
-| Arquivo | O que mudou |
-|---|---|
-| `routes/web.php` | Adicionadas as rotas `GET /login` (`login.index`) e `POST /login` (`login.store`). A rota `/` passou a redirecionar para `cadastro.index` em vez de renderizar a view diretamente. |
-| `resources/views/cadastro/index.blade.php` | Trocado `@extends('layouts.app')` → `@extends('layouts.auth')`. Removido o wrapper antigo (`.cadastro-page` + `.container` + `.cadastro-heading`), substituído pelo novo `.auth-form-header` (título + subtítulo), que agora vive dentro do painel esquerdo do split-screen. |
-| `resources/css/pages/cadastro.css` | Removidas as regras `.cadastro-page` (fundo com gradiente de página inteira, sem uso no novo layout) e `.cadastro-heading*` (substituídas por `.auth-form-header*` em `auth.css`). O componente `.cadastro-card` foi simplificado: sem glassmorphism/blur, sem `max-width`/`margin-inline: auto` (esse controle agora é do painel esquerdo), fundo sólido branco. Também removida a regra órfã `.cadastro-card__title` (não usada em nenhuma view). |
-| `resources/css/app.css` | Adicionado `@import './auth.css';`, na sequência de imports do design system. |
-
----
-
-## 5. Arquivos **não** alterados (por decisão explícita)
-
-- `resources/views/layouts/app.blade.php` — o layout institucional com
-  header, menu de navegação e footer completo permanece intacto, para uso
-  futuro em outras páginas do sistema que não sejam de autenticação.
-- `resources/css/layout.css` — estilos do header/footer institucional,
-  sem mudanças.
-- Footer (conteúdo e estrutura) — mantido 100% como estava, apenas
-  **reaproveitado em resumo** (nome, telefones) no painel direito do novo
-  layout de autenticação, sem alterar o footer original.
+- **Integração com API real** — `AcessoController::store` e
+  `AutocadastroController::store` continuam sendo simulações; nenhuma
+  chamada real de autenticação/cadastro foi implementada.
+- **"Esqueci minha senha"** — link presente na view, sem rota.
+- **Nome do sistema** — "Sistema 651" é provisório. Quando definido,
+  atualizar `layouts/acesso.blade.php` (`<title>` e o texto no painel de
+  marca) e os `@section('title', ...)` de `portal/entrar.blade.php` e
+  `portal/cadastro.blade.php`.
+- **Arquivos e pastas para exclusão manual** — o ambiente de edição usado
+  neste projeto não tem uma operação de exclusão de arquivo; os itens
+  abaixo foram renomeados com o prefixo `DELETAR_` (arquivos) ou ficaram
+  vazios (pastas) e precisam ser apagados manualmente do disco:
+  - `DELETAR_EsicAcessoController.php`
+  - `DELETAR_EsicAutocadastroController.php`
+  - `DELETAR_FragmentoEsicController.php`
+  - `DELETAR_views_esic_entrar.blade.php`
+  - `DELETAR_views_esic_cadastro.blade.php`
+  - `DELETAR_views_esic_parciais_formulario-entrar.blade.php`
+  - `DELETAR_views_esic_parciais_formulario-cadastro.blade.php`
+  - `DELETAR_js_alternador-painel.js`
+  - `resources/views/esic/` e `resources/views/esic/parciais/` (pastas
+    vazias)
+  - `resources/css/auth.css` (órfão de uma limpeza anterior, já não é
+    importado por `app.css` desde antes deste reset)
 
 ---
 
-## 6. Uso de imagens/assets
+## 6. Aderência ao Design System
 
-O brasão usado no painel de marca é o arquivo já existente
-`public/assets/img/prefeitura-de-caraguatatuba.png` — o mesmo já usado no
-header e footer do layout institucional. Nenhuma imagem nova foi
-adicionada.
-
----
-
-## 7. Aderência ao Design System
-
-Todo o CSS novo (`auth.css`) usa exclusivamente os tokens definidos em
-`resources/css/design-system/tokens.css` (cores, espaçamento, tipografia,
-superfície, breakpoints) — nenhuma cor ou medida "crua" foi introduzida,
-exceto o padrão diagonal de textura do painel direito
-(`repeating-linear-gradient` com `rgba(255,255,255,0.035)`), que é um
-efeito puramente decorativo sem token equivalente no design system atual.
-
----
-
-## 8. Pendências / próximos passos
-
-- **Login real:** `LoginController::store()` está com uma validação
-  mínima e resposta simulada. Precisa ser substituído pela chamada real
-  à API de autenticação assim que o backend definir o contrato
-  (endpoint, formato de payload/erro, gestão de sessão/token).
-- **"Esqueci minha senha":** o link existe na view (`auth-form-links__link`)
-  mas aponta para `#` — sem rota ainda.
-- **Nome do sistema:** "Sistema 651" é um nome provisório. Quando o nome
-  oficial for definido, atualizar:
-  - `layouts/auth.blade.php` (`<title>` padrão e `.auth-brand__title`)
-  - `cadastro/index.blade.php` e `auth/login.blade.php` (`@section('title', ...)`)
+Todo o CSS usa exclusivamente os tokens de
+`resources/css/design-system/tokens.css`. Não foram introduzidas cores ou
+medidas "cruas" novas neste reset além das já existentes e documentadas
+no próprio `pages/cadastro.css`.

@@ -1,7 +1,7 @@
 /**
  * Alterna a exibição dos campos de Pessoa Física / Pessoa Jurídica no
- * formulário de Cadastro do ESIC, conforme o radio "Tipo de Pessoa"
- * selecionado.
+ * formulário de Cadastro do Sistema 651, conforme o radio "Tipo de
+ * Pessoa" selecionado.
  *
  * Puramente de exibição (nenhuma regra de negócio aqui) — os campos do
  * tipo não selecionado ficam com o atributo `hidden`, que também os
