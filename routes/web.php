@@ -3,6 +3,7 @@
 use App\Http\Controllers\AcessoController;
 use App\Http\Controllers\AutocadastroController;
 use App\Http\Controllers\FragmentoAcessoController;
+use App\Http\Controllers\ServicoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,3 +20,7 @@ Route::post('/cadastro/juridica', [AutocadastroController::class, 'storeJuridica
 Route::get('/fragmentos/entrar', [FragmentoAcessoController::class, 'entrar'])->name('fragmentos.entrar');
 Route::get('/fragmentos/cadastro/fisica', [FragmentoAcessoController::class, 'cadastroFisica'])->name('fragmentos.cadastro.fisica');
 Route::get('/fragmentos/cadastro/juridica', [FragmentoAcessoController::class, 'cadastroJuridica'])->name('fragmentos.cadastro.juridica');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/servicos', [ServicoController::class, 'index'])->name('servicos.index');
+});

@@ -1,0 +1,124 @@
+/* ==========================================================================
+   PÁGINA — ESCOLHA DE SERVIÇO
+   Exibida logo após o login (ver AcessoController::store), usando o
+   layout institucional completo (header/menu/footer — layouts.app).
+   Usa exclusivamente tokens do Design System STII (tokens.css).
+   ========================================================================== */
+
+.servicos-page {
+  min-height: calc(100vh - 96px);
+  display: flex;
+  align-items: center;
+  padding-block: var(--scale-layout-6xb);
+  background-color: var(--bg-surface);
+}
+
+.servicos-cabecalho {
+  text-align: center;
+  margin-bottom: var(--scale-layout-6xb);
+}
+
+.servicos-cabecalho__titulo {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-32);
+  color: var(--color-primary-900);
+  margin-bottom: var(--scale-fit-3xh);
+}
+
+.servicos-cabecalho__subtitulo {
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------------
+   GRID DE CARDS — 1 coluna no mobile, 3 no desktop
+   ------------------------------------------------------------------------ */
+
+.servicos-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--scale-layout-4xb);
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .servicos-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.servicos-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--scale-layout-2xb);
+  padding: var(--scale-layout-6xb) var(--scale-layout-4xb);
+  background-color: var(--color-base-white);
+  border: var(--surface-border-width-sm) solid var(--border-default);
+  border-radius: var(--surface-rounder-lg);
+  box-shadow: var(--surface-elevation-2);
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.servicos-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--surface-elevation-3);
+}
+
+.servicos-card__icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--scale-layout-8xb);
+  height: var(--scale-layout-8xb);
+  border-radius: var(--surface-rounder-full);
+  font-size: var(--text-32);
+}
+
+.servicos-card--vermelho .servicos-card__icone {
+  background-color: var(--color-tertiary-100);
+  color: var(--color-tertiary-800);
+}
+
+.servicos-card--vermelho:hover {
+  border-color: var(--color-tertiary-600);
+}
+
+.servicos-card--amarelo .servicos-card__icone {
+  background-color: var(--color-secondary-100);
+  color: var(--color-secondary-800);
+}
+
+.servicos-card--amarelo:hover {
+  border-color: var(--color-secondary-600);
+}
+
+.servicos-card--verde .servicos-card__icone {
+  background-color: var(--color-quaternary-100);
+  color: var(--color-quaternary-800);
+}
+
+.servicos-card--verde:hover {
+  border-color: var(--color-quaternary-600);
+}
+
+.servicos-card__titulo {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-20);
+  color: var(--color-primary-900);
+  margin: 0;
+}
+
+.servicos-card__descricao {
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--text-secondary);
+  margin: 0;
+}

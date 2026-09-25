@@ -35,8 +35,8 @@
             {{-- Menu navegação (desktop) --}}
             <nav class="app-header__nav" aria-label="Menu principal">
                 <a href="#" id="btn-inicio-desktop" class="app-header__nav-link">Início</a>
-                <a href="#" id="btn-servicos-desktop" class="app-header__nav-link">Serviços</a>
-                <a href="#" id="btn-login-desktop" class="app-header__nav-link">Login</a>
+                <a href="{{ route('servicos.index') }}" id="btn-servicos-desktop" class="app-header__nav-link {{ request()->routeIs('servicos.*') ? 'is-active' : '' }}">Serviços</a>
+                <a href="{{ route('acesso.index') }}" id="btn-login-desktop" class="app-header__nav-link {{ request()->routeIs('acesso.*') ? 'is-active' : '' }}">Login</a>
                 <a href="{{ route('cadastro.index') }}" id="btn-cadastro-desktop"
                     class="app-header__nav-link {{ request()->routeIs('cadastro.*') ? 'is-active' : '' }}">
                     Cadastre-se
@@ -64,8 +64,8 @@
         {{-- Menu expansível para mobile --}}
         <nav id="mobile-menu" aria-label="Menu mobile" class="app-header__mobile-nav d-none">
             <a href="#" id="btn-inicio-mobile" class="app-header__mobile-link">Início</a>
-            <a href="#" id="btn-servicos-mobile" class="app-header__mobile-link">Serviços</a>
-            <a href="#" id="btn-login-mobile" class="app-header__mobile-link">Login</a>
+            <a href="{{ route('servicos.index') }}" id="btn-servicos-mobile" class="app-header__mobile-link {{ request()->routeIs('servicos.*') ? 'is-active' : '' }}">Serviços</a>
+            <a href="{{ route('acesso.index') }}" id="btn-login-mobile" class="app-header__mobile-link {{ request()->routeIs('acesso.*') ? 'is-active' : '' }}">Login</a>
             <a href="{{ route('cadastro.index') }}" id="btn-cadastro-mobile"
                 class="app-header__mobile-link {{ request()->routeIs('cadastro.*') ? 'is-active' : '' }}">
                 Cadastre-se

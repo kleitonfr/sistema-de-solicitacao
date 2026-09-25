@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class AcessoController extends Controller
@@ -16,16 +17,32 @@ class AcessoController extends Controller
     /**
      * TODO(integração): substituir pela chamada real à API de autenticação
      * assim que o contrato for definido pela equipe de backend.
+     *
+     * Por ora, autentica via sessão do próprio Laravel (Auth::attempt),
+     * usando o usuário de teste criado em database/seeders/DatabaseSeeder.php
+     * (e-mail teste@teste.com, senha 12345678) — permite validar o fluxo de
+     * login -> tela de escolha de serviço antes da API real existir.
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        $credenciais = $request->validate([
             'email' => ['required', 'email'],
             'senha' => ['required', 'string'],
         ]);
 
-        return redirect()
-            ->route('acesso.index')
-            ->withErrors(['email' => 'Acesso ainda não disponível — aguardando integração com a API de autenticação.']);
+        $autenticado = Auth::attempt([
+            'email' => $credenciais['email'],
+            'password' => $credenciais['senha'],
+        ]);
+
+        if (! $autenticado) {
+            return redirect()
+                ->route('acesso.index')
+                ->withErrors(['email' => 'E-mail ou senha inválidos.']);
+        }
+
+        $request->session()->regenerate();
+
+        return redirect()->route('servicos.index');
     }
 }

@@ -12,14 +12,17 @@ class DatabaseSeeder extends Seeder
 
     /**
      * Seed the application's database.
+     *
+     * Usuário de teste para permitir validar o fluxo de login (tela de
+     * acesso -> tela de escolha de serviço) antes da integração com a API
+     * real de autenticação. Ver AcessoController::store.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Usuário de Teste',
+            'email' => 'teste@teste.com',
+            'password' => bcrypt('12345678'),
         ]);
     }
 }
