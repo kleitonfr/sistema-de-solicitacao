@@ -92,7 +92,7 @@ um deles, a mudança precisa ser replicada manualmente nos dois arquivos.
 
 | Arquivo | Uso |
 |---|---|
-| `acesso.css` | Layout split-screen de entrar/cadastro. |
+| `acesso.css` | Layout split-screen de entrar/cadastro e botão flutuante de denúncia anônima. |
 | `layout.css` | Layout institucional (`layouts/app.blade.php`). |
 | `pages/cadastro.css` | Componentes dos formulários de entrar e cadastro. |
 | `pages/servicos.css` | Tela de escolha de serviço. |
@@ -109,6 +109,7 @@ um deles, a mudança precisa ser replicada manualmente nos dois arquivos.
 | Painel de marca com `position: sticky` no desktop | Evita que o painel fique esticado enquanto o formulário rola. |
 | Cor de destaque por seção (`--secao-cor`, via `:has()`) | Vermelho/verde/amarelo institucionais no foco dos campos. |
 | Labels flutuantes via `:placeholder-shown` (inputs) e `:valid` com `required` (selects) | `:valid` sem `required` é verdadeiro em campo vazio; por isso todo `<select>` tem `required`. |
+| Denúncia anônima como botão flutuante (círculo cinza-escuro com ícone, canto inferior esquerdo da tela) que estende com o texto ao passar o mouse ou focar com o teclado | Fica em `layouts/acesso.blade.php`, fora de `#acesso-conteudo-formulario`: esse contêiner usa `transform`, o que faria um `position: fixed` interno ser posicionado em relação a ele e não à janela. Aparece em Entrar e em Cadastrar. |
 
 ---
 
