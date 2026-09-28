@@ -3,14 +3,21 @@
  *
  * Ao clicar no radio "Física" ou "Jurídica", busca o formulário completo
  * correspondente via requisição AJAX (fetch) e substitui inteiramente o
- * card de cadastro atual (#acesso-conteudo-formulario) — não é uma
- * alternância de campos escondidos dentro do mesmo <form>, são dois
- * formulários completos e independentes (ver
+ * conteúdo de #acesso-conteudo-formulario — não é uma alternância de campos
+ * escondidos dentro do mesmo <form>, são dois formulários completos e
+ * independentes (ver
  * resources/views/portal/parciais/formulario-cadastro-fisica.blade.php e
  * -juridica.blade.php), cada um com sua própria rota de envio.
  *
  * Física é o padrão: a página de cadastro sempre carrega com esse
  * formulário; o de Jurídica só existe no DOM depois que o usuário troca.
+ *
+ * As URLs dos fragmentos vêm de data-url-cadastro-fisica e
+ * data-url-cadastro-juridica no próprio #acesso-conteudo-formulario
+ * (layouts/acesso.blade.php). Esse contêiner nunca é substituído — só o
+ * innerHTML dele —, então as URLs existem em qualquer tela, inclusive
+ * quando a página foi carregada em /entrar e o usuário chegou ao cadastro
+ * pelo alternador Entrar/Cadastrar.
  *
  * Rotas consumidas (ver routes/web.php): fragmentos.cadastro.fisica e
  * fragmentos.cadastro.juridica — servidas por
@@ -24,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const fragmentoUrlPorTipo = {
-        fisica: conteudo.querySelector('[data-alterna-tipo-pessoa="fisica"]')?.dataset.fragmentoTipoPessoa,
-        juridica: conteudo.querySelector('[data-alterna-tipo-pessoa="juridica"]')?.dataset.fragmentoTipoPessoa,
+        fisica: conteudo.dataset.urlCadastroFisica,
+        juridica: conteudo.dataset.urlCadastroJuridica,
     };
 
     let trocaEmAndamento = false;

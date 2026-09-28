@@ -45,7 +45,13 @@
                     <span class="acesso-alternador__indicador {{ request()->routeIs('cadastro.*') ? 'is-right' : '' }}" aria-hidden="true"></span>
                 </nav>
 
-                <div id="acesso-conteudo-formulario" class="acesso-conteudo-formulario">
+                {{-- As URLs dos formulários de cadastro ficam no contêiner (e não nas
+                     parciais) porque ele nunca é substituído, só o innerHTML dele: os
+                     dados estão no DOM em qualquer tela (Entrar, Cadastrar Física ou
+                     Jurídica). Lidas por alternador-tipo-pessoa.js. --}}
+                <div id="acesso-conteudo-formulario" class="acesso-conteudo-formulario"
+                     data-url-cadastro-fisica="{{ route('fragmentos.cadastro.fisica') }}"
+                     data-url-cadastro-juridica="{{ route('fragmentos.cadastro.juridica') }}">
                     @yield('content', view('portal.parciais.formulario-entrar'))
                 </div>
 
@@ -105,13 +111,43 @@
 
     </div>
 
-    
+    {{-- Acessibilidade --}}
+    <div id="acessibilidade-widget">
+        <button id="btn-abrir-acessibilidade" title="Acessibilidade" aria-label="Abrir ferramentas de acessibilidade"
+            aria-expanded="false">
+            <i class="fa-solid fa-universal-access" aria-hidden="true"></i>
+        </button>
+        <div id="painel-acessibilidade">
+            <button id="btn-aumentar" title="Aumentar fonte" aria-label="Aumentar tamanho da fonte">
+                <span>A+</span>
+            </button>
+            <button id="btn-diminuir" title="Diminuir fonte" aria-label="Diminuir tamanho da fonte">
+                <span>A-</span>
+            </button>
+            <div class="app-a11y-panel__divider"></div>
+            <button id="btn-contraste" title="Alto contraste" aria-label="Alternar alto contraste" aria-pressed="false">
+                <span><i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i></span>
+            </button>
+        </div>
+    </div>
+
+
     <a href="#" class="acesso-denuncia-anonima">
         <span class="acesso-denuncia-anonima__icone">
             <i class="fa-solid fa-user-secret" aria-hidden="true"></i>
         </span>
         <span class="acesso-denuncia-anonima__texto">Prefere não se identificar? Faça uma denúncia anônima</span>
     </a>
+
+    {{-- VLibras --}}
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper acessibilidade-widget"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
 
 </body>
 

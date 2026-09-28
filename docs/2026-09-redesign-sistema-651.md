@@ -84,7 +84,7 @@ um deles, a mudança precisa ser replicada manualmente nos dois arquivos.
 | Arquivo | Responsabilidade |
 |---|---|
 | `alternador-acesso.js` | Troca Entrar/Cadastro via `fetch` + `history.pushState`. |
-| `alternador-tipo-pessoa.js` | Troca o formulário de cadastro inteiro (Física ↔ Jurídica) ao clicar no radio. |
+| `alternador-tipo-pessoa.js` | Troca o formulário de cadastro inteiro (Física ↔ Jurídica) ao clicar no radio. As URLs dos fragmentos vêm de `data-url-cadastro-fisica` e `data-url-cadastro-juridica` em `#acesso-conteudo-formulario` (layout), contêiner permanente — por isso funcionam mesmo quando a página foi aberta em `/entrar`. |
 | `accessibility.js`, `accessibility-panel.js` | Widget de acessibilidade (fonte, contraste). |
 | `bootstrap.js` | Configura o `axios` (dependência do boilerplate). |
 
@@ -117,11 +117,6 @@ um deles, a mudança precisa ser replicada manualmente nos dois arquivos.
 
 - **Integração com a API real** — `AcessoController::store`,
   `storeFisica` e `storeJuridica` ainda são simulações.
-- **Alternar Física/Jurídica após Entrar→Cadastrar** — quem abre
-  `/entrar` e clica em "Cadastrar" não consegue trocar para Jurídica:
-  `alternador-tipo-pessoa.js` lê as URLs dos fragmentos uma única vez no
-  carregamento, quando o formulário de Entrar (sem radios) está na tela.
-  Abrir `/cadastro` direto funciona.
 - **"Esqueci minha senha" e "Denúncia anônima"** — links com `href="#"`.
 - **Cards de Ouvidoria e e-SIC** (`/servicos`) — `href="#"`, os
   sistemas ainda não existem.

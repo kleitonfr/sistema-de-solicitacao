@@ -89,7 +89,7 @@
 .cadastro-card__titulo-secao {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-bold);
-  font-size: var(--text-14);
+  font-size: var(--text-16);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--color-primary-800);
@@ -116,7 +116,6 @@
   align-items: center;
   gap: var(--scale-fit-3xh);
   font-family: var(--font-body);
-  font-size: var(--text-14);
   font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   cursor: pointer;
@@ -198,7 +197,6 @@
   left: 15px;
   font-family: var(--font-body);
   font-weight: var(--font-weight-semibold);
-  font-size: var(--text-12);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--text-secondary);

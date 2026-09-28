@@ -6,21 +6,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-/**
- * Controller de cadastro do Sistema 651.
- *
- * Este projeto é responsável apenas pelo frontend. Os campos e regras de
- * validação abaixo refletem o contrato esperado da API que será
- * disponibilizada pela equipe de backend.
- *
- * Dois formulários completos e independentes (Pessoa Física e Pessoa
- * Jurídica — ver resources/views/portal/parciais/formulario-cadastro-
- * fisica.blade.php e -juridica.blade.php), cada um com sua própria rota
- * de envio e seu próprio método de validação (storeFisica/storeJuridica),
- * mas ambos persistindo no mesmo destino de dados (mesma base/"planilha"
- * de cadastros de cidadão) — por isso convivem no mesmo controller em vez
- * de dois controllers separados.
- */
 class AutocadastroController extends Controller
 {
     public function index(): View

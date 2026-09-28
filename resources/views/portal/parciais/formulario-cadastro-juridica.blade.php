@@ -45,7 +45,6 @@
                 name="tipo_pessoa"
                 value="fisica"
                 data-alterna-tipo-pessoa="fisica"
-                data-fragmento-tipo-pessoa="{{ route('fragmentos.cadastro.fisica') }}"
             >
             <span>Física</span>
         </label>
@@ -56,7 +55,6 @@
                 value="juridica"
                 checked
                 data-alterna-tipo-pessoa="juridica"
-                data-fragmento-tipo-pessoa="{{ route('fragmentos.cadastro.juridica') }}"
             >
             <span>Jurídica</span>
         </label>
