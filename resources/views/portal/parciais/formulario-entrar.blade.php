@@ -9,10 +9,7 @@
     <form action="{{ route('acesso.store') }}" method="POST" novalidate>
         @csrf
         <div class="cadastro-card__cabecalho-secao">
-            <span class="cadastro-card__icone-secao cadastro-card__icone-secao--verde">
-                <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
-            </span>
-            <h2 class="cadastro-card__titulo-secao">Sistema 651</h2>
+            <img src="{{ asset('assets/img/logo156.png') }}" alt="logo do 156 caraguatatuba">
         </div>
 
         <div class="cadastro-field cadastro-field--span-full">

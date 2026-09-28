@@ -52,6 +52,12 @@
   align-items: center;
   gap: var(--scale-fit-3xh);
   margin-bottom: var(--scale-layout-3xb);
+  justify-content: center;
+}
+
+.cadastro-card__cabecalho-secao img {
+  width: 13rem;
+  height: 13rem;
 }
 
 .cadastro-card__icone-secao {
@@ -203,7 +209,7 @@
 .cadastro-input, .cadastro-select {
     width: 100%;
     background-color: transparent;
-    border: 1.5px solid #bbc7bb;
+    border: 1.5px solid #bdbdbd;
     border-radius: 8px;
     color: var(--text-primary);
     font-family: var(--font-body);

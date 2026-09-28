@@ -34,17 +34,7 @@
 
             {{-- Menu navegação (desktop) --}}
             <nav class="app-header__nav" aria-label="Menu principal">
-                <a href="#" id="btn-inicio-desktop" class="app-header__nav-link">Início</a>
                 <a href="{{ route('servicos.index') }}" id="btn-servicos-desktop" class="app-header__nav-link {{ request()->routeIs('servicos.*') ? 'is-active' : '' }}">Serviços</a>
-                <a href="{{ route('acesso.index') }}" id="btn-login-desktop" class="app-header__nav-link {{ request()->routeIs('acesso.*') ? 'is-active' : '' }}">Login</a>
-                <a href="{{ route('cadastro.index') }}" id="btn-cadastro-desktop"
-                    class="app-header__nav-link {{ request()->routeIs('cadastro.*') ? 'is-active' : '' }}">
-                    Cadastre-se
-                </a>
-                <a href="#" id="btn-acesso-rapido-desktop" class="app-header__nav-link app-header__nav-link--icon">
-                    Acesso Rápido
-                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-                </a>
             </nav>
 
 
