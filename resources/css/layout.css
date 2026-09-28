@@ -1,7 +1,9 @@
 /* ==========================================================================
-   LAYOUT BASE — HEADER, FOOTER E WIDGET DE ACESSIBILIDADE
-   Usa exclusivamente tokens do Design System STII (tokens.css) e classes
-   utilitárias de utilities.css/responsive.css.
+   LAYOUT INSTITUCIONAL — HEADER, FOOTER E WIDGET DE ACESSIBILIDADE
+   Usado por layouts/app.blade.php (ex.: tela de escolha de serviço). A tela
+   de entrar/cadastro usa outro layout (acesso.css). Usa exclusivamente
+   tokens do Design System STII (tokens.css) e classes utilitárias de
+   utilities.css/responsive.css.
    ========================================================================== */
 
 .app-body {
@@ -64,14 +66,6 @@
   justify-content: space-between;
   gap: var(--scale-layout-3xb);
   padding-block: var(--scale-layout-2xb);
-}
-
-.app-header__brand-text {
-  font-family: var(--font-heading);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--text-12);
-  letter-spacing: 0.08em;
-  color: var(--color-primary-100);
 }
 
 .app-header__nav {

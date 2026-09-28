@@ -1,13 +1,10 @@
 /* ==========================================================================
-   PÁGINA — AUTOCADASTRO / ACESSO (formulários do Sistema 651)
-   Usa exclusivamente tokens do Design System STII (tokens.css) e classes
-   utilitárias de utilities.css/responsive.css. Nenhuma cor "crua" aqui,
-   exceto onde documentado.
-
-   COMPONENTE — CARD DE FORMULÁRIO
-   Usado dentro de .acesso-split__form-inner (ver acesso.css). Sem
-   glassmorphism nem largura própria — o painel de acesso já controla
-   o container.
+   FORMULÁRIOS — ENTRAR E CADASTRO (Sistema 651)
+   Componentes compartilhados pelas parciais de portal/parciais/
+   (formulario-entrar, formulario-cadastro-fisica e -juridica), renderizadas
+   dentro de .acesso-split__form-inner (ver acesso.css). Usa os tokens do
+   Design System STII (tokens.css); os poucos valores fixos (ex.: cor da
+   borda dos campos) são de acabamento visual sem token equivalente.
    ========================================================================== */
 
 .cadastro-card {
@@ -185,7 +182,7 @@
 }
 
 /* ------------------------------------------------------------------------
-   CAMPOS — estilo "underline" (ver print de referência)
+   CAMPOS — borda completa com label flutuante
    ------------------------------------------------------------------------ */
 
 .cadastro-label {
@@ -206,7 +203,6 @@
 .cadastro-input, .cadastro-select {
     width: 100%;
     background-color: transparent;
-    border: solid 1px var(--color-primary-600);
     border: 1.5px solid #bbc7bb;
     border-radius: 8px;
     color: var(--text-primary);
@@ -214,9 +210,7 @@
     font-size: var(--text-16);
     padding: 10px 15px;
     height: 50px;
-    /* min-height: var(--scale-fit-11xh); */
 }
-
 
 .cadastro-input::placeholder {
   color: var(--text-disabled);
@@ -333,7 +327,7 @@
 }
 
 /* ------------------------------------------------------------------------
-   BOTÃO — CADASTRAR
+   BOTÃO PRINCIPAL — Entrar / Cadastrar
    ------------------------------------------------------------------------ */
 
 .cadastro-actions {

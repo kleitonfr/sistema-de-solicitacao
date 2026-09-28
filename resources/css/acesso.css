@@ -1,10 +1,9 @@
 /* ==========================================================================
    LAYOUT DE ACESSO — SISTEMA 651
    Split-screen: formulário (esquerda) + painel de marca (direita).
-   Sem header, sem menu, sem footer institucional — layout dedicado a
-   entrar/cadastro. Usa exclusivamente tokens do Design System STII.
-   Inspiração estrutural: split editorial claro/escuro (ver referência
-   visual fornecida) — adaptado à paleta institucional de Caraguatatuba.
+   Layout dedicado a entrar/cadastro (layouts/acesso.blade.php): sem
+   header de navegação e sem footer institucional. Usa exclusivamente
+   tokens do Design System STII.
    ========================================================================== */
 
 .acesso-body {
@@ -143,27 +142,8 @@
 }
 
 /* ------------------------------------------------------------------------
-   CABEÇALHO DO FORMULÁRIO — título e subtítulo
+   LINKS DO FORMULÁRIO — "Esqueci minha senha"
    ------------------------------------------------------------------------ */
-
-.acesso-cabecalho-formulario {
-  margin-bottom: var(--scale-layout-4xb);
-}
-
-.acesso-cabecalho-formulario__titulo {
-  font-family: var(--font-heading);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--text-32);
-  color: var(--color-primary-900);
-  margin-bottom: var(--scale-fit-3xh);
-}
-
-.acesso-cabecalho-formulario__subtitulo {
-  font-family: var(--font-body);
-  font-size: var(--text-16);
-  color: var(--text-secondary);
-  margin: 0;
-}
 
 .acesso-links-formulario {
   display: flex;
@@ -208,8 +188,8 @@
   }
 }
 
-/* Textura sutil — listras diagonais discretas, eco do bloco texturizado
-   da referência visual, mantendo a paleta institucional. */
+/* Overlay em gradiente azul sobre a imagem de fundo do painel, para
+   garantir contraste do texto branco. */
 .acesso-split__marca-pane::before {
   content: '';
   position: absolute;
@@ -263,22 +243,6 @@
   width: 477px;
   object-fit: contain;
   flex: 1 1 0;
-}
-
-.acesso-marca__linha-superior {
-  font-family: var(--font-body);
-  font-size: var(--text-12);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-primary-200);
-}
-
-.acesso-marca__titulo {
-  font-family: var(--font-heading);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--text-24);
-  color: var(--color-base-white);
-  line-height: var(--leading-tight);
 }
 
 .acesso-marca__frase,

@@ -69,8 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             conteudo.innerHTML = html;
             conteudo.classList.remove('esta-trocando');
-
-            atualizarUrlsFragmento();
         } catch (erro) {
             // Sem integração com backend de log neste projeto (frontend puro);
             // sem reserva de navegação aqui porque a troca Física/Jurídica não
@@ -79,13 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } finally {
             trocaEmAndamento = false;
         }
-    }
-
-    function atualizarUrlsFragmento() {
-        fragmentoUrlPorTipo.fisica = conteudo.querySelector('[data-alterna-tipo-pessoa="fisica"]')?.dataset.fragmentoTipoPessoa
-            ?? fragmentoUrlPorTipo.fisica;
-        fragmentoUrlPorTipo.juridica = conteudo.querySelector('[data-alterna-tipo-pessoa="juridica"]')?.dataset.fragmentoTipoPessoa
-            ?? fragmentoUrlPorTipo.juridica;
     }
 
     function aguardarFimDaTransicao(elemento) {

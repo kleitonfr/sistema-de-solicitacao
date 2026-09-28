@@ -5,13 +5,13 @@
 @import './design-system/utilities.css';
 @import './design-system/responsive.css';
 
-/* Layout base (header, footer, widget de acessibilidade) */
+/* Layout institucional (header, footer, widget de acessibilidade) */
 @import './layout.css';
 
 /* Layout de acesso — split-screen (Sistema 651) */
 @import './acesso.css';
 
-/* Página de Autocadastro / Acesso */
+/* Formulários de entrar e cadastro */
 @import './pages/cadastro.css';
 
 /* Página de Escolha de Serviço */
