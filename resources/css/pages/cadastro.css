@@ -15,8 +15,6 @@
   width: 100%;
   background-color: var(--bg-surface);
   color: var(--text-primary);
-  border: 1px solid var(--border-default);
-  box-shadow: var(--surface-elevation-3);
   padding: var(--scale-layout-4xb);
 }
 
@@ -29,22 +27,6 @@
     margin-inline: auto;
 }
 
-.cadastro-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  border-radius: var(--surface-rounder-full);
-  background: linear-gradient(
-    90deg,
-    var(--color-tertiary-600) 0%,
-    var(--color-secondary-600) 50%,
-    var(--color-quaternary-600) 100%
-  );
-  opacity: var(--surface-opacity-xl);
-}
 
 @media (min-width: 941px) {
   .cadastro-card {
@@ -221,17 +203,18 @@
   transition: all 0.3s ease;
 }
 
-.cadastro-input,
-.cadastro-select {
-  width: 100%;
-  background-color: transparent;
-  border: solid 1px var(--color-primary-600);
-  border-radius: 8px;
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  font-size: var(--text-16);
-  padding: 10px 15px;
-  min-height: var(--scale-fit-11xh);
+.cadastro-input, .cadastro-select {
+    width: 100%;
+    background-color: transparent;
+    border: solid 1px var(--color-primary-600);
+    border: 1.5px solid #bbc7bb;
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-16);
+    padding: 10px 15px;
+    height: 50px;
+    /* min-height: var(--scale-fit-11xh); */
 }
 
 
@@ -363,6 +346,7 @@
   font-family: var(--font-heading);
   font-weight: var(--font-weight-bold);
   font-size: var(--text-16);
+  width: 85%;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -378,12 +362,10 @@
 .cadastro-btn:enabled {
   background-color: var(--color-secondary-600);
   color: var(--color-neutral-900);
-  box-shadow: 0 var(--surface-offset-md) var(--surface-blur-md) color-mix(in srgb, var(--color-secondary-600) 45%, transparent);
 }
 
 .cadastro-btn:enabled:hover {
   background-color: var(--color-secondary-800);
-  box-shadow: 0 var(--surface-offset-lg) var(--surface-blur-lg) color-mix(in srgb, var(--color-secondary-600) 55%, transparent);
 }
 
 .cadastro-btn:disabled {

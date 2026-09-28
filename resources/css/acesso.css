@@ -10,11 +10,7 @@
 .acesso-body {
   margin: 0;
   min-height: 100vh;
-  background-image: url("../../public/assets/img/bkg-01.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-color: var(--bg-surface);
 }
 
 .acesso-body::-webkit-scrollbar {
@@ -40,12 +36,39 @@
    ------------------------------------------------------------------------ */
 
 .acesso-split__form-pane {
+  position: relative;
   flex: 1 1 60%;
   display: flex;
   justify-content: center;
-  background-color: #3b8bb766;
+  align-items: center;
   padding: var(--scale-layout-4xb) var(--scale-layout-3xb);
 }
+
+.acesso-split__bar {
+  position: absolute;
+  top: 0;
+  height: var(--scale-fit-half);
+  z-index: var(--surface-z-layer-2);
+}
+
+.acesso-split-header__accent-bar--red {
+  left: -0.334%;
+  width: 33.334%;
+  background-color: var(--color-tertiary-600);
+}
+
+.acesso-split-header__accent-bar--yellow {
+  left: 32.666%;
+  width: 34.334%;
+  background-color: var(--color-secondary-600);
+}
+
+.acesso-split-header__accent-bar--green {
+  left: 66.666%;
+  width: 33.334%;
+  background-color: var(--color-quaternary-600);
+}
+
 
 .acesso-split__form-inner {
   width: 100%;
@@ -169,7 +192,10 @@
   flex: 1 1 40%;
   position: relative;
   z-index: var(--surface-z-layer-2);
-  background: linear-gradient(160deg, var(--color-primary-900) 0%, var(--color-primary-800) 100%);
+  background-image: url('../../public/assets/img/bkg-01.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--color-base-white);
   box-shadow: -4px 0px 18px rgb(0 0 0 / 62%), -24px 0px 67px rgb(0 7 10 / 25%);
 }
@@ -187,11 +213,8 @@
 .acesso-split__marca-pane::before {
   content: '';
   position: absolute;
+  background: linear-gradient(160deg, #002f475c 0%, var(--color-primary-800) 100%);
   inset: 0;
-  background-image: repeating-radial-gradient(circle at 0 0,
-      transparent 0,
-      rgba(255, 255, 255, 0.04) 20px);
-  background-size: 90px 90px;
   pointer-events: none;
 }
 

@@ -17,6 +17,11 @@
 
         {{-- ==================== PAINEL ESQUERDO — FORMULÁRIO ==================== --}}
         <div class="acesso-split__form-pane">
+
+            <div class="acesso-split__bar acesso-split-header__accent-bar--red"></div>
+            <div class="acesso-split__bar acesso-split-header__accent-bar--yellow"></div>
+            <div class="acesso-split__bar acesso-split-header__accent-bar--green"></div>
+
             <div class="acesso-split__form-inner">
 
                 {{-- Alternador Entrar / Cadastrar --}}
