@@ -1,0 +1,310 @@
+/* ==========================================================================
+   PÁGINA — CATEGORIAS DE SERVIÇO (PORTAL 156)
+   Espelha a organização da Central 156 de Curitiba: busca, abas
+   "Todas" / "Principais" e categorias expansíveis (<details>), que
+   funcionam sem JavaScript e são acessíveis por teclado nativamente.
+   ========================================================================== */
+
+.categorias-servico-page {
+  min-height: calc(100vh - 96px);
+  padding-block: var(--scale-layout-6xb);
+  background-color: var(--bg-surface);
+}
+
+.categorias-servico-page .container {
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+.categorias-servico-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--scale-layout-base);
+  min-height: var(--scale-fit-11xh);
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--action-primary);
+  text-decoration: none;
+}
+
+.categorias-servico-voltar:hover {
+  color: var(--action-primary-hover);
+  text-decoration: underline;
+}
+
+.categorias-servico-cabecalho {
+  margin-block: var(--scale-layout-2xb) var(--scale-layout-4xb);
+}
+
+.categorias-servico-cabecalho__titulo {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-32);
+  color: var(--color-primary-900);
+  margin-bottom: var(--scale-fit-3xh);
+}
+
+.categorias-servico-cabecalho__subtitulo {
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------------
+   BUSCA
+   ------------------------------------------------------------------------ */
+
+.categorias-servico-busca {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-layout-base);
+  margin-bottom: var(--scale-layout-3xb);
+}
+
+.categorias-servico-busca__rotulo {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-14);
+  color: var(--text-primary);
+}
+
+.categorias-servico-busca__campo {
+  display: flex;
+  gap: var(--scale-layout-base);
+}
+
+.categorias-servico-busca__entrada {
+  flex: 1;
+  min-height: var(--scale-fit-11xh);
+  padding-inline: var(--scale-layout-2xb);
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  color: var(--text-primary);
+  background-color: var(--color-base-white);
+  border: var(--surface-border-width-sm) solid var(--border-default);
+  border-radius: var(--surface-rounder-md);
+}
+
+.categorias-servico-busca__entrada:focus-visible {
+  outline: var(--surface-border-width-md) solid var(--border-focus);
+  outline-offset: var(--surface-offset-sm);
+}
+
+.categorias-servico-busca__entrada.is-invalid {
+  border-color: var(--feedback-error-text);
+}
+
+.categorias-servico-busca__botao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--scale-layout-base);
+  min-height: var(--scale-fit-11xh);
+  padding-inline: var(--scale-layout-3xb);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-16);
+  color: var(--color-base-white);
+  background-color: var(--action-primary);
+  border: none;
+  border-radius: var(--surface-rounder-md);
+  cursor: pointer;
+}
+
+.categorias-servico-busca__botao:hover {
+  background-color: var(--action-primary-hover);
+}
+
+.categorias-servico-busca__botao:focus-visible {
+  outline: var(--surface-border-width-md) solid var(--border-focus);
+  outline-offset: var(--surface-offset-md);
+}
+
+.categorias-servico-busca__erro {
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--feedback-error-text);
+}
+
+/* ------------------------------------------------------------------------
+   ABAS DE FILTRO
+   ------------------------------------------------------------------------ */
+
+.categorias-servico-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--scale-layout-base);
+  border-bottom: var(--surface-border-width-sm) solid var(--border-default);
+  margin-bottom: var(--scale-layout-2xb);
+}
+
+.categorias-servico-filtros__aba {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--scale-fit-11xh);
+  padding-inline: var(--scale-layout-2xb);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-16);
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-bottom: var(--surface-border-width-lg) solid transparent;
+  margin-bottom: var(--surface-offset-sm-n);
+}
+
+.categorias-servico-filtros__aba:hover {
+  color: var(--action-primary);
+}
+
+/* A aba ativa usa peso e borda (não só cor) para não depender de cor. */
+.categorias-servico-filtros__aba.is-active {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-900);
+  border-bottom-color: var(--action-primary);
+}
+
+.categorias-servico-filtros__aba:focus-visible {
+  outline: var(--surface-border-width-md) solid var(--border-focus);
+  outline-offset: var(--surface-offset-md-n);
+}
+
+.categorias-servico-resultado {
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--text-secondary);
+  margin-bottom: var(--scale-layout-2xb);
+}
+
+/* ------------------------------------------------------------------------
+   LISTA DE CATEGORIAS (cards expansíveis)
+   ------------------------------------------------------------------------ */
+
+.categorias-servico-lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-fit-3xh);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categoria-servico {
+  background-color: var(--color-base-white);
+  border: var(--surface-border-width-sm) solid var(--border-default);
+  border-left: var(--surface-border-width-lg) solid var(--action-primary);
+  border-radius: var(--surface-rounder-md);
+  box-shadow: var(--surface-elevation-1);
+}
+
+.categoria-servico[open] {
+  box-shadow: var(--surface-elevation-2);
+}
+
+.categoria-servico__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--scale-layout-2xb);
+  min-height: var(--scale-fit-11xh);
+  padding: var(--scale-layout-2xb) var(--scale-layout-3xb);
+  cursor: pointer;
+  list-style: none;
+}
+
+.categoria-servico__cabecalho::-webkit-details-marker {
+  display: none;
+}
+
+.categoria-servico__cabecalho:focus-visible {
+  outline: var(--surface-border-width-md) solid var(--border-focus);
+  outline-offset: var(--surface-offset-md-n);
+  border-radius: var(--surface-rounder-md);
+}
+
+.categoria-servico__nome {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-18);
+  color: var(--color-primary-800);
+}
+
+.categoria-servico__indicador {
+  flex-shrink: 0;
+  color: var(--action-primary);
+  transition: transform 0.2s ease;
+}
+
+.categoria-servico[open] .categoria-servico__indicador {
+  transform: rotate(45deg);
+}
+
+.categoria-servico__corpo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--scale-fit-3xh);
+  padding: 0 var(--scale-layout-3xb) var(--scale-layout-2xb);
+}
+
+.categoria-servico__descricao {
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.categoria-servico__acao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--scale-layout-base);
+  min-height: var(--scale-fit-11xh);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-14);
+  color: var(--action-primary);
+}
+
+.categoria-servico__acao:hover {
+  color: var(--action-primary-hover);
+}
+
+/* ------------------------------------------------------------------------
+   ESTADO VAZIO
+   ------------------------------------------------------------------------ */
+
+.categorias-servico-vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--scale-fit-3xh);
+  padding: var(--scale-layout-6xb) var(--scale-layout-3xb);
+  text-align: center;
+  background-color: var(--color-base-white);
+  border: var(--surface-border-width-sm) dashed var(--border-default);
+  border-radius: var(--surface-rounder-lg);
+}
+
+.categorias-servico-vazio__icone {
+  font-size: var(--text-32);
+  color: var(--text-secondary);
+}
+
+.categorias-servico-vazio__texto {
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.categorias-servico-vazio__acao {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  color: var(--action-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .categoria-servico__indicador {
+    transition: none;
+  }
+}

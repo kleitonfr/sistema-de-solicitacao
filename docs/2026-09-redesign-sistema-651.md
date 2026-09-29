@@ -43,8 +43,9 @@ O nome do sistema, **"Sistema 651"**, é provisório até definição oficial.
 | `GET /fragmentos/cadastro/fisica` | `fragmentos.cadastro.fisica` | `FragmentoAcessoController@cadastroFisica` | só AJAX |
 | `GET /fragmentos/cadastro/juridica` | `fragmentos.cadastro.juridica` | `FragmentoAcessoController@cadastroJuridica` | só AJAX |
 | `GET /servicos` | `servicos.index` | `ServicoController@index` | `auth` |
+| `GET /servicos/156/categorias` | `servicos.156.categorias` | `ServicoController@listarCategoriasPortal156` | `auth` |
 
-Visitantes não autenticados que acessam `/servicos` são redirecionados
+Visitantes não autenticados que acessam `/servicos` (e subrotas) são redirecionados
 para `acesso.index` (`bootstrap/app.php`, `redirectGuestsTo`).
 
 ### Autenticação de teste
@@ -56,7 +57,8 @@ Laravel (`SESSION_DRIVER=file`). O usuário de teste é criado por
 - e-mail: `teste@teste.com`
 - senha: `12345678`
 
-Para criá-lo: `php artisan migrate:fresh --seed`.
+Para criá-lo: `php artisan migrate:fresh --seed` (também popula as
+categorias de serviço — ver seção 7).
 
 **Temporário:** será substituído pela chamada à API de autenticação
 quando o backend definir o contrato.
@@ -72,6 +74,7 @@ resources/views/portal/parciais/formulario-entrar.blade.php
 resources/views/portal/parciais/formulario-cadastro-fisica.blade.php
 resources/views/portal/parciais/formulario-cadastro-juridica.blade.php
 resources/views/servicos/index.blade.php   — escolha: Ouvidoria / Portal 156 / e-SIC
+resources/views/servicos/156/categoria-servicos.blade.php — categorias de serviço do Portal 156
 ```
 
 **Decisão explícita:** os dois arquivos de cadastro são independentes,
@@ -96,6 +99,7 @@ um deles, a mudança precisa ser replicada manualmente nos dois arquivos.
 | `layout.css` | Layout institucional (`layouts/app.blade.php`). |
 | `pages/cadastro.css` | Componentes dos formulários de entrar e cadastro. |
 | `pages/servicos.css` | Tela de escolha de serviço. |
+| `pages/categorias-servico.css` | Categorias de serviço do Portal 156. |
 | `design-system/*` | Tokens, reset, utilitários e grid do design system STII. |
 
 ---
@@ -120,6 +124,11 @@ um deles, a mudança precisa ser replicada manualmente nos dois arquivos.
 - **"Esqueci minha senha" e "Denúncia anônima"** — links com `href="#"`.
 - **Cards de Ouvidoria e e-SIC** (`/servicos`) — `href="#"`, os
   sistemas ainda não existem.
+- **"Ver serviços de …"** (`/servicos/156/categorias`) — `href="#"`, a
+  tela de serviços de uma categoria ainda não existe.
+- **Categorias de serviço provisórias** — `CategoriaServicoSeeder` usa as
+  14 categorias da Central 156 de Curitiba até a definição das categorias
+  oficiais de Caraguatatuba.
 - **Nome do sistema** — "Sistema 651" é provisório (`layouts/acesso.blade.php`
   e `@section('title')` de `portal/entrar` e `portal/cadastro`).
 - **`tests/Feature/ExampleTest.php`** — espera `GET /` com status 200,
@@ -165,3 +174,42 @@ views, no JS e nas rotas antes de ser removido.
 **Mantido de propósito:** o design system (`utilities.css`,
 `responsive.css`, `base.css`, `tokens.css`) — classes utilitárias sem uso
 hoje são vocabulário do sistema, não código morto.
+
+---
+
+## 7. Categorias de serviço do Portal 156
+
+Ao escolher **Portal 156** em `/servicos`, o cidadão vai para
+`/servicos/156/categorias` (antes o card levava ao cadastro). A página
+espelha a organização da Central 156 de Curitiba
+(`156.curitiba.pr.gov.br/Servico/...`): busca, abas **Todas as
+categorias** / **Principais serviços** e cada categoria como card
+expansível com a descrição.
+
+Fluxo (conforme `docs/untitled.codediagram`):
+
+```
+servicos/index.blade.php → ServicoController@listarCategoriasPortal156
+    → CategoriaServico (Model) ← CategoriaServicoSeeder
+    → servicos/156/categoria-servicos.blade.php
+```
+
+| Peça | Arquivo | Responsabilidade |
+|---|---|---|
+| Migration | `database/migrations/2026_09_29_000000_create_categorias_servico_table.php` | Tabela `categorias_servico` (`nome` único, `descricao`, `em_destaque`). |
+| Model | `app/Models/CategoriaServico.php` | Consultas: `somenteEmDestaque()` e `contendoTermo()`. |
+| Seeder | `database/seeders/CategoriaServicoSeeder.php` | 14 categorias provisórias; `updateOrCreate` pelo nome (pode rodar mais de uma vez sem duplicar). |
+| FormRequest | `app/Http/Requests/BuscarCategoriasServicoRequest.php` | Valida `busca` (até 100 caracteres) e `filtro` (`todas` ou `principais`). Primeiro FormRequest do projeto — ver pendência de mover a validação dos controllers de acesso/cadastro para FormRequests. |
+| Controller | `ServicoController@listarCategoriasPortal156` | Aplica filtro e busca e ordena por nome. |
+| View | `resources/views/servicos/156/categoria-servicos.blade.php` | Busca, abas, contagem de resultados, lista e estado vazio. |
+| Testes | `tests/Feature/ListarCategoriasPortal156Test.php` | Acesso sem login, filtro, busca, curingas, estado vazio, validação e seeder. |
+
+| Decisão | Racional |
+|---|---|
+| Busca e abas por parâmetros de URL (`?busca=` / `?filtro=`) enviados em GET | Funciona sem JavaScript, o resultado pode ser compartilhado por link e o botão voltar do navegador funciona. |
+| Cards com `<details>`/`<summary>` | Expansão nativa, acessível por teclado e leitor de tela sem script. |
+| Aba ativa indicada por peso da fonte e borda, além da cor, e `aria-current="page"` | Não depender só de cor (eMAG/WCAG). |
+| `%` e `_` na busca tratados como texto (`LIKE ... ESCAPE '!'`) | Evita que o cidadão receba todos os registros ao digitar esses caracteres; o `!` funciona igual no MySQL e no SQLite. |
+| Ordenação alfabética feita no PHP, sem acentos e sem diferenciar maiúsculas | O SQLite de desenvolvimento compara bytes ("Árvore" iria para o fim e "IPTU" ficaria antes de "Iluminação"). São poucas categorias, então não há custo relevante. |
+| Busca inválida redireciona para a listagem sem parâmetros (`$redirectRoute`) | O redirecionamento padrão ("voltar") poderia apontar para a própria URL inválida. |
+

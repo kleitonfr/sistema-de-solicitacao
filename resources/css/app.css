@@ -17,6 +17,9 @@
 /* Página de Escolha de Serviço */
 @import './pages/servicos.css';
 
+/* Categorias de serviço do Portal 156 */
+@import './pages/categorias-servico.css';
+
 @font-face {
     font-family: 'Inter';
     src: url('/assets/fonts/inter-variable.woff2') format('woff2');

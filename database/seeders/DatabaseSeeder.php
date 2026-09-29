@@ -24,5 +24,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'teste@teste.com',
             'password' => bcrypt('12345678'),
         ]);
+
+        $this->call(CategoriaServicoSeeder::class);
     }
 }

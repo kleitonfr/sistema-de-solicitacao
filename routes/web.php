@@ -23,4 +23,5 @@ Route::get('/fragmentos/cadastro/juridica', [FragmentoAcessoController::class, '
 
 Route::middleware('auth')->group(function () {
     Route::get('/servicos', [ServicoController::class, 'index'])->name('servicos.index');
+    Route::get('/servicos/156/categorias', [ServicoController::class, 'listarCategoriasPortal156'])->name('servicos.156.categorias');
 });

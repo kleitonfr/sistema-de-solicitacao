@@ -21,7 +21,7 @@
                     <p class="servicos-card__descricao">Registre elogios, sugestões, reclamações e denúncias.</p>
                 </a>
 
-                <a href="{{ route('cadastro.index') }}" class="servicos-card servicos-card--amarelo">
+                <a href="{{ route('servicos.156.categorias') }}" class="servicos-card servicos-card--amarelo">
                     <span class="servicos-card__icone">
                         <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
                     </span>
