@@ -34,6 +34,9 @@
 
             {{-- Menu navegação (desktop) --}}
             <nav class="app-header__nav" aria-label="Menu principal">
+                <a href="#" id="#" class="app-header__nav-link">Início</a>
+                <a href="#" id="#" class="app-header__nav-link">Sobre156</a>
+                <a href="#" id="#" class="app-header__nav-link">Sair</a>
                 <a href="{{ route('servicos.index') }}" id="btn-servicos-desktop" class="app-header__nav-link {{ request()->routeIs('servicos.*') ? 'is-active' : '' }}">Serviços</a>
             </nav>
 

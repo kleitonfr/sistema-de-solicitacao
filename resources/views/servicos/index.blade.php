@@ -11,12 +11,6 @@
                 <p class="servicos-cabecalho__subtitulo">Escolha um dos serviços digitais da Prefeitura de Caraguatatuba.</p>
             </div>
 
-            {{--
-                Nenhum dos 3 destinos existe como rota/sistema ainda — os
-                links abaixo apontam para "#" propositalmente (ver
-                ServicoController). Quando cada serviço tiver seu próprio
-                sistema/rota, trocar o href correspondente.
-            --}}
             <div class="servicos-grid">
 
                 <a href="#" class="servicos-card servicos-card--vermelho">

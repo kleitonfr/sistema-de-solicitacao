@@ -113,12 +113,17 @@
   transition: width 0.30s ease-in-out;
   width: 100%;
 }
- 
 
-.app-header__nav-link.is-active {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: var(--color-base-white);
-  font-weight: var(--font-weight-semibold);
+
+.app-header__nav-link.is-active::after {
+  content: "";
+  bottom: 5px;
+  left: 0;
+  position: absolute;
+  background-color: var(--color-secondary-600);
+  transition: width 0.30s ease-in-out;
+  height: 4px;
+  width: 100%;
 }
 
 .app-header__nav-link--icon i {

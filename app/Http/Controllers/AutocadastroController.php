@@ -91,7 +91,7 @@ class AutocadastroController extends Controller
     private function redirecionarComSucesso(): RedirectResponse
     {
         return redirect()
-            ->route('cadastro.index')
+            ->route('acesso.index')
             ->with('situacao', 'sucesso')
             ->with('mensagem', 'Cadastro enviado com sucesso! (simulação — integração com a API pendente)');
     }
