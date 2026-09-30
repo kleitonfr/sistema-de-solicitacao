@@ -13,7 +13,7 @@
 
             <div class="servicos-grid">
 
-                <a href="#" class="servicos-card servicos-card--vermelho">
+                <a href="{{ route('ouvidoria.index') }}" class="servicos-card servicos-card--vermelho">
                     <span class="servicos-card__icone">
                         <i class="fa-solid fa-headset" aria-hidden="true"></i>
                     </span>
@@ -29,7 +29,7 @@
                     <p class="servicos-card__descricao">Solicite serviços públicos e acompanhe suas solicitações.</p>
                 </a>
 
-                <a href="#" class="servicos-card servicos-card--verde">
+                <a href="{{ route('esic.index') }}" class="servicos-card servicos-card--verde">
                     <span class="servicos-card__icone">
                         <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
                     </span>

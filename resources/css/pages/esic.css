@@ -1,0 +1,254 @@
+/* ==========================================================================
+   PÁGINA — e-SIC
+   Apresentação institucional: explica o e-SIC e oferece os 3 pontos de
+   entrada (Registrar Pedido, Consultar Pedido, Interpor Recurso). Espelha
+   a estrutura da referência (Câmara de Caraguatatuba) — faixa de título +
+   cards de ação + informações + dicas — na identidade verde do projeto
+   (mesma cor do card "e-SIC" em pages/servicos.css, servicos-card--verde,
+   que leva a esta página).
+
+   Não repete: prazos de resposta, dados de localidade do atendimento
+   presencial, o menu lateral de opções da referência, nem a parte de
+   relatórios — por decisão de escopo.
+
+   Os 3 cards de ação levam para "#": os formulários de pedido, consulta
+   e recurso ainda não existem (ver EsicController).
+   ========================================================================== */
+
+.esic-page {
+  min-height: calc(100vh - 96px);
+  padding-block: var(--scale-layout-6xb);
+  background-color: var(--bg-surface);
+}
+
+.esic-page .container {
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+.esic-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--scale-layout-base);
+  min-height: var(--scale-fit-11xh);
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--color-quaternary-800);
+  text-decoration: none;
+}
+
+.esic-voltar:hover {
+  color: var(--color-quaternary-600);
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------------------
+   FAIXA DE TÍTULO
+   ------------------------------------------------------------------------ */
+
+.esic-faixa {
+  position: relative;
+  overflow: hidden;
+  padding: var(--scale-layout-4xb);
+  margin-block: var(--scale-layout-2xb) var(--scale-layout-4xb);
+  background: linear-gradient(100deg, var(--color-quaternary-800) 0%, var(--color-quaternary-600) 65%, var(--color-quaternary-400) 100%);
+  border-radius: var(--surface-rounder-lg);
+}
+
+.esic-faixa__titulo {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-32);
+  color: var(--color-base-white);
+  margin-bottom: var(--scale-fit-3xh);
+}
+
+.esic-faixa__subtitulo {
+  font-family: var(--font-body);
+  font-size: var(--text-18);
+  line-height: var(--leading-normal);
+  color: var(--color-quaternary-50);
+  max-width: 70ch;
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------------
+   AÇÕES — Registrar Pedido / Consultar Pedido / Interpor Recurso
+   ------------------------------------------------------------------------ */
+
+.esic-acoes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--scale-layout-3xb);
+  margin-bottom: var(--scale-layout-4xb);
+}
+
+@media (min-width: 768px) {
+  .esic-acoes {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.esic-acao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--scale-layout-base);
+  padding: var(--scale-layout-4xb) var(--scale-layout-3xb);
+  background-color: var(--color-base-white);
+  border: var(--surface-border-width-sm) solid var(--border-default);
+  border-radius: var(--surface-rounder-lg);
+  box-shadow: var(--surface-elevation-1);
+}
+
+.esic-acao__icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--scale-layout-8xb);
+  height: var(--scale-layout-8xb);
+  border-radius: var(--surface-rounder-full);
+  font-size: var(--text-24);
+  background-color: var(--color-quaternary-100);
+  color: var(--color-quaternary-800);
+}
+
+.esic-acao__titulo {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-18);
+  color: var(--color-primary-900);
+  margin: 0;
+}
+
+.esic-acao__descricao {
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  line-height: var(--leading-normal);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.esic-acao__botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--scale-fit-11xh);
+  width: 100%;
+  margin-top: auto;
+  padding-inline: var(--scale-layout-3xb);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-16);
+  color: var(--color-base-white);
+  background-color: var(--color-quaternary-600);
+  border-radius: var(--surface-rounder-md);
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.esic-acao__botao:hover {
+  background-color: var(--color-quaternary-800);
+}
+
+.esic-acao__botao:focus-visible {
+  outline: var(--surface-border-width-md) solid var(--border-focus);
+  outline-offset: var(--surface-offset-sm);
+}
+
+/* ------------------------------------------------------------------------
+   INFORMAÇÕES — Recursos / Lei de Acesso à Informação
+   ------------------------------------------------------------------------ */
+
+.esic-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--scale-layout-3xb);
+  margin-bottom: var(--scale-layout-4xb);
+}
+
+@media (min-width: 768px) {
+  .esic-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.esic-info-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-layout-base);
+  padding: var(--scale-layout-3xb);
+  background-color: var(--color-base-white);
+  border-left: var(--surface-border-width-lg) solid var(--color-quaternary-600);
+  border-radius: var(--surface-rounder-md);
+  box-shadow: var(--surface-elevation-1);
+}
+
+.esic-info-card__titulo {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-16);
+  color: var(--color-primary-900);
+  margin: 0;
+}
+
+.esic-info-card__texto {
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  line-height: var(--leading-normal);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.esic-info-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--scale-layout-base);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-14);
+  color: var(--color-quaternary-800);
+  text-decoration: none;
+}
+
+.esic-info-card__link:hover {
+  color: var(--color-quaternary-600);
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------------------
+   DICAS PARA UM BOM PEDIDO
+   ------------------------------------------------------------------------ */
+
+.esic-dicas {
+  padding: var(--scale-layout-3xb);
+  background-color: var(--color-base-white);
+  border: var(--surface-border-width-sm) solid var(--border-default);
+  border-radius: var(--surface-rounder-lg);
+}
+
+.esic-dicas__titulo {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-18);
+  color: var(--color-primary-900);
+  margin-bottom: var(--scale-layout-2xb);
+}
+
+.esic-dicas__lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-layout-base);
+  margin: 0;
+  padding-left: var(--scale-layout-3xb);
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+}
+
+.esic-dicas__lista li::marker {
+  color: var(--color-quaternary-800);
+  font-weight: var(--font-weight-bold);
+}

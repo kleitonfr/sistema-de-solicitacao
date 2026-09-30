@@ -20,6 +20,12 @@
 /* Categorias de serviço do Portal 156 */
 @import './pages/categorias-servico.css';
 
+/* Ouvidoria */
+@import './pages/ouvidoria.css';
+
+/* e-SIC */
+@import './pages/esic.css';
+
 @font-face {
     font-family: 'Inter';
     src: url('/assets/fonts/inter-variable.woff2') format('woff2');

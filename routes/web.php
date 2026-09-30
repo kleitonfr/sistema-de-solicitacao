@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AcessoController;
 use App\Http\Controllers\AutocadastroController;
+use App\Http\Controllers\EsicController;
 use App\Http\Controllers\FragmentoAcessoController;
+use App\Http\Controllers\OuvidoriaController;
 use App\Http\Controllers\ServicoController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +26,6 @@ Route::get('/fragmentos/cadastro/juridica', [FragmentoAcessoController::class, '
 Route::middleware('auth')->group(function () {
     Route::get('/servicos', [ServicoController::class, 'index'])->name('servicos.index');
     Route::get('/servicos/156/categorias', [ServicoController::class, 'listarCategoriasPortal156'])->name('servicos.156.categorias');
+    Route::get('/ouvidoria', [OuvidoriaController::class, 'index'])->name('ouvidoria.index');
+    Route::get('/e-sic', [EsicController::class, 'index'])->name('esic.index');
 });

@@ -1,0 +1,155 @@
+/* ==========================================================================
+   PÁGINA — OUVIDORIA
+   Apresentação institucional: explica os tipos de manifestação e oferece
+   os 4 pontos de entrada (Reclamação, Denúncia, Sugestão, Elogio). Espelha
+   a estrutura da Ouvidoria-Geral de Campinas — faixa de título + texto +
+   botões — na identidade vermelha do projeto (mesma cor do card
+   "Ouvidoria" em pages/servicos.css, servicos-card--vermelho, que leva a
+   esta página).
+
+   Os 4 botões levam para "#": os formulários de cada tipo de manifestação
+   ainda não existem (ver OuvidoriaController).
+   ========================================================================== */
+
+.ouvidoria-page {
+  min-height: calc(100vh - 96px);
+  padding-block: var(--scale-layout-6xb);
+  background-color: var(--bg-surface);
+}
+
+.ouvidoria-page .container {
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+.ouvidoria-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--scale-layout-base);
+  min-height: var(--scale-fit-11xh);
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--color-tertiary-800);
+  text-decoration: none;
+}
+
+.ouvidoria-voltar:hover {
+  color: var(--color-tertiary-600);
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------------------
+   FAIXA DE TÍTULO
+   ------------------------------------------------------------------------ */
+
+.ouvidoria-faixa {
+  position: relative;
+  overflow: hidden;
+  padding: var(--scale-layout-4xb);
+  margin-block: var(--scale-layout-2xb) var(--scale-layout-4xb);
+  background: linear-gradient(100deg, var(--color-tertiary-800) 0%, var(--color-tertiary-600) 65%, var(--color-tertiary-400) 100%);
+  border-radius: var(--surface-rounder-lg);
+}
+
+.ouvidoria-faixa__titulo {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-32);
+  color: var(--color-base-white);
+  margin-bottom: var(--scale-fit-3xh);
+}
+
+.ouvidoria-faixa__subtitulo {
+  font-family: var(--font-body);
+  font-size: var(--text-18);
+  color: var(--color-tertiary-50);
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------------
+   TEXTO EXPLICATIVO
+   ------------------------------------------------------------------------ */
+
+.ouvidoria-conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-layout-2xb);
+  margin-bottom: var(--scale-layout-6xb);
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+}
+
+.ouvidoria-conteudo p {
+  margin: 0;
+}
+
+.ouvidoria-lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-layout-base);
+  margin: 0;
+  padding-left: var(--scale-layout-3xb);
+}
+
+.ouvidoria-lista strong {
+  color: var(--color-tertiary-800);
+}
+
+/* ------------------------------------------------------------------------
+   OPÇÕES — Reclamação / Denúncia / Sugestão / Elogio
+   ------------------------------------------------------------------------ */
+
+.ouvidoria-opcoes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--scale-layout-2xb);
+}
+
+@media (min-width: 560px) {
+  .ouvidoria-opcoes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 941px) {
+  .ouvidoria-opcoes {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.ouvidoria-opcao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--scale-layout-base);
+  min-height: var(--scale-fit-11xh);
+  padding: var(--scale-layout-2xb) var(--scale-layout-3xb);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-16);
+  color: var(--color-base-white);
+  background-color: var(--color-tertiary-600);
+  border-radius: var(--surface-rounder-full);
+  text-decoration: none;
+  box-shadow: var(--surface-elevation-1);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ouvidoria-opcao:hover {
+  background-color: var(--color-tertiary-800);
+  transform: translateY(-2px);
+  box-shadow: var(--surface-elevation-2);
+}
+
+.ouvidoria-opcao:focus-visible {
+  outline: var(--surface-border-width-md) solid var(--border-focus);
+  outline-offset: var(--surface-offset-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ouvidoria-opcao {
+    transition: none;
+  }
+}
