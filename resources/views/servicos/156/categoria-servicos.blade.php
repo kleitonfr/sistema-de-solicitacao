@@ -59,7 +59,6 @@
                     </a>
                 @endforeach
             </nav>
-
             <p class="categorias-servico-resultado" role="status">
                 @if ($termoDeBusca !== null)
                     {{ trans_choice(':total categoria encontrada|:total categorias encontradas', $categorias->count(), ['total' => $categorias->count()]) }}
@@ -68,46 +67,41 @@
                     {{ trans_choice(':total categoria|:total categorias', $categorias->count(), ['total' => $categorias->count()]) }}
                 @endif
             </p>
-
-            @if ($categorias->isEmpty())
-                <div class="categorias-servico-vazio">
-                    <i class="fa-regular fa-folder-open categorias-servico-vazio__icone" aria-hidden="true"></i>
-                    <p class="categorias-servico-vazio__texto">
+            
+            <div class="container-categorias">
+                @if ($categorias->isEmpty())
+                    <div class="categorias-servico-vazio">
+                        <i class="fa-regular fa-folder-open categorias-servico-vazio__icone" aria-hidden="true"></i>
+                        <p class="categorias-servico-vazio__texto">
+                            @if ($termoDeBusca !== null)
+                                Não encontramos categorias com esse termo. Tente outra palavra.
+                            @else
+                                Nenhuma categoria disponível no momento.
+                            @endif
+                        </p>
                         @if ($termoDeBusca !== null)
-                            Não encontramos categorias com esse termo. Tente outra palavra.
-                        @else
-                            Nenhuma categoria disponível no momento.
+                            <a href="{{ route('servicos.156.categorias', ['filtro' => $filtroSelecionado]) }}"
+                                class="categorias-servico-vazio__acao">
+                                Limpar busca
+                            </a>
                         @endif
-                    </p>
-                    @if ($termoDeBusca !== null)
-                        <a href="{{ route('servicos.156.categorias', ['filtro' => $filtroSelecionado]) }}"
-                            class="categorias-servico-vazio__acao">
-                            Limpar busca
-                        </a>
-                    @endif
-                </div>
-            @else
-                <ul class="categorias-servico-lista">
-                    @foreach ($categorias as $categoria)
-                        <li>
-                            <details class="categoria-servico">
-                                <summary class="categoria-servico__cabecalho">
-                                    <span class="categoria-servico__nome">{{ $categoria->nome }}</span>
-                                    <i class="fa-solid fa-plus categoria-servico__indicador" aria-hidden="true"></i>
-                                </summary>
-                                <div class="categoria-servico__corpo">
-                                    <p class="categoria-servico__descricao">{{ $categoria->descricao }}</p>
-                                    {{-- Pendente: tela de serviços da categoria ainda não existe. --}}
-                                    <a href="#" class="categoria-servico__acao">
-                                        Ver serviços de {{ $categoria->nome }}
-                                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </details>
-                        </li>
-                    @endforeach
-                </ul>
-            @endif
+                    </div>
+                @else
+                    {{-- Pendente: cada card leva para "#" porque a tela de serviços da
+                         categoria ainda não existe. --}}
+                    <div class="categorias-servico-grade">
+                        @foreach ($categorias as $categoria)
+                            <a href="#" class="categoria-servico">
+                                <span class="categoria-servico__icone">
+                                    <i class="{{ $categoria->icone() }}" aria-hidden="true"></i>
+                                </span>
+                                <h2 class="categoria-servico__nome">{{ $categoria->nome }}</h2>
+                                <p class="categoria-servico__descricao">{{ $categoria->descricao }}</p>
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
 
         </div>
     </div>

@@ -1,8 +1,9 @@
 /* ==========================================================================
    PÁGINA — CATEGORIAS DE SERVIÇO (PORTAL 156)
    Espelha a organização da Central 156 de Curitiba: busca, abas
-   "Todas" / "Principais" e categorias expansíveis (<details>), que
-   funcionam sem JavaScript e são acessíveis por teclado nativamente.
+   "Todas" / "Principais" e categorias em grade de cards (mesmo padrão
+   visual dos cards de serviço — ver pages/servicos.css — numa versão
+   menor).
    ========================================================================== */
 
 .categorias-servico-page {
@@ -12,8 +13,14 @@
 }
 
 .categorias-servico-page .container {
-  max-width: 900px;
+  max-width: 1500px;
   margin-inline: auto;
+}
+
+.categorias-servico-page .container-categorias {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-layout-4xb);
 }
 
 .categorias-servico-voltar {
@@ -46,7 +53,7 @@
 
 .categorias-servico-cabecalho__subtitulo {
   font-family: var(--font-body);
-  font-size: var(--text-16);
+  font-size: var(--text-18);
   color: var(--text-secondary);
   margin: 0;
 }
@@ -65,7 +72,7 @@
 .categorias-servico-busca__rotulo {
   font-family: var(--font-body);
   font-weight: var(--font-weight-semibold);
-  font-size: var(--text-14);
+  font-size: var(--text-18);
   color: var(--text-primary);
 }
 
@@ -75,7 +82,8 @@
 }
 
 .categorias-servico-busca__entrada {
-  flex: 1;
+  /* flex: 1; */
+  min-width: 50%;
   min-height: var(--scale-fit-11xh);
   padding-inline: var(--scale-layout-2xb);
   font-family: var(--font-body);
@@ -145,7 +153,7 @@
   padding-inline: var(--scale-layout-2xb);
   font-family: var(--font-body);
   font-weight: var(--font-weight-medium);
-  font-size: var(--text-16);
+  font-size: var(--text-18);
   color: var(--text-secondary);
   text-decoration: none;
   border-bottom: var(--surface-border-width-lg) solid transparent;
@@ -176,97 +184,92 @@
 }
 
 /* ------------------------------------------------------------------------
-   LISTA DE CATEGORIAS (cards expansíveis)
+   GRADE DE CATEGORIAS
+   Mesmo padrão de .servicos-card (pages/servicos.css), numa versão menor:
+   ícone circular colorido, título, descrição truncada em 2 linhas. Cor do
+   ícone amarela porque é a mesma do card "Portal 156" na tela de escolha
+   de serviço (servicos-card--amarelo), que leva a esta página.
    ------------------------------------------------------------------------ */
 
-.categorias-servico-lista {
-  display: flex;
-  flex-direction: column;
-  gap: var(--scale-fit-3xh);
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.categorias-servico-grade {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--scale-layout-3xb);
+}
+
+@media (min-width: 560px) {
+  .categorias-servico-grade {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 941px) {
+  .categorias-servico-grade {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .categoria-servico {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--scale-layout-base);
+  padding: var(--scale-layout-3xb) var(--scale-layout-2xb);
   background-color: var(--color-base-white);
   border: var(--surface-border-width-sm) solid var(--border-default);
-  border-left: var(--surface-border-width-lg) solid var(--action-primary);
-  border-radius: var(--surface-rounder-md);
+  border-radius: var(--surface-rounder-lg);
   box-shadow: var(--surface-elevation-1);
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.categoria-servico[open] {
+.categoria-servico:hover {
+  transform: translateY(-4px);
   box-shadow: var(--surface-elevation-2);
+  border-color: var(--color-secondary-600);
 }
 
-.categoria-servico__cabecalho {
+
+.categoria-servico:focus-visible {
+  outline: var(--surface-border-width-md) solid var(--border-focus);
+  outline-offset: var(--surface-offset-sm);
+}
+
+.categoria-servico__icone {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--scale-layout-2xb);
-  min-height: var(--scale-fit-11xh);
-  padding: var(--scale-layout-2xb) var(--scale-layout-3xb);
-  cursor: pointer;
-  list-style: none;
-}
-
-.categoria-servico__cabecalho::-webkit-details-marker {
-  display: none;
-}
-
-.categoria-servico__cabecalho:focus-visible {
-  outline: var(--surface-border-width-md) solid var(--border-focus);
-  outline-offset: var(--surface-offset-md-n);
-  border-radius: var(--surface-rounder-md);
+  justify-content: center;
+  width: var(--scale-layout-8xb);
+  height: var(--scale-layout-8xb);
+  border-radius: var(--surface-rounder-full);
+  font-size: var(--text-24);
+  background-color: var(--color-secondary-100);
+  color: var(--color-secondary-800);
 }
 
 .categoria-servico__nome {
   font-family: var(--font-heading);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--text-18);
-  color: var(--color-primary-800);
-}
-
-.categoria-servico__indicador {
-  flex-shrink: 0;
-  color: var(--action-primary);
-  transition: transform 0.2s ease;
-}
-
-.categoria-servico[open] .categoria-servico__indicador {
-  transform: rotate(45deg);
-}
-
-.categoria-servico__corpo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--scale-fit-3xh);
-  padding: 0 var(--scale-layout-3xb) var(--scale-layout-2xb);
-}
-
-.categoria-servico__descricao {
-  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
   font-size: var(--text-16);
-  line-height: var(--leading-normal);
-  color: var(--text-primary);
+  color: var(--color-primary-900);
+  z-index: 1;
   margin: 0;
 }
 
-.categoria-servico__acao {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--scale-layout-base);
-  min-height: var(--scale-fit-11xh);
+/* Trunca em 2 linhas: nomes como "Abordagem Social - Situação de Rua" têm
+   descrições longas, e o card precisa manter altura parecida entre si. */
+.categoria-servico__descricao {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   font-family: var(--font-body);
-  font-weight: var(--font-weight-semibold);
   font-size: var(--text-14);
-  color: var(--action-primary);
-}
-
-.categoria-servico__acao:hover {
-  color: var(--action-primary-hover);
+  line-height: var(--leading-normal);
+  z-index: 1;
+  color: var(--text-secondary);
+  margin: 0;
 }
 
 /* ------------------------------------------------------------------------
@@ -304,7 +307,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .categoria-servico__indicador {
+  .categoria-servico {
     transition: none;
   }
 }
