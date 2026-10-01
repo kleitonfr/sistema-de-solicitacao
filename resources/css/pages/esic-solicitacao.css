@@ -1,0 +1,265 @@
+/* ==========================================================================
+   PÁGINA — SOLICITAÇÃO DO e-SIC (Registrar Pedido)
+   Reaproveita os componentes de pages/cadastro.css (.cadastro-card,
+   .cadastro-field, .cadastro-label, etc.) e a identidade verde de
+   pages/esic.css. Aqui só o que é específico desta tela: a área de
+   arquivo anexo (drag and drop) e a tela de confirmação com protocolo.
+   ========================================================================== */
+
+.esic-solicitacao-card {
+  max-width: 900px;
+  margin-inline: auto;
+  border: var(--surface-border-width-sm) solid var(--border-default);
+  border-radius: var(--surface-rounder-lg);
+  box-shadow: var(--surface-elevation-1);
+}
+
+/* O textarea de descrição não usa o label flutuante padrão (que depende de
+   :placeholder-shown calibrado para <input>) — aqui o label fica sempre
+   fixo acima do campo, com uma linha de ajuda explicando o que escrever,
+   igual ao padrão já usado para o campo de data em cadastro.css. */
+.esic-solicitacao-label-fixo {
+  position: static;
+  transform: none;
+  display: block;
+  margin-bottom: var(--scale-fit-half);
+}
+
+.esic-solicitacao-ajuda {
+  margin-top: calc(-1 * var(--scale-fit-half));
+}
+
+.esic-solicitacao-textarea {
+  height: auto;
+  min-height: 140px;
+  padding-block: var(--scale-fit-3xh);
+  resize: vertical;
+}
+
+/* ------------------------------------------------------------------------
+   ÁREA DE ANEXO — arrastar e soltar
+   ------------------------------------------------------------------------ */
+
+.esic-solicitacao-dropzone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  padding: var(--scale-layout-3xb);
+  background-color: var(--bg-surface);
+  border: var(--surface-border-width-md) dashed var(--border-default);
+  border-radius: var(--surface-rounder-md);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.esic-solicitacao-dropzone:hover,
+.esic-solicitacao-dropzone:focus-visible {
+  border-color: var(--color-quaternary-600);
+}
+
+.esic-solicitacao-dropzone:focus-visible {
+  outline: var(--surface-border-width-md) solid var(--border-focus);
+  outline-offset: var(--surface-offset-sm);
+}
+
+.esic-solicitacao-dropzone--arrastando-sobre {
+  background-color: var(--color-quaternary-50);
+  border-color: var(--color-quaternary-600);
+}
+
+.esic-solicitacao-dropzone--invalido {
+  border-color: var(--feedback-error-text);
+}
+
+.esic-solicitacao-dropzone__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.esic-solicitacao-dropzone__conteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--scale-fit-3xh);
+  text-align: center;
+  pointer-events: none;
+}
+
+.esic-solicitacao-dropzone__icone {
+  font-size: var(--text-32);
+  color: var(--color-quaternary-600);
+}
+
+.esic-solicitacao-dropzone__texto {
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.esic-solicitacao-dropzone__link {
+  color: var(--color-quaternary-800);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+}
+
+.esic-solicitacao-dropzone__ajuda {
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.esic-solicitacao-dropzone__arquivo {
+  display: flex;
+  align-items: center;
+  gap: var(--scale-layout-base);
+  width: 100%;
+  padding: var(--scale-fit-3xh) var(--scale-layout-2xb);
+  background-color: var(--color-base-white);
+  border-radius: var(--surface-rounder-md);
+  box-shadow: var(--surface-elevation-1);
+}
+
+.esic-solicitacao-dropzone__arquivo-icone {
+  font-size: var(--text-20);
+  color: var(--color-quaternary-800);
+  flex-shrink: 0;
+}
+
+.esic-solicitacao-dropzone__arquivo-nome {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--text-primary);
+}
+
+.esic-solicitacao-dropzone__remover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--scale-layout-3xb);
+  height: var(--scale-layout-3xb);
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--surface-rounder-full);
+  color: var(--text-secondary);
+  cursor: pointer;
+  flex-shrink: 0;
+  z-index: var(--surface-z-layer-1);
+  position: relative;
+}
+
+.esic-solicitacao-dropzone__remover:hover {
+  background-color: var(--color-tertiary-100);
+  color: var(--color-tertiary-800);
+}
+
+/* ------------------------------------------------------------------------
+   CONFIRMAÇÃO — após o envio do pedido
+   ------------------------------------------------------------------------ */
+
+.esic-confirmacao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--scale-layout-2xb);
+  max-width: 640px;
+  margin-inline: auto;
+  padding: var(--scale-layout-6xb) var(--scale-layout-4xb);
+  background-color: var(--color-base-white);
+  border-radius: var(--surface-rounder-lg);
+  box-shadow: var(--surface-elevation-1);
+}
+
+.esic-confirmacao__icone {
+  font-size: var(--text-40);
+  color: var(--color-quaternary-600);
+}
+
+.esic-confirmacao__titulo {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-24);
+  color: var(--color-primary-900);
+  margin: 0;
+}
+
+.esic-confirmacao__texto {
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  line-height: var(--leading-normal);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.esic-confirmacao__protocolo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-fit-half);
+  padding: var(--scale-layout-3xb);
+  background-color: var(--color-quaternary-50);
+  border-radius: var(--surface-rounder-md);
+  width: 100%;
+}
+
+.esic-confirmacao__protocolo-rotulo {
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-quaternary-800);
+}
+
+.esic-confirmacao__protocolo-valor {
+  font-family: var(--font-mono);
+  font-size: var(--text-24);
+  color: var(--color-primary-900);
+}
+
+.esic-confirmacao__resumo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-layout-base);
+  width: 100%;
+  margin: 0;
+  text-align: left;
+}
+
+.esic-confirmacao__resumo-item {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--scale-layout-2xb);
+  padding-block: var(--scale-fit-3xh);
+  border-bottom: var(--surface-border-width-sm) solid var(--border-default);
+}
+
+.esic-confirmacao__resumo-item dt {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-14);
+  color: var(--text-secondary);
+}
+
+.esic-confirmacao__resumo-item dd {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.esic-confirmacao__voltar {
+  max-width: 280px;
+}

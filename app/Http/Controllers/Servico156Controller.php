@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 
-class ServicoController extends Controller
+class Servico156Controller extends Controller
 {
     public function index(): View
     {

@@ -60,6 +60,12 @@
 
         {{-- ==================== PAINEL DIREITO — MARCA / INSTITUCIONAL ==================== --}}
         <aside class="acesso-split__marca-pane" aria-label="Identificação do sistema">
+            <img
+                src="{{ asset('assets/img/bkg-01.jpg') }}"
+                alt=""
+                class="acesso-split__marca-fundo"
+                aria-hidden="true"
+            >
             <div class="acesso-split__marca-inner">
 
                 <div class="acesso-marca__identificacao">

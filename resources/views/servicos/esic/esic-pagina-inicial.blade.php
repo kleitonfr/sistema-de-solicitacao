@@ -20,8 +20,9 @@
                 </p>
             </div>
 
-            {{-- Pendente: os 3 cards levam para "#" — os formulários de pedido, consulta
-                 e recurso ainda não existem (ver EsicController). --}}
+            {{-- Pendente: Consultar Pedido e Interpor Recurso levam para "#" — ainda
+                 não existem (ver EsicController). Registrar Novo Pedido já tem fluxo
+                 próprio (ver SolicitacaoEsicController). --}}
             <div class="esic-acoes">
                 <div class="esic-acao">
                     <span class="esic-acao__icone">
@@ -32,7 +33,7 @@
                         Inicie uma nova solicitação. O processo é rápido e você receberá um número
                         de protocolo para acompanhamento.
                     </p>
-                    <a href="#" class="esic-acao__botao">Iniciar Registro</a>
+                    <a href="{{ route('esic.solicitacao.criar') }}" class="esic-acao__botao">Iniciar Registro</a>
                 </div>
 
                 <div class="esic-acao">

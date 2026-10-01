@@ -5,7 +5,8 @@ use App\Http\Controllers\AutocadastroController;
 use App\Http\Controllers\EsicController;
 use App\Http\Controllers\FragmentoAcessoController;
 use App\Http\Controllers\OuvidoriaController;
-use App\Http\Controllers\ServicoController;
+use App\Http\Controllers\Servico156Controller;
+use App\Http\Controllers\SolicitacaoEsicController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,8 +25,12 @@ Route::get('/fragmentos/cadastro/fisica', [FragmentoAcessoController::class, 'ca
 Route::get('/fragmentos/cadastro/juridica', [FragmentoAcessoController::class, 'cadastroJuridica'])->name('fragmentos.cadastro.juridica');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/servicos', [ServicoController::class, 'index'])->name('servicos.index');
-    Route::get('/servicos/156/categorias', [ServicoController::class, 'listarCategoriasPortal156'])->name('servicos.156.categorias');
+    Route::get('/servicos', [Servico156Controller::class, 'index'])->name('servicos.index');
+    Route::get('/servicos/156/categorias', [Servico156Controller::class, 'listarCategoriasPortal156'])->name('servicos.156.categorias');
     Route::get('/ouvidoria', [OuvidoriaController::class, 'index'])->name('ouvidoria.index');
     Route::get('/e-sic', [EsicController::class, 'index'])->name('esic.index');
+
+    Route::get('/e-sic/pedido', [SolicitacaoEsicController::class, 'criar'])->name('esic.solicitacao.criar');
+    Route::post('/e-sic/pedido', [SolicitacaoEsicController::class, 'store'])->name('esic.solicitacao.store');
+    Route::get('/e-sic/pedido/{solicitacao}/confirmacao', [SolicitacaoEsicController::class, 'confirmacao'])->name('esic.solicitacao.confirmacao');
 });

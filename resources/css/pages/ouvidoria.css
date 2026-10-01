@@ -18,7 +18,7 @@
 }
 
 .ouvidoria-page .container {
-  max-width: 1100px;
+  max-width: 1500px;
   margin-inline: auto;
 }
 
@@ -138,6 +138,7 @@
 }
 
 .ouvidoria-opcao:hover {
+  color: var(--color-base-white);
   background-color: var(--color-tertiary-800);
   transform: translateY(-2px);
   box-shadow: var(--surface-elevation-2);

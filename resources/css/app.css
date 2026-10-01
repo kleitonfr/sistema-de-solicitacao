@@ -26,6 +26,9 @@
 /* e-SIC */
 @import './pages/esic.css';
 
+/* Solicitação do e-SIC (Registrar Pedido) */
+@import './pages/esic-solicitacao.css';
+
 @font-face {
     font-family: 'Inter';
     src: url('/assets/fonts/inter-variable.woff2') format('woff2');

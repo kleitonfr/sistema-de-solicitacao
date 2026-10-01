@@ -171,12 +171,18 @@
   flex: 1 1 40%;
   position: relative;
   z-index: var(--surface-z-layer-2);
-  background-image: url('../../public/assets/img/bkg-01.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  overflow: hidden;
   color: var(--color-base-white);
   box-shadow: -4px 0px 18px rgb(0 0 0 / 62%), -24px 0px 67px rgb(0 7 10 / 25%);
+}
+
+.acesso-split__marca-fundo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
 @media (min-width: 941px) {
@@ -188,10 +194,13 @@
 }
 
 /* Overlay em gradiente azul sobre a imagem de fundo do painel, para
-   garantir contraste do texto branco. */
+   garantir contraste do texto branco. z-index explícito para garantir que
+   fique acima de .acesso-split__marca-fundo (a imagem), que também tem
+   z-index próprio. */
 .acesso-split__marca-pane::before {
   content: '';
   position: absolute;
+  z-index: 1;
   background: linear-gradient(160deg, #002f475c 0%, var(--color-primary-800) 100%);
   inset: 0;
   pointer-events: none;

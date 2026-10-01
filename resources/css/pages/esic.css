@@ -22,7 +22,7 @@
 }
 
 .esic-page .container {
-  max-width: 1100px;
+  max-width: 1500px;
   margin-inline: auto;
 }
 
@@ -149,6 +149,7 @@
 }
 
 .esic-acao__botao:hover {
+  color: var(--color-base-white);
   background-color: var(--color-quaternary-800);
 }
 
