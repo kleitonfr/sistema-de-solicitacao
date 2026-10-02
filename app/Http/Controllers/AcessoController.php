@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EntrarRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -14,12 +14,9 @@ class AcessoController extends Controller
         return view('portal.entrar');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(EntrarRequest $request): RedirectResponse
     {
-        $credenciais = $request->validate([
-            'email' => ['required', 'email'],
-            'senha' => ['required', 'string'],
-        ]);
+        $credenciais = $request->validated();
 
         $autenticado = Auth::attempt([
             'email' => $credenciais['email'],

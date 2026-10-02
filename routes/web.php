@@ -6,7 +6,6 @@ use App\Http\Controllers\EsicController;
 use App\Http\Controllers\FragmentoAcessoController;
 use App\Http\Controllers\OuvidoriaController;
 use App\Http\Controllers\Servico156Controller;
-use App\Http\Controllers\SolicitacaoEsicController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/ouvidoria', [OuvidoriaController::class, 'index'])->name('ouvidoria.index');
     Route::get('/e-sic', [EsicController::class, 'index'])->name('esic.index');
 
-    Route::get('/e-sic/pedido', [SolicitacaoEsicController::class, 'criar'])->name('esic.solicitacao.criar');
-    Route::post('/e-sic/pedido', [SolicitacaoEsicController::class, 'store'])->name('esic.solicitacao.store');
-    Route::get('/e-sic/pedido/{solicitacao}/confirmacao', [SolicitacaoEsicController::class, 'confirmacao'])->name('esic.solicitacao.confirmacao');
+    Route::get('/e-sic/pedido', [EsicController::class, 'criar'])->name('esic.solicitacao.criar');
+    Route::post('/e-sic/pedido', [EsicController::class, 'store'])->name('esic.solicitacao.store');
+    Route::get('/e-sic/pedido/{solicitacao}/confirmacao', [EsicController::class, 'confirmacao'])->name('esic.solicitacao.confirmacao');
 });

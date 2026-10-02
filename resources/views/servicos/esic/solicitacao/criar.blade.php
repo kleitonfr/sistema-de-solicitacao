@@ -22,9 +22,7 @@
             <div class="cadastro-card esic-solicitacao-card">
 
                 @if ($errors->any())
-                    <div class="cadastro-alert cadastro-alert--erro" role="alert">
-                        Verifique os campos destacados abaixo e tente novamente.
-                    </div>
+                    <x-cadastro-alerta tipo="erro">Verifique os campos destacados abaixo e tente novamente.</x-cadastro-alerta>
                 @endif
 
                 <form action="{{ route('esic.solicitacao.store') }}" method="POST" enctype="multipart/form-data" novalidate>

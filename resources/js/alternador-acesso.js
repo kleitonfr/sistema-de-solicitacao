@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             conteudo.innerHTML = html;
             conteudo.classList.remove('esta-trocando');
+            window.aplicarMascaras(conteudo);
 
             atualizarEstadoAtivo(opcaoClicada);
             history.pushState({}, '', paginaUrl);

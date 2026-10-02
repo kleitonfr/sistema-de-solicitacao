@@ -264,6 +264,7 @@
 .cadastro-error {
   font-size: var(--text-12);
   color: var(--feedback-error-text);
+  animation: cadastro-alert-entrada 0.2s ease-out;
 }
 
 /* Select customizado (seta) */
@@ -375,13 +376,46 @@
    ALERTAS — sucesso/erro de submissão
    ------------------------------------------------------------------------ */
 
+@keyframes cadastro-alert-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .cadastro-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--scale-fit-3xh);
   border-radius: var(--surface-rounder-md);
   border-left: var(--surface-border-width-lg) solid transparent;
   padding: var(--scale-layout-2xb) var(--scale-layout-3xb);
   margin-bottom: var(--scale-layout-3xb);
   font-family: var(--font-body);
   font-size: var(--text-14);
+  box-shadow: var(--surface-elevation-1);
+  animation: cadastro-alert-entrada 0.25s ease-out;
+  transition: opacity 0.3s ease, transform 0.3s ease, margin 0.3s ease, padding 0.3s ease, max-height 0.3s ease;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.cadastro-alert__icone {
+  flex-shrink: 0;
+  font-size: var(--text-16);
+  line-height: var(--leading-normal);
+}
+
+.cadastro-alert--saindo {
+  opacity: 0;
+  transform: translateY(-8px);
+  margin-bottom: 0;
+  padding-block: 0;
+  max-height: 0;
 }
 
 .cadastro-alert--sucesso {

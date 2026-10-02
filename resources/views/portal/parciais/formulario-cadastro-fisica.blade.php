@@ -25,15 +25,11 @@
 
     {{-- Alertas de retorno da submissão (simulados até a API existir) --}}
     @if (session('situacao') === 'sucesso')
-        <div class="cadastro-alert cadastro-alert--sucesso" role="status">
-            {{ session('mensagem') }}
-        </div>
+        <x-cadastro-alerta tipo="sucesso">{{ session('mensagem') }}</x-cadastro-alerta>
     @endif
 
     @if ($errors->any())
-        <div class="cadastro-alert cadastro-alert--erro" role="alert">
-            Verifique os campos destacados abaixo e tente novamente.
-        </div>
+        <x-cadastro-alerta tipo="erro">Verifique os campos destacados abaixo e tente novamente.</x-cadastro-alerta>
     @endif
 
     {{-- Alternador Física / Jurídica — troca o formulário inteiro via AJAX

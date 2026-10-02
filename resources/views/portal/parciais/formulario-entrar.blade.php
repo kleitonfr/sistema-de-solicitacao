@@ -1,9 +1,7 @@
 <div class="cadastro-card entrar">
 
     @if ($errors->any())
-        <div class="cadastro-alert cadastro-alert--erro" role="alert">
-            {{ $errors->first() }}
-        </div>
+        <x-cadastro-alerta tipo="erro">{{ $errors->first() }}</x-cadastro-alerta>
     @endif
 
     <form action="{{ route('acesso.store') }}" method="POST" novalidate>

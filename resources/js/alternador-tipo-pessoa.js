@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             conteudo.innerHTML = html;
             conteudo.classList.remove('esta-trocando');
+            window.aplicarMascaras(conteudo);
         } catch (erro) {
             // Sem integração com backend de log neste projeto (frontend puro);
             // sem reserva de navegação aqui porque a troca Física/Jurídica não

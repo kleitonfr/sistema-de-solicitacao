@@ -91,6 +91,11 @@
   pointer-events: none;
 }
 
+.esic-solicitacao-dropzone__conteudo[hidden],
+.esic-solicitacao-dropzone__arquivo[hidden] {
+  display: none;
+}
+
 .esic-solicitacao-dropzone__icone {
   font-size: var(--text-32);
   color: var(--color-quaternary-600);
