@@ -9,6 +9,7 @@ class CadastrarPessoaFisicaRequest extends FormRequest
 {
     protected $redirectRoute = 'cadastro.index';
 
+
     public function rules(): array
     {
         return [
