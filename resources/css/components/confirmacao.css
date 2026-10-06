@@ -1,0 +1,155 @@
+/* ==========================================================================
+   COMPONENTE — CONFIRMAÇÃO DE SOLICITAÇÃO
+   Tela exibida após o envio de um pedido do e-SIC ou do Portal 156, com o
+   número de protocolo em destaque. A cor vem de variáveis, definidas pelos
+   modificadores --verde (e-SIC) e --amarelo (Portal 156).
+   ========================================================================== */
+
+.confirmacao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--scale-layout-2xb);
+  max-width: 640px;
+  margin-inline: auto;
+  padding: var(--scale-layout-6xb) var(--scale-layout-4xb);
+  text-align: center;
+  background-color: var(--color-base-white);
+  border-radius: var(--surface-rounder-lg);
+  box-shadow: var(--surface-elevation-1);
+}
+
+.confirmacao--verde {
+  --confirmacao-icone: var(--color-quaternary-600);
+  --confirmacao-fundo: var(--color-quaternary-50);
+  --confirmacao-rotulo: var(--color-quaternary-800);
+  --confirmacao-botao: var(--color-quaternary-600);
+  --confirmacao-botao-hover: var(--color-quaternary-800);
+  --confirmacao-botao-texto: var(--color-base-white);
+}
+
+.confirmacao--amarelo {
+  --confirmacao-icone: var(--color-secondary-800);
+  --confirmacao-fundo: var(--color-secondary-50);
+  --confirmacao-rotulo: var(--color-secondary-800);
+  --confirmacao-botao: var(--color-secondary-600);
+  --confirmacao-botao-hover: var(--color-secondary-800);
+  --confirmacao-botao-texto: var(--color-neutral-900);
+}
+
+.confirmacao__icone {
+  font-size: var(--text-40);
+  color: var(--confirmacao-icone);
+}
+
+.confirmacao__titulo {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-24);
+  color: var(--color-primary-900);
+  margin: 0;
+}
+
+.confirmacao__texto {
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  line-height: var(--leading-normal);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.confirmacao__protocolo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-fit-half);
+  width: 100%;
+  padding: var(--scale-layout-3xb);
+  background-color: var(--confirmacao-fundo);
+  border-radius: var(--surface-rounder-md);
+}
+
+.confirmacao__protocolo-rotulo {
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--confirmacao-rotulo);
+}
+
+.confirmacao__protocolo-valor {
+  font-family: var(--font-mono);
+  font-size: var(--text-24);
+  color: var(--color-primary-900);
+}
+
+.confirmacao__resumo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-layout-base);
+  width: 100%;
+  margin: 0;
+  text-align: left;
+}
+
+.confirmacao__resumo-item {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--scale-layout-2xb);
+  padding-block: var(--scale-fit-3xh);
+  border-bottom: var(--surface-border-width-sm) solid var(--border-default);
+}
+
+.confirmacao__resumo-item dt {
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-14);
+  color: var(--text-secondary);
+}
+
+.confirmacao__resumo-item dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.confirmacao__voltar,
+.confirmacao__voltar:hover,
+.confirmacao__voltar:focus-visible {
+  color: var(--confirmacao-botao-texto);
+  text-decoration: none;
+}
+
+.confirmacao__voltar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 280px;
+  min-height: var(--scale-fit-11xh);
+  padding-inline: var(--scale-layout-3xb);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-16);
+  background-color: var(--confirmacao-botao);
+  border-radius: var(--surface-rounder-md);
+  transition: background-color 0.2s ease;
+}
+
+.confirmacao__voltar:hover {
+  background-color: var(--confirmacao-botao-hover);
+}
+
+.confirmacao__voltar:focus-visible {
+  outline: var(--surface-border-width-md) solid var(--border-focus);
+  outline-offset: var(--surface-offset-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confirmacao__voltar {
+    transition: none;
+  }
+}

@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::create('solicitacoes_esic', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->restrictOnDelete();
             $table->string('protocolo', 20)->unique();
             $table->string('assunto', 40);
             $table->text('descricao');

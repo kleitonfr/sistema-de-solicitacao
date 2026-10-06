@@ -19,7 +19,7 @@
                 </p>
             </div>
 
-            <div class="cadastro-card esic-solicitacao-card">
+            <div class="cadastro-card cadastro-card--solicitacao">
 
                 @if ($errors->any())
                     <x-cadastro-alerta tipo="erro">Verifique os campos destacados abaixo e tente novamente.</x-cadastro-alerta>
@@ -51,14 +51,14 @@
                             </div>
 
                             <div class="cadastro-field cadastro-field--span-full">
-                                <label for="descricao" class="cadastro-label esic-solicitacao-label-fixo">Descrição detalhada</label>
-                                <p class="cadastro-texto-auxiliar esic-solicitacao-ajuda">
+                                <label for="descricao" class="cadastro-label cadastro-label-fixo">Descrição detalhada</label>
+                                <p class="cadastro-texto-auxiliar cadastro-texto-auxiliar--sob-rotulo">
                                     Descreva de forma clara e objetiva a informação que você deseja obter.
                                 </p>
                                 <textarea
                                     id="descricao"
                                     name="descricao"
-                                    class="cadastro-input esic-solicitacao-textarea @error('descricao') is-invalid @enderror"
+                                    class="cadastro-input cadastro-textarea @error('descricao') is-invalid @enderror"
                                     placeholder=" "
                                     rows="6"
                                     required
@@ -78,37 +78,13 @@
                             <h2 class="cadastro-card__titulo-secao">Arquivo anexo (opcional)</h2>
                         </div>
 
-                        <div
-                            id="esic-anexo-area"
-                            class="esic-solicitacao-dropzone @error('anexo') esic-solicitacao-dropzone--invalido @enderror"
-                            tabindex="0"
-                            role="button"
-                            aria-describedby="esic-anexo-instrucao"
-                        >
-                            <input
-                                type="file"
-                                id="anexo"
-                                name="anexo"
-                                class="esic-solicitacao-dropzone__input"
-                                accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-                            >
-
-                            <div class="esic-solicitacao-dropzone__conteudo" id="esic-anexo-estado-vazio">
-                                <i class="fa-solid fa-cloud-arrow-up esic-solicitacao-dropzone__icone" aria-hidden="true"></i>
-                                <p class="esic-solicitacao-dropzone__texto" id="esic-anexo-instrucao">
-                                    Arraste um arquivo aqui ou <span class="esic-solicitacao-dropzone__link">clique para selecionar</span>
-                                </p>
-                                <p class="esic-solicitacao-dropzone__ajuda">PDF, JPG, PNG, DOC ou DOCX — até 10 MB</p>
-                            </div>
-
-                            <div class="esic-solicitacao-dropzone__arquivo" id="esic-anexo-estado-selecionado" hidden>
-                                <i class="fa-solid fa-file-lines esic-solicitacao-dropzone__arquivo-icone" aria-hidden="true"></i>
-                                <span class="esic-solicitacao-dropzone__arquivo-nome" id="esic-anexo-nome"></span>
-                                <button type="button" class="esic-solicitacao-dropzone__remover" id="esic-anexo-remover" aria-label="Remover arquivo anexado">
-                                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </div>
+                        <x-dropzone-anexos
+                            nome="anexo"
+                            rotulo="Anexar arquivo"
+                            aceitos=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                            ajuda="PDF, JPG, PNG, DOC ou DOCX — até 10 MB"
+                            :invalido="$errors->has('anexo')"
+                        />
                         @error('anexo')
                             <span class="cadastro-error">{{ $message }}</span>
                         @enderror

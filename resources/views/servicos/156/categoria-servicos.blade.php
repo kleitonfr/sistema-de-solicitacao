@@ -87,11 +87,9 @@
                         @endif
                     </div>
                 @else
-                    {{-- Pendente: cada card leva para "#" porque a tela de serviços da
-                         categoria ainda não existe. --}}
                     <div class="categorias-servico-grade">
                         @foreach ($categorias as $categoria)
-                            <a href="#" class="categoria-servico">
+                            <a href="{{ route('servicos.156.servicos', $categoria->slug) }}" class="categoria-servico">
                                 <span class="categoria-servico__icone">
                                     <i class="{{ $categoria->icone() }}" aria-hidden="true"></i>
                                 </span>

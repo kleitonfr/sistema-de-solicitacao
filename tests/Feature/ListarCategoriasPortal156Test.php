@@ -6,6 +6,7 @@ use App\Models\CategoriaServico;
 use App\Models\User;
 use Database\Seeders\CategoriaServicoSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class ListarCategoriasPortal156Test extends TestCase
@@ -32,6 +33,7 @@ class ListarCategoriasPortal156Test extends TestCase
     {
         CategoriaServico::create([
             'nome' => $nome,
+            'slug' => Str::slug($nome),
             'descricao' => $descricao,
             'em_destaque' => $emDestaque,
         ]);

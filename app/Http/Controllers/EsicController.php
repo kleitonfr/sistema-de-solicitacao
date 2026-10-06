@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrarSolicitacaoEsicRequest;
-use App\Models\SolicitacaoEsic;
 use App\Services\EsicService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class EsicController extends Controller
@@ -27,19 +27,18 @@ class EsicController extends Controller
     public function store(RegistrarSolicitacaoEsicRequest $request): RedirectResponse
     {
         $solicitacao = $this->esicService->registrarSolicitacao(
+            $request->user(),
             $request->validated(),
             $request->file('anexo'),
         );
 
-        return redirect()
-            ->route('esic.solicitacao.confirmacao', $solicitacao)
-            ->with('protocoloGerado', $solicitacao->protocolo);
+        return redirect()->route('esic.solicitacao.confirmacao', $solicitacao->protocolo);
     }
 
-    public function confirmacao(SolicitacaoEsic $solicitacao): View
+    public function confirmacao(Request $request, string $protocolo): View
     {
         return view('servicos.esic.solicitacao.confirmacao', [
-            'solicitacao' => $solicitacao,
+            'solicitacao' => $this->esicService->buscarSolicitacaoDoUsuario($request->user(), $protocolo),
         ]);
     }
 }

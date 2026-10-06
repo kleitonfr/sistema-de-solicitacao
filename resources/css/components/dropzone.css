@@ -1,0 +1,181 @@
+/* ==========================================================================
+   COMPONENTE — ÁREA DE ANEXOS (arrastar e soltar)
+   Markup em resources/views/components/dropzone-anexos.blade.php e
+   comportamento em resources/js/dropzone-anexos.js. A cor de destaque vem
+   de variáveis, definidas pelos modificadores --verde e --amarelo.
+   ========================================================================== */
+
+.dropzone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 160px;
+  padding: var(--scale-layout-3xb);
+  background-color: var(--bg-surface);
+  border: var(--surface-border-width-md) dashed var(--border-default);
+  border-radius: var(--surface-rounder-md);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.dropzone--verde {
+  --dropzone-cor: var(--color-quaternary-600);
+  --dropzone-cor-forte: var(--color-quaternary-800);
+  --dropzone-fundo-ativo: var(--color-quaternary-50);
+}
+
+.dropzone--amarelo {
+  --dropzone-cor: var(--color-secondary-600);
+  --dropzone-cor-forte: var(--color-secondary-800);
+  --dropzone-fundo-ativo: var(--color-secondary-50);
+}
+
+.dropzone:hover,
+.dropzone:focus-within {
+  border-color: var(--dropzone-cor);
+}
+
+.dropzone:focus-within {
+  outline: var(--surface-border-width-md) solid var(--border-focus);
+  outline-offset: var(--surface-offset-sm);
+}
+
+.dropzone--arrastando {
+  background-color: var(--dropzone-fundo-ativo);
+  border-color: var(--dropzone-cor);
+}
+
+.dropzone--invalido {
+  border-color: var(--feedback-error-text);
+}
+
+/* O input real cobre a área inteira: clique e teclado funcionam sem
+   reimplementação. */
+.dropzone__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dropzone__vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--scale-fit-3xh);
+  text-align: center;
+  pointer-events: none;
+}
+
+.dropzone__vazio[hidden],
+.dropzone__lista[hidden],
+.dropzone__aviso[hidden] {
+  display: none;
+}
+
+.dropzone__icone {
+  font-size: var(--text-32);
+  color: var(--dropzone-cor-forte);
+}
+
+.dropzone__texto {
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.dropzone__link {
+  color: var(--dropzone-cor-forte);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+}
+
+.dropzone__ajuda {
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.dropzone__lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-fit-3xh);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+.dropzone__item {
+  display: flex;
+  align-items: center;
+  gap: var(--scale-layout-base);
+  padding: var(--scale-fit-3xh) var(--scale-layout-2xb);
+  background-color: var(--color-base-white);
+  border-radius: var(--surface-rounder-md);
+  box-shadow: var(--surface-elevation-1);
+}
+
+.dropzone__item-icone {
+  flex-shrink: 0;
+  font-size: var(--text-20);
+  color: var(--dropzone-cor-forte);
+}
+
+.dropzone__item-nome {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  color: var(--text-primary);
+}
+
+.dropzone__item-tamanho {
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  color: var(--text-secondary);
+}
+
+.dropzone__remover {
+  position: relative;
+  z-index: var(--surface-z-layer-1);
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--scale-layout-3xb);
+  height: var(--scale-layout-3xb);
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--surface-rounder-full);
+  color: var(--text-secondary);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.dropzone__remover:hover {
+  background-color: var(--color-tertiary-100);
+  color: var(--color-tertiary-800);
+}
+
+.dropzone__aviso {
+  margin: var(--scale-fit-3xh) 0 0;
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  color: var(--feedback-error-text);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dropzone {
+    transition: none;
+  }
+}

@@ -26,8 +26,9 @@
 /* e-SIC */
 @import './pages/esic.css';
 
-/* Solicitação do e-SIC (Registrar Pedido) */
-@import './pages/esic-solicitacao.css';
+/* Componentes compartilhados */
+@import './components/dropzone.css';
+@import './components/confirmacao.css';
 
 @font-face {
     font-family: 'Inter';

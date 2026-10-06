@@ -3,34 +3,36 @@
 namespace App\Services;
 
 use App\Models\SolicitacaoEsic;
+use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 
 class EsicService
 {
-    public function registrarSolicitacao(array $dados, ?UploadedFile $anexo): SolicitacaoEsic
+    private const DISCO_DOS_ANEXOS = 'local';
+
+    private const PREFIXO_DO_PROTOCOLO = 'ESIC';
+
+    public function __construct(private readonly GeradorDeProtocolo $geradorDeProtocolo)
     {
-        return DB::transaction(function () use ($dados, $anexo) {
+    }
+
+    public function registrarSolicitacao(User $usuario, array $dados, ?UploadedFile $anexo): SolicitacaoEsic
+    {
+        return DB::transaction(function () use ($usuario, $dados, $anexo) {
             return SolicitacaoEsic::create([
-                'protocolo' => $this->gerarProximoProtocolo(),
+                'user_id' => $usuario->id,
+                'protocolo' => $this->geradorDeProtocolo->gerar(self::PREFIXO_DO_PROTOCOLO, SolicitacaoEsic::class),
                 'assunto' => $dados['assunto'],
                 'descricao' => $dados['descricao'],
                 'anexo_nome_original' => $anexo?->getClientOriginalName(),
-                'anexo_caminho' => $anexo?->store('solicitacoes-esic', 'public'),
+                'anexo_caminho' => $anexo?->store('solicitacoes-esic', self::DISCO_DOS_ANEXOS),
             ]);
         });
     }
 
-    private function gerarProximoProtocolo(): string
+    public function buscarSolicitacaoDoUsuario(User $usuario, string $protocolo): SolicitacaoEsic
     {
-        $ano = now()->year;
-
-        $quantidadeNoAno = SolicitacaoEsic::whereYear('created_at', $ano)
-            ->lockForUpdate()
-            ->count();
-
-        $sequencial = str_pad((string) ($quantidadeNoAno + 1), 6, '0', STR_PAD_LEFT);
-
-        return "ESIC-{$ano}-{$sequencial}";
+        return $usuario->solicitacoesEsic()->where('protocolo', $protocolo)->firstOrFail();
     }
 }

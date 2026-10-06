@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SolicitacaoEsic extends Model
 {
     protected $table = 'solicitacoes_esic';
 
     protected $fillable = [
+        'user_id',
         'protocolo',
         'assunto',
         'descricao',
@@ -25,6 +27,11 @@ class SolicitacaoEsic extends Model
         'patrimonio' => 'Patrimônio',
         'processo_administrativo' => 'Processo Administrativo',
     ];
+
+    public function usuario(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public function rotuloDoAssunto(): string
     {

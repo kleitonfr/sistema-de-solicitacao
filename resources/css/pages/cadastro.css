@@ -429,3 +429,35 @@
   color: var(--feedback-error-text);
   border-left-color: var(--color-tertiary-600);
 }
+
+/* ------------------------------------------------------------------------
+   FORMULÁRIOS DE SOLICITAÇÃO (e-SIC e Portal 156)
+   O label flutuante depende de :placeholder-shown, calibrado para <input>;
+   no textarea o label fica fixo acima do campo, com uma linha de ajuda.
+   ------------------------------------------------------------------------ */
+
+.cadastro-card--solicitacao {
+  max-width: 900px;
+  margin-inline: auto;
+  border: var(--surface-border-width-sm) solid var(--border-default);
+  border-radius: var(--surface-rounder-lg);
+  box-shadow: var(--surface-elevation-1);
+}
+
+.cadastro-label-fixo {
+  position: static;
+  transform: none;
+  display: block;
+  margin-bottom: var(--scale-fit-half);
+}
+
+.cadastro-texto-auxiliar--sob-rotulo {
+  margin-top: calc(-1 * var(--scale-fit-half));
+}
+
+.cadastro-textarea {
+  height: auto;
+  min-height: 140px;
+  padding-block: var(--scale-fit-3xh);
+  resize: vertical;
+}

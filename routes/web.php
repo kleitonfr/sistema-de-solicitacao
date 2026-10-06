@@ -25,11 +25,33 @@ Route::get('/fragmentos/cadastro/juridica', [FragmentoAcessoController::class, '
 
 Route::middleware('auth')->group(function () {
     Route::get('/servicos', [Servico156Controller::class, 'index'])->name('servicos.index');
-    Route::get('/servicos/156/categorias', [Servico156Controller::class, 'listarCategoriasPortal156'])->name('servicos.156.categorias');
+
+    Route::get('/servicos/156/categorias', [Servico156Controller::class, 'listarCategoriasPortal156'])
+        ->name('servicos.156.categorias');
+
+    Route::get('/servicos/156/categorias/{slugDaCategoria}', [Servico156Controller::class, 'listarServicosDaCategoria'])
+        ->where('slugDaCategoria', '[a-z0-9-]+')
+        ->name('servicos.156.servicos');
+
+    Route::get('/servicos/156/solicitar/{slugDoServico}', [Servico156Controller::class, 'criarSolicitacao'])
+        ->where('slugDoServico', '[a-z0-9-]+')
+        ->name('servicos.156.solicitacao.criar');
+
+    Route::post('/servicos/156/solicitar/{slugDoServico}', [Servico156Controller::class, 'registrarSolicitacao'])
+        ->where('slugDoServico', '[a-z0-9-]+')
+        ->name('servicos.156.solicitacao.registrar');
+
+    Route::get('/servicos/156/solicitacoes/{protocolo}', [Servico156Controller::class, 'confirmacaoSolicitacao'])
+        ->where('protocolo', '156-\d{4}-\d{6}')
+        ->name('servicos.156.solicitacao.confirmacao');
+
     Route::get('/ouvidoria', [OuvidoriaController::class, 'index'])->name('ouvidoria.index');
     Route::get('/e-sic', [EsicController::class, 'index'])->name('esic.index');
 
     Route::get('/e-sic/pedido', [EsicController::class, 'criar'])->name('esic.solicitacao.criar');
     Route::post('/e-sic/pedido', [EsicController::class, 'store'])->name('esic.solicitacao.store');
-    Route::get('/e-sic/pedido/{solicitacao}/confirmacao', [EsicController::class, 'confirmacao'])->name('esic.solicitacao.confirmacao');
+    
+    Route::get('/e-sic/pedido/{protocolo}/confirmacao', [EsicController::class, 'confirmacao'])
+        ->where('protocolo', 'ESIC-\d{4}-\d{6}')
+        ->name('esic.solicitacao.confirmacao');
 });

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CategoriaServico extends Model
 {
@@ -12,6 +13,7 @@ class CategoriaServico extends Model
 
     protected $fillable = [
         'nome',
+        'slug',
         'descricao',
         'em_destaque',
     ];
@@ -23,6 +25,11 @@ class CategoriaServico extends Model
         ];
     }
 
+    public function servicos(): HasMany
+    {
+        return $this->hasMany(Servico156::class, 'categoria_servico_id');
+    }
+
     #[Scope]
     protected function somenteEmDestaque(Builder $consulta): void
     {
@@ -30,31 +37,9 @@ class CategoriaServico extends Model
     }
 
     /**
-     * "%" e "_" digitados pelo cidadão são tratados como texto, não como
-     * curingas do LIKE. O caractere de escape é "!" porque a barra
-     * invertida não tem o mesmo significado no MySQL e no SQLite.
-     */
-    #[Scope]
-    protected function contendoTermo(Builder $consulta, string $termo): void
-    {
-        $termoEscapado = str_replace(['!', '%', '_'], ['!!', '!%', '!_'], $termo);
-        $padrao = "%{$termoEscapado}%";
-
-        $consulta->where(function (Builder $condicao) use ($padrao) {
-            $condicao
-                ->whereRaw("nome LIKE ? ESCAPE '!'", [$padrao])
-                ->orWhereRaw("descricao LIKE ? ESCAPE '!'", [$padrao]);
-        });
-    }
-
-    /**
-     * Ícone Font Awesome exibido no card da categoria (ver
-     * resources/views/servicos/156/categoria-servicos.blade.php).
-     *
-     * Mapeado pelo nome porque a tabela não tem uma coluna própria para
-     * isso — os nomes vêm do seeder provisório (CategoriaServicoSeeder).
-     * Categorias fora deste mapa (novas, cadastradas depois) recebem o
-     * ícone de reserva, para a tela nunca ficar sem ícone por esquecimento.
+     * Ícone Font Awesome exibido no card da categoria. Mapeado pelo nome
+     * enquanto a equipe da API não define o ícone no próprio cadastro;
+     * categorias fora do mapa recebem o ícone de reserva.
      */
     public function icone(): string
     {

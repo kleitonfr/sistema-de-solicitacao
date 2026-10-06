@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BuscarCategoriasServicoRequest;
-use App\Models\CategoriaServico;
-use Illuminate\Support\Str;
+use App\Http\Requests\RegistrarSolicitacao156Request;
+use App\Services\Servico156Service;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\View\View;
-
 
 class Servico156Controller extends Controller
 {
+    public function __construct(private readonly Servico156Service $servico156Service)
+    {
+    }
+
     public function index(): View
     {
         return view('servicos.index');
@@ -20,18 +26,10 @@ class Servico156Controller extends Controller
         $termoDeBusca = $request->termoDeBusca();
         $filtroSelecionado = $request->filtroSelecionado();
 
-        $categorias = CategoriaServico::query()
-            ->when(
-                $filtroSelecionado === BuscarCategoriasServicoRequest::FILTRO_PRINCIPAIS,
-                fn ($consulta) => $consulta->somenteEmDestaque(),
-            )
-            ->when(
-                $termoDeBusca !== null,
-                fn ($consulta) => $consulta->contendoTermo($termoDeBusca),
-            )
-            ->get()
-            ->sortBy(fn (CategoriaServico $categoria) => $this->chaveDeOrdenacaoAlfabetica($categoria->nome))
-            ->values();
+        $categorias = $this->servico156Service->listarCategorias(
+            $termoDeBusca,
+            $filtroSelecionado === BuscarCategoriasServicoRequest::FILTRO_PRINCIPAIS,
+        );
 
         return view('servicos.156.categoria-servicos', [
             'categorias' => $categorias,
@@ -40,13 +38,39 @@ class Servico156Controller extends Controller
         ]);
     }
 
-    /**
-     * A ordenação é feita aqui, e não no banco, porque o SQLite (usado em
-     * desenvolvimento) compara bytes: "Árvore" iria para o fim e "IPTU"
-     * ficaria antes de "Iluminação".
-     */
-    private function chaveDeOrdenacaoAlfabetica(string $nome): string
+    public function listarServicosDaCategoria(string $slugDaCategoria): View
     {
-        return mb_strtolower(Str::ascii($nome));
+        $categoria = $this->servico156Service->buscarCategoriaPorSlug($slugDaCategoria);
+
+        return view('servicos.156.servicos-da-categoria', [
+            'categoria' => $categoria,
+            'servicos' => $this->servico156Service->listarServicosDaCategoria($categoria),
+        ]);
+    }
+
+    public function criarSolicitacao(string $slugDoServico): View
+    {
+        return view('servicos.156.solicitacao.criar', [
+            'servico' => $this->servico156Service->buscarServicoPorSlug($slugDoServico),
+        ]);
+    }
+
+    public function registrarSolicitacao(RegistrarSolicitacao156Request $request, string $slugDoServico): RedirectResponse
+    {
+        $solicitacao = $this->servico156Service->registrarSolicitacao(
+            $request->user(),
+            $this->servico156Service->buscarServicoPorSlug($slugDoServico),
+            $request->validated(),
+            Arr::wrap($request->file('anexos')),
+        );
+
+        return redirect()->route('servicos.156.solicitacao.confirmacao', $solicitacao->protocolo);
+    }
+
+    public function confirmacaoSolicitacao(Request $request, string $protocolo): View
+    {
+        return view('servicos.156.solicitacao.confirmacao', [
+            'solicitacao' => $this->servico156Service->buscarSolicitacaoDoUsuario($request->user(), $protocolo),
+        ]);
     }
 }

@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('categorias_servico', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 120)->unique();
+            $table->string('slug', 140)->unique();
             $table->text('descricao');
             $table->boolean('em_destaque')->default(false)->index();
             $table->timestamps();

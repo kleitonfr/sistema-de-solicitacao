@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\CategoriaServico;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 /**
  * Dados PROVISÓRIOS: categorias copiadas da Central 156 de Curitiba
@@ -20,7 +21,7 @@ class CategoriaServicoSeeder extends Seeder
         foreach ($this->categorias() as $categoria) {
             CategoriaServico::updateOrCreate(
                 ['nome' => $categoria['nome']],
-                $categoria,
+                [...$categoria, 'slug' => Str::slug($categoria['nome'])],
             );
         }
     }
