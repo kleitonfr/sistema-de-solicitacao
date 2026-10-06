@@ -2,24 +2,31 @@
 
 namespace App\Services;
 
+use App\Exceptions\SolicitacaoNaoPodeSerRegistrada;
+use App\Logging\ContextoDaFalha;
+use App\Logging\RegistroDeSeguranca;
 use App\Models\CategoriaServico;
 use App\Models\Servico156;
 use App\Models\Solicitacao156;
 use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Throwable;
 
 class Servico156Service
 {
-    private const DISCO_DOS_ANEXOS = 'local';
-
     private const PREFIXO_DO_PROTOCOLO = '156';
 
-    public function __construct(private readonly GeradorDeProtocolo $geradorDeProtocolo)
-    {
+    public function __construct(
+        private readonly GeradorDeProtocolo $geradorDeProtocolo,
+        private readonly ArmazenadorDeAnexos $armazenadorDeAnexos,
+        private readonly RegistroDeSeguranca $registroDeSeguranca,
+    ) {
     }
 
     /**
@@ -62,10 +69,16 @@ class Servico156Service
 
     /**
      * @param  list<UploadedFile>  $anexos
+     *
+     * @throws SolicitacaoNaoPodeSerRegistrada
      */
     public function registrarSolicitacao(User $usuario, Servico156 $servico, array $dados, array $anexos): Solicitacao156
     {
-        return DB::transaction(function () use ($usuario, $servico, $dados, $anexos) {
+        $caminhosGravados = [];
+
+        DB::beginTransaction();
+
+        try {
             $solicitacao = Solicitacao156::create([
                 ...Arr::only($dados, ['descricao', 'telefone_contato', 'cep', 'logradouro', 'numero', 'bairro', 'ponto_referencia']),
                 'user_id' => $usuario->id,
@@ -75,22 +88,55 @@ class Servico156Service
             ]);
 
             foreach ($anexos as $anexo) {
+                $caminho = $this->armazenadorDeAnexos->armazenar($anexo, "solicitacoes-156/{$solicitacao->protocolo}");
+                $caminhosGravados[] = $caminho;
+
                 $solicitacao->anexos()->create([
                     'nome_original' => $anexo->getClientOriginalName(),
-                    'caminho' => $anexo->store("solicitacoes-156/{$solicitacao->protocolo}", self::DISCO_DOS_ANEXOS),
+                    'caminho' => $caminho,
                 ]);
             }
 
-            return $solicitacao;
-        });
+            DB::commit();
+        } catch (Throwable $erro) {
+            DB::rollBack();
+            $this->armazenadorDeAnexos->apagar($caminhosGravados);
+
+            Log::error('solicitacao_156_nao_registrada', [
+                ...ContextoDaFalha::deExcecao($erro),
+                'usuario_id' => $usuario->id,
+                'servico_id' => $servico->id,
+                'quantidade_de_anexos' => count($anexos),
+            ]);
+
+            throw SolicitacaoNaoPodeSerRegistrada::por($erro);
+        }
+
+        Log::info('solicitacao_156_registrada', [
+            'usuario_id' => $usuario->id,
+            'protocolo' => $solicitacao->protocolo,
+            'servico_id' => $servico->id,
+            'quantidade_de_anexos' => count($anexos),
+        ]);
+
+        return $solicitacao;
     }
 
     public function buscarSolicitacaoDoUsuario(User $usuario, string $protocolo): Solicitacao156
     {
-        return $usuario->solicitacoes156()
-            ->with(['servico', 'categoria', 'anexos'])
-            ->where('protocolo', $protocolo)
-            ->firstOrFail();
+        try {
+            return $usuario->solicitacoes156()
+                ->with(['servico', 'categoria', 'anexos'])
+                ->where('protocolo', $protocolo)
+                ->firstOrFail();
+        } catch (ModelNotFoundException $erro) {
+            $this->registroDeSeguranca->aviso('solicitacao_156_nao_encontrada_para_o_usuario', [
+                'usuario_id' => $usuario->id,
+                'protocolo' => $protocolo,
+            ]);
+
+            throw $erro;
+        }
     }
 
     private function contemTermo(string $texto, string $termo): bool

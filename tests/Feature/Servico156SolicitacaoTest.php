@@ -2,14 +2,17 @@
 
 namespace Tests\Feature;
 
+use App\Exceptions\FalhaAoArmazenarAnexo;
 use App\Models\CategoriaServico;
 use App\Models\Servico156;
 use App\Models\Solicitacao156;
 use App\Models\User;
+use App\Services\ArmazenadorDeAnexos;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 class Servico156SolicitacaoTest extends TestCase
@@ -186,7 +189,7 @@ class Servico156SolicitacaoTest extends TestCase
         $this->assertSame(0, Solicitacao156::count());
     }
 
-    public function test_aceita_video_acima_de_5_mb_e_abaixo_de_30_mb(): void
+    public function test_aceita_video_ate_o_limite_de_10_mb(): void
     {
         $servico = $this->criarServico();
 
@@ -195,6 +198,68 @@ class Servico156SolicitacaoTest extends TestCase
         ]))->assertSessionHasNoErrors();
 
         $this->assertSame(1, Solicitacao156::count());
+    }
+
+    public function test_rejeita_video_acima_de_10_mb(): void
+    {
+        $servico = $this->criarServico();
+
+        $this->registrarComo(User::factory()->create(), $servico, $this->dadosValidos([
+            'anexos' => [UploadedFile::fake()->create('video.mp4', 10241, 'video/mp4')],
+        ]))->assertSessionHasErrors('anexos.0');
+
+        $this->assertSame(0, Solicitacao156::count());
+    }
+
+    public function test_aceita_anexos_que_somam_exatamente_o_limite_total_de_25_mb(): void
+    {
+        $servico = $this->criarServico();
+
+        $fotos = array_map(
+            fn (int $indice) => UploadedFile::fake()->create("foto{$indice}.jpg", 5120, 'image/jpeg'),
+            range(1, 5),
+        );
+
+        $this->registrarComo(User::factory()->create(), $servico, $this->dadosValidos(['anexos' => $fotos]))
+            ->assertSessionHasNoErrors();
+
+        $this->assertSame(1, Solicitacao156::count());
+    }
+
+    public function test_rejeita_anexos_que_somam_mais_que_o_limite_total_de_25_mb(): void
+    {
+        $servico = $this->criarServico();
+
+        $videos = array_map(
+            fn (int $indice) => UploadedFile::fake()->create("video{$indice}.mp4", 9000, 'video/mp4'),
+            range(1, 3),
+        );
+
+        $this->registrarComo(User::factory()->create(), $servico, $this->dadosValidos(['anexos' => $videos]))
+            ->assertSessionHasErrors('anexos');
+
+        $this->assertSame(0, Solicitacao156::count());
+    }
+
+    public function test_falha_ao_gravar_anexo_desfaz_a_solicitacao_e_avisa_o_cidadao(): void
+    {
+        $usuario = User::factory()->create();
+        $servico = $this->criarServico();
+
+        $this->mock(ArmazenadorDeAnexos::class, function (MockInterface $armazenador) {
+            $armazenador->shouldReceive('armazenar')
+                ->once()
+                ->andThrow(FalhaAoArmazenarAnexo::noDiretorio('solicitacoes-156/teste'));
+            $armazenador->shouldReceive('apagar')->once()->with([]);
+        });
+
+        $this->registrarComo($usuario, $servico, $this->dadosValidos([
+            'anexos' => [UploadedFile::fake()->create('foto.jpg', 100, 'image/jpeg')],
+        ]))
+            ->assertRedirect()
+            ->assertSessionHas('erro_geral');
+
+        $this->assertSame(0, Solicitacao156::count());
     }
 
     public function test_rejeita_mais_de_cinco_anexos(): void

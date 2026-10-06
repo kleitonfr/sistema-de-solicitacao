@@ -21,6 +21,10 @@
 
             <div class="cadastro-card cadastro-card--solicitacao">
 
+                @if (session('erro_geral'))
+                    <x-cadastro-alerta tipo="erro">{{ session('erro_geral') }}</x-cadastro-alerta>
+                @endif
+
                 @if ($errors->any())
                     <x-cadastro-alerta tipo="erro">Verifique os campos destacados abaixo e tente novamente.</x-cadastro-alerta>
                 @endif

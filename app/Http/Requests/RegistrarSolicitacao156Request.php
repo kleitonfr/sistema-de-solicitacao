@@ -13,9 +13,13 @@ class RegistrarSolicitacao156Request extends FormRequest
 
     public const TAMANHO_MAXIMO_DA_FOTO_EM_MB = 5;
 
-    public const TAMANHO_MAXIMO_DO_VIDEO_EM_MB = 30;
+    public const TAMANHO_MAXIMO_DO_VIDEO_EM_MB = 10;
+
+    public const TAMANHO_MAXIMO_TOTAL_EM_MB = 25;
 
     public const EXTENSOES_ACEITAS = 'jpg,jpeg,png,mp4,mov,webm';
+
+    private const BYTES_POR_MB = 1024 * 1024;
 
     public function rules(): array
     {
@@ -55,23 +59,62 @@ class RegistrarSolicitacao156Request extends FormRequest
     public function after(): array
     {
         return [
-            function (Validator $validador) {
-                foreach (Arr::wrap($this->file('anexos')) as $indice => $anexo) {
-                    if ($this->ehFotoMaiorQueOPermitido($anexo)) {
-                        $validador->errors()->add(
-                            "anexos.{$indice}",
-                            'A foto deve ter no máximo '.self::TAMANHO_MAXIMO_DA_FOTO_EM_MB.' MB.',
-                        );
-                    }
-                }
-            },
+            fn (Validator $validador) => $this->validarTamanhoDasFotos($validador),
+            fn (Validator $validador) => $this->validarTamanhoTotalDosAnexos($validador),
         ];
+    }
+
+    private function validarTamanhoDasFotos(Validator $validador): void
+    {
+        foreach ($this->anexosEnviados() as $indice => $anexo) {
+            if ($this->ehFotoMaiorQueOPermitido($anexo)) {
+                $validador->errors()->add(
+                    "anexos.{$indice}",
+                    'A foto deve ter no máximo '.self::TAMANHO_MAXIMO_DA_FOTO_EM_MB.' MB.',
+                );
+            }
+        }
+    }
+
+    private function validarTamanhoTotalDosAnexos(Validator $validador): void
+    {
+        $totalEmBytes = $this->somaDosAnexosValidosEmBytes();
+
+        if ($totalEmBytes <= self::TAMANHO_MAXIMO_TOTAL_EM_MB * self::BYTES_POR_MB) {
+            return;
+        }
+
+        $totalEmMb = number_format($totalEmBytes / self::BYTES_POR_MB, 1, ',', '.');
+
+        $validador->errors()->add(
+            'anexos',
+            "Os anexos somam {$totalEmMb} MB, mas o total permitido é de ".self::TAMANHO_MAXIMO_TOTAL_EM_MB.' MB.',
+        );
     }
 
     private function ehFotoMaiorQueOPermitido(UploadedFile $anexo): bool
     {
         return $anexo->isValid()
             && str_starts_with((string) $anexo->getMimeType(), 'image/')
-            && $anexo->getSize() > self::TAMANHO_MAXIMO_DA_FOTO_EM_MB * 1024 * 1024;
+            && $anexo->getSize() > self::TAMANHO_MAXIMO_DA_FOTO_EM_MB * self::BYTES_POR_MB;
+    }
+
+    /**
+     * Arquivos com erro de envio ficam de fora: já recebem a mensagem da
+     * regra 'file', e ler o tamanho de um upload quebrado lança exceção.
+     */
+    private function somaDosAnexosValidosEmBytes(): int
+    {
+        return (int) collect($this->anexosEnviados())
+            ->filter(fn (UploadedFile $anexo) => $anexo->isValid())
+            ->sum(fn (UploadedFile $anexo) => $anexo->getSize());
+    }
+
+    /**
+     * @return array<int, UploadedFile>
+     */
+    private function anexosEnviados(): array
+    {
+        return Arr::wrap($this->file('anexos'));
     }
 }

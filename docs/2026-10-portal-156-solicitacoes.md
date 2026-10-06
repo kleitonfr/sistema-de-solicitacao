@@ -46,8 +46,8 @@ Comercial ficam sem serviços de propósito (o formulário pede localização).
   troca fica restrita a essas classes.
 - **Autorização:** a busca de solicitação filtra por `user_id`; quem não é dono
   recebe 404 (sem Policy por enquanto).
-- **Requests:** `RegistrarSolicitacao156Request` (até 5 anexos; foto até 5 MB,
-  vídeo até 30 MB; JPG, PNG, MP4, MOV, WEBM).
+- **Requests:** `RegistrarSolicitacao156Request` (até 5 anexos, no máximo 25 MB no
+  total; foto até 5 MB, vídeo até 10 MB; JPG, PNG, MP4, MOV, WEBM).
 - **Anexos** gravados no disco privado `local`, em
   `solicitacoes-156/{protocolo}` e `solicitacoes-esic`. Não há rota de
   download ainda.
@@ -96,10 +96,12 @@ informar `slug`) e `ExampleTest` agora espera o redirecionamento de `/`.
 - Minhas Solicitações, coluna `status` e rota de download de anexo.
 - Ícones das categorias, a definir pela equipe da API (hoje mapeados por nome
   no model).
-- `upload_max_filesize` e `post_max_size` do PHP precisam comportar a soma dos
-  anexos (padrão 2M/8M). Se estourar, o PHP descarta o envio inteiro e o
-  cidadão vê "O campo descrição é obrigatório".
-- Arquivos gravados dentro da transação ficam órfãos se ela for desfeita.
+- `upload_max_filesize` e `post_max_size` do PHP precisam comportar os limites
+  de anexos (padrão 2M/8M). Valores definidos em
+  `2026-10-padroes-de-erro-e-logs.md`. Acima do limite, o `ValidatePostSize`
+  lança 413 e o cidadão vê `errors/413.blade.php`.
+- ~~Arquivos gravados dentro da transação ficam órfãos se ela for desfeita.~~
+  Resolvido: ver `2026-10-padroes-de-erro-e-logs.md`.
 - Ao enviar com erro de validação, os anexos precisam ser selecionados de novo.
 
 ## 9. Exclusão manual

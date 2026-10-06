@@ -69,7 +69,18 @@ return [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
-            'days' => env('LOG_DAILY_DAYS', 14),
+            'days' => env('LOG_DAILY_DAYS', 30),
+            'replace_placeholders' => true,
+        ],
+
+        // Eventos de segurança (login falho, acesso a protocolo de outro
+        // usuário). Único canal que registra IP; prazo próprio, a ser
+        // validado com o DPO e o jurídico.
+        'seguranca' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/seguranca.log'),
+            'level' => 'info',
+            'days' => env('LOG_SEGURANCA_DAYS', 90),
             'replace_placeholders' => true,
         ],
 

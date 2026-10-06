@@ -10,7 +10,8 @@
 
     $extensoesDoInput = '.'.str_replace(',', ',.', RegistrarSolicitacao156Request::EXTENSOES_ACEITAS);
 
-    $ajudaDosAnexos = 'Até '.RegistrarSolicitacao156Request::MAXIMO_DE_ANEXOS.' arquivos: fotos de até '
+    $ajudaDosAnexos = 'Até '.RegistrarSolicitacao156Request::MAXIMO_DE_ANEXOS.' arquivos, somando no máximo '
+        .RegistrarSolicitacao156Request::TAMANHO_MAXIMO_TOTAL_EM_MB.' MB: fotos de até '
         .RegistrarSolicitacao156Request::TAMANHO_MAXIMO_DA_FOTO_EM_MB.' MB e vídeos de até '
         .RegistrarSolicitacao156Request::TAMANHO_MAXIMO_DO_VIDEO_EM_MB.' MB (JPG, PNG, MP4, MOV ou WEBM)';
 @endphp
@@ -30,6 +31,10 @@
             </div>
 
             <div class="cadastro-card cadastro-card--solicitacao">
+
+                @if (session('erro_geral'))
+                    <x-cadastro-alerta tipo="erro">{{ session('erro_geral') }}</x-cadastro-alerta>
+                @endif
 
                 @if ($errors->any())
                     <x-cadastro-alerta tipo="erro">Verifique os campos destacados abaixo e tente novamente.</x-cadastro-alerta>

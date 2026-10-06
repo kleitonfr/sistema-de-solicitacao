@@ -2,11 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Exceptions\FalhaAoArmazenarAnexo;
 use App\Models\SolicitacaoEsic;
 use App\Models\User;
+use App\Services\ArmazenadorDeAnexos;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 class EsicSolicitacaoTest extends TestCase
@@ -50,6 +53,25 @@ class EsicSolicitacaoTest extends TestCase
         $this->assertMatchesRegularExpression('/^ESIC-\d{4}-\d{6}$/', $solicitacao->protocolo);
         $this->assertSame('pedido.pdf', $solicitacao->anexo_nome_original);
         Storage::disk('local')->assertExists($solicitacao->anexo_caminho);
+    }
+
+    public function test_falha_ao_gravar_anexo_nao_cria_o_pedido_e_avisa_o_cidadao(): void
+    {
+        $this->mock(ArmazenadorDeAnexos::class, function (MockInterface $armazenador) {
+            $armazenador->shouldReceive('armazenar')
+                ->once()
+                ->andThrow(FalhaAoArmazenarAnexo::noDiretorio('solicitacoes-esic'));
+            $armazenador->shouldReceive('apagar')->once()->with([]);
+        });
+
+        $this->actingAs(User::factory()->create())
+            ->post(route('esic.solicitacao.store'), $this->dadosValidos([
+                'anexo' => UploadedFile::fake()->create('pedido.pdf', 100, 'application/pdf'),
+            ]))
+            ->assertRedirect()
+            ->assertSessionHas('erro_geral');
+
+        $this->assertSame(0, SolicitacaoEsic::count());
     }
 
     public function test_rejeita_assunto_fora_da_lista(): void
