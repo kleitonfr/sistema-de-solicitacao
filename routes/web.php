@@ -6,6 +6,7 @@ use App\Http\Controllers\EsicController;
 use App\Http\Controllers\FragmentoAcessoController;
 use App\Http\Controllers\OuvidoriaController;
 use App\Http\Controllers\Servico156Controller;
+use App\Models\ManifestacaoOuvidoria;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -48,6 +49,19 @@ Route::middleware('auth')->group(function () {
         ->name('servicos.156.solicitacao.confirmacao');
 
     Route::get('/ouvidoria', [OuvidoriaController::class, 'index'])->name('ouvidoria.index');
+
+    Route::get('/ouvidoria/manifestar/{tipo}', [OuvidoriaController::class, 'criarManifestacao'])
+        ->where('tipo', implode('|', array_keys(ManifestacaoOuvidoria::TIPOS)))
+        ->name('ouvidoria.manifestacao.criar');
+
+    Route::post('/ouvidoria/manifestar/{tipo}', [OuvidoriaController::class, 'registrarManifestacao'])
+        ->where('tipo', implode('|', array_keys(ManifestacaoOuvidoria::TIPOS)))
+        ->name('ouvidoria.manifestacao.registrar');
+
+    Route::get('/ouvidoria/manifestacoes/{protocolo}', [OuvidoriaController::class, 'confirmacaoManifestacao'])
+        ->where('protocolo', 'OUV-\d{4}-\d{6}')
+        ->name('ouvidoria.manifestacao.confirmacao');
+
     Route::get('/e-sic', [EsicController::class, 'index'])->name('esic.index');
 
     Route::get('/e-sic/pedido', [EsicController::class, 'criar'])->name('esic.solicitacao.criar');

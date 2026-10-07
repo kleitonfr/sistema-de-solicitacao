@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(SolicitacaoEsic::class);
     }
+
+    public function manifestacoesOuvidoria(): HasMany
+    {
+        return $this->hasMany(ManifestacaoOuvidoria::class);
+    }
 }

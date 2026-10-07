@@ -42,22 +42,20 @@
                 </p>
             </div>
 
-            {{-- Pendente: cada tipo de manifestação leva para "#" — os formulários
-                 (que devem variar por tipo) ainda não existem. --}}
             <div class="ouvidoria-opcoes">
-                <a href="#" class="ouvidoria-opcao">
+                <a href="{{ route('ouvidoria.manifestacao.criar', 'reclamacao') }}" class="ouvidoria-opcao">
                     <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
                     Reclamação
                 </a>
-                <a href="#" class="ouvidoria-opcao">
+                <a href="{{ route('ouvidoria.manifestacao.criar', 'denuncia') }}" class="ouvidoria-opcao">
                     <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
                     Denúncia
                 </a>
-                <a href="#" class="ouvidoria-opcao">
+                <a href="{{ route('ouvidoria.manifestacao.criar', 'sugestao') }}" class="ouvidoria-opcao">
                     <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
                     Sugestão
                 </a>
-                <a href="#" class="ouvidoria-opcao">
+                <a href="{{ route('ouvidoria.manifestacao.criar', 'elogio') }}" class="ouvidoria-opcao">
                     <i class="fa-solid fa-thumbs-up" aria-hidden="true"></i>
                     Elogio
                 </a>

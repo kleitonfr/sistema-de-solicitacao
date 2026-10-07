@@ -143,6 +143,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--scale-layout-3xb) var(--scale-layout-4xb);
+  align-items: end;
 }
 
 @media (min-width: 560px) {

@@ -2,7 +2,8 @@
    COMPONENTE — ÁREA DE ANEXOS (arrastar e soltar)
    Markup em resources/views/components/dropzone-anexos.blade.php e
    comportamento em resources/js/dropzone-anexos.js. A cor de destaque vem
-   de variáveis, definidas pelos modificadores --verde e --amarelo.
+   de variáveis, definidas pelos modificadores --verde, --amarelo e
+   --vermelho.
    ========================================================================== */
 
 .dropzone {
@@ -28,6 +29,12 @@
   --dropzone-cor: var(--color-secondary-600);
   --dropzone-cor-forte: var(--color-secondary-800);
   --dropzone-fundo-ativo: var(--color-secondary-50);
+}
+
+.dropzone--vermelho {
+  --dropzone-cor: var(--color-tertiary-600);
+  --dropzone-cor-forte: var(--color-tertiary-800);
+  --dropzone-fundo-ativo: var(--color-tertiary-50);
 }
 
 .dropzone:hover,

@@ -2,7 +2,8 @@
    COMPONENTE — CONFIRMAÇÃO DE SOLICITAÇÃO
    Tela exibida após o envio de um pedido do e-SIC ou do Portal 156, com o
    número de protocolo em destaque. A cor vem de variáveis, definidas pelos
-   modificadores --verde (e-SIC) e --amarelo (Portal 156).
+   modificadores --verde (e-SIC), --amarelo (Portal 156) e --vermelho
+   (Ouvidoria).
    ========================================================================== */
 
 .confirmacao {
@@ -35,6 +36,15 @@
   --confirmacao-botao: var(--color-secondary-600);
   --confirmacao-botao-hover: var(--color-secondary-800);
   --confirmacao-botao-texto: var(--color-neutral-900);
+}
+
+.confirmacao--vermelho {
+  --confirmacao-icone: var(--color-tertiary-600);
+  --confirmacao-fundo: var(--color-tertiary-50);
+  --confirmacao-rotulo: var(--color-tertiary-800);
+  --confirmacao-botao: var(--color-tertiary-600);
+  --confirmacao-botao-hover: var(--color-tertiary-800);
+  --confirmacao-botao-texto: var(--color-base-white);
 }
 
 .confirmacao__icone {

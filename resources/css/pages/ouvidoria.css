@@ -7,8 +7,8 @@
    "Ouvidoria" em pages/servicos.css, servicos-card--vermelho, que leva a
    esta página).
 
-   Os 4 botões levam para "#": os formulários de cada tipo de manifestação
-   ainda não existem (ver OuvidoriaController).
+   Cada botão leva ao formulário único de manifestação, com o tipo na rota
+   (ver OuvidoriaController::criarManifestacao).
    ========================================================================== */
 
 .ouvidoria-page {
