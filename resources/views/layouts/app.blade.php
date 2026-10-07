@@ -37,7 +37,12 @@
                 <a href="#" id="#" class="app-header__nav-link">Início</a>
                 <a href="#" id="#" class="app-header__nav-link">Minhas solicitações</a>
                 <a href="#" id="#" class="app-header__nav-link">Sobre156</a>
-                <a href="#" id="#" class="app-header__nav-link">Sair</a>
+                @auth
+                    <form action="{{ route('acesso.sair') }}" method="POST" class="app-header__nav-form">
+                        @csrf
+                        <button type="submit" id="btn-sair-desktop" class="app-header__nav-link">Sair</button>
+                    </form>
+                @endauth
                 <a href="{{ route('servicos.index') }}" id="btn-servicos-desktop" class="app-header__nav-link {{ request()->routeIs('servicos.*') ? 'is-active' : '' }}">Serviços</a>
             </nav>
 

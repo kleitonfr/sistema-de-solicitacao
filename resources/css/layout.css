@@ -95,6 +95,18 @@
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
+/* O "Sair" é um botão dentro de um formulário (a saída exige POST). */
+.app-header__nav-form {
+  display: inline-flex;
+  margin: 0;
+}
+
+button.app-header__nav-link {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
 .app-header__nav-link::after {
   content: "";
   position: absolute;

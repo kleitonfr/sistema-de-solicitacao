@@ -24,6 +24,8 @@ Route::get('/fragmentos/cadastro/fisica', [FragmentoAcessoController::class, 'ca
 Route::get('/fragmentos/cadastro/juridica', [FragmentoAcessoController::class, 'cadastroJuridica'])->name('fragmentos.cadastro.juridica');
 
 Route::middleware('auth')->group(function () {
+    Route::post('/sair', [AcessoController::class, 'sair'])->name('acesso.sair');
+
     Route::get('/servicos', [Servico156Controller::class, 'index'])->name('servicos.index');
 
     Route::get('/servicos/156/categorias', [Servico156Controller::class, 'listarCategoriasPortal156'])
