@@ -34,9 +34,8 @@
 
             {{-- Menu navegação (desktop) --}}
             <nav class="app-header__nav" aria-label="Menu principal">
-                <a href="#" id="#" class="app-header__nav-link">Início</a>
-                <a href="#" id="#" class="app-header__nav-link">Minhas solicitações</a>
-                <a href="#" id="#" class="app-header__nav-link">Sobre156</a>
+                <a href="{{ route('minhas-solicitacoes.index') }}" id="btn-minhas-solicitacoes-desktop" class="app-header__nav-link {{ request()->routeIs('minhas-solicitacoes.*') ? 'is-active' : '' }}">Minhas solicitações</a>
+                <a href="{{ route('sobre156.index') }}" id="btn-sobre-156-desktop" class="app-header__nav-link {{ request()->routeIs('sobre156.*') ? 'is-active' : '' }}">Sobre156</a>
                 @auth
                     <form action="{{ route('acesso.sair') }}" method="POST" class="app-header__nav-form">
                         @csrf
@@ -62,7 +61,6 @@
 
         {{-- Menu expansível para mobile --}}
         <nav id="mobile-menu" aria-label="Menu mobile" class="app-header__mobile-nav d-none">
-            <a href="#" id="btn-inicio-mobile" class="app-header__mobile-link">Início</a>
             <a href="{{ route('servicos.index') }}" id="btn-servicos-mobile" class="app-header__mobile-link {{ request()->routeIs('servicos.*') ? 'is-active' : '' }}">Serviços</a>
             <a href="{{ route('acesso.index') }}" id="btn-login-mobile" class="app-header__mobile-link {{ request()->routeIs('acesso.*') ? 'is-active' : '' }}">Login</a>
             <a href="{{ route('cadastro.index') }}" id="btn-cadastro-mobile"

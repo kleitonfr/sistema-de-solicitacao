@@ -55,6 +55,13 @@
                     @yield('content', view('portal.parciais.formulario-entrar'))
                 </div>
 
+                <a href="#" class="acesso-denuncia-anonima">
+                    <span class="acesso-denuncia-anonima__icone">
+                        <i class="fa-solid fa-user-secret" aria-hidden="true"></i>
+                    </span>
+                    <span class="acesso-denuncia-anonima__texto">Prefere não se identificar? Faça uma denúncia anônima</span>
+                </a>
+
             </div>
         </div>
 
@@ -137,13 +144,6 @@
         </div>
     </div>
 
-
-    <a href="#" class="acesso-denuncia-anonima">
-        <span class="acesso-denuncia-anonima__icone">
-            <i class="fa-solid fa-user-secret" aria-hidden="true"></i>
-        </span>
-        <span class="acesso-denuncia-anonima__texto">Prefere não se identificar? Faça uma denúncia anônima</span>
-    </a>
 
     {{-- VLibras --}}
     <div vw class="enabled">

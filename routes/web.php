@@ -13,6 +13,8 @@ Route::get('/', function () {
     return redirect()->route('cadastro.index');
 });
 
+Route::view('/sobre-156', 'portal.sobre-156')->name('sobre156.index');
+
 Route::get('/entrar', [AcessoController::class, 'index'])->name('acesso.index');
 Route::post('/entrar', [AcessoController::class, 'store'])->name('acesso.store');
 
@@ -26,6 +28,8 @@ Route::get('/fragmentos/cadastro/juridica', [FragmentoAcessoController::class, '
 
 Route::middleware('auth')->group(function () {
     Route::post('/sair', [AcessoController::class, 'sair'])->name('acesso.sair');
+
+    Route::view('/minhas-solicitacoes', 'portal.minhas-solicitacoes')->name('minhas-solicitacoes.index');
 
     Route::get('/servicos', [Servico156Controller::class, 'index'])->name('servicos.index');
 

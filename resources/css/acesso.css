@@ -309,31 +309,29 @@
    ------------------------------------------------------------------------ */
 
 
-.acesso-denuncia-anonima,
-.acesso-denuncia-anonima:hover,
-.acesso-denuncia-anonima:focus-visible {
-  color: var(--color-base-white);
-  text-decoration: none;
-}
-
+/* Fica logo abaixo do formulário. Tom suave (fundo claro, texto e borda em
+   vermelho) para destacar sem competir com o botão principal de entrar. */
 .acesso-denuncia-anonima {
-  position: fixed;
-  left: var(--scale-layout-4xb);
-  bottom: var(--scale-layout-4xb);
-  z-index: var(--surface-z-layer-3);
   display: flex;
   align-items: center;
-  height: var(--scale-layout-8xb);
+  width: fit-content;
+  max-width: 100%;
+  min-height: var(--scale-layout-8xb);
+  margin: var(--scale-layout-4xb) auto 0;
   overflow: hidden;
+  border: var(--surface-border-width-sm) solid var(--color-tertiary-600);
   border-radius: var(--surface-rounder-full);
-  background-color: var(--color-neutral-800);
-  box-shadow: var(--surface-elevation-3);
-  transition: background-color 0.2s ease;
+  background-color: var(--color-tertiary-100);
+  color: var(--color-tertiary-800);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .acesso-denuncia-anonima:hover,
 .acesso-denuncia-anonima:focus-visible {
-  background-color: var(--color-neutral-900);
+  background-color: var(--color-tertiary-600);
+  color: var(--color-base-white);
+  text-decoration: none;
 }
 
 .acesso-denuncia-anonima:focus-visible {
@@ -352,27 +350,16 @@
 }
 
 .acesso-denuncia-anonima__texto {
-  max-width: 0;
-  padding-right: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  opacity: 0;
-  font-family: var(--font-body);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--text-14);
-  transition: max-width 0.3s ease, padding-right 0.3s ease, opacity 0.2s ease;
-}
-
-.acesso-denuncia-anonima:hover .acesso-denuncia-anonima__texto,
-.acesso-denuncia-anonima:focus-visible .acesso-denuncia-anonima__texto {
-  max-width: 32rem;
+  padding-block: var(--scale-fit-3xh);
   padding-right: var(--scale-layout-4xb);
-  opacity: 1;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-14);
+  line-height: var(--leading-snug);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .acesso-denuncia-anonima,
-  .acesso-denuncia-anonima__texto {
+  .acesso-denuncia-anonima {
     transition: none;
   }
 }
