@@ -26,6 +26,10 @@ final class ContextoDaFalha
      * A QueryException anexa à mensagem o SQL com os valores já substituídos
      * (descrição, telefone, endereço do cidadão). A mensagem do driver, que
      * está na exceção anterior, descreve a falha sem esses valores.
+     * 
+     * Eu recebi um Throwable. Se esse Throwable for especificamente uma
+     * QueryException, não confio na getMessage() dela para logar, porque
+     * ela pode carregar a query com os valores."
      */
     private static function mensagemSemDadosPessoais(Throwable $erro): string
     {

@@ -1,27 +1,4 @@
-{{--
-    Parcial do formulário de Cadastro — Pessoa Jurídica.
-    Servida via fragmento AJAX ao alternador Física/Jurídica (ver
-    FragmentoAcessoController::cadastroJuridica) — o form de Jurídica só é
-    exibido depois de o usuário clicar no radio correspondente; não existe
-    view completa própria para ele (a URL /cadastro sempre nasce com
-    Pessoa Física, conforme decisão de produto).
 
-    Este arquivo é INDEPENDENTE de formulario-cadastro-fisica.blade.php
-    por decisão explícita: os campos comuns (Telefone, Endereço, Acesso,
-    Termo de Uso) estão duplicados nos dois arquivos, em vez de virem de
-    uma parcial única compartilhada. Ao alterar um desses campos comuns,
-    replique a mudança manualmente no outro arquivo.
-
-    Envia para POST /cadastro/juridica (rota cadastro.store.juridica),
-    tratada por AutocadastroController::storeJuridica — método separado de
-    storeFisica, mas ambos gravam no mesmo destino de dados (mesma
-    "planilha"/base de cadastros de cidadão).
-
-    Nota: todo <input> de texto/email tem placeholder=" " (espaço em
-    branco, sem texto visível) propositalmente — é o que ativa a pseudo-
-    classe CSS :placeholder-shown, usada em cadastro.css para o label
-    "flutuar" apenas quando o campo tem conteúdo real digitado.
---}}
 <div class="cadastro-card">
 
     @if (session('situacao') === 'sucesso')

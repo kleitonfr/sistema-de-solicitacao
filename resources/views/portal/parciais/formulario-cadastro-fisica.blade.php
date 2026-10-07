@@ -1,26 +1,4 @@
-{{--
-    Parcial do formulário de Cadastro — Pessoa Física.
-    Reaproveitada tanto pela view completa (portal/cadastro.blade.php, no
-    primeiro carregamento da página, quando Física é o tipo padrão) quanto
-    pelo fragmento servido via AJAX ao alternador Física/Jurídica (ver
-    FragmentoAcessoController::cadastroFisica).
 
-    Este arquivo é INDEPENDENTE de formulario-cadastro-juridica.blade.php
-    por decisão explícita: os campos comuns (Telefone, Endereço, Acesso,
-    Termo de Uso) estão duplicados nos dois arquivos, em vez de virem de
-    uma parcial única compartilhada. Ao alterar um desses campos comuns,
-    replique a mudança manualmente no outro arquivo.
-
-    Envia para POST /cadastro/fisica (rota cadastro.store.fisica), tratada
-    por AutocadastroController::storeFisica — método separado de
-    storeJuridica, mas ambos gravam no mesmo destino de dados (mesma
-    "planilha"/base de cadastros de cidadão).
-
-    Nota: todo <input> de texto/email tem placeholder=" " (espaço em
-    branco, sem texto visível) propositalmente — é o que ativa a pseudo-
-    classe CSS :placeholder-shown, usada em cadastro.css para o label
-    "flutuar" apenas quando o campo tem conteúdo real digitado.
---}}
 <div class="cadastro-card">
 
     {{-- Alertas de retorno da submissão (simulados até a API existir) --}}
