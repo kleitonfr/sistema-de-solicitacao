@@ -28,7 +28,6 @@
   gap: var(--scale-layout-base);
   min-height: var(--scale-fit-11xh);
   font-family: var(--font-body);
-  font-size: var(--text-14);
   color: var(--color-tertiary-800);
   text-decoration: none;
 }
@@ -61,7 +60,7 @@
 
 .ouvidoria-faixa__subtitulo {
   font-family: var(--font-body);
-  font-size: var(--text-18);
+  font-size: var(--text-22);
   color: var(--color-tertiary-50);
   margin: 0;
 }
@@ -76,7 +75,7 @@
   gap: var(--scale-layout-2xb);
   margin-bottom: var(--scale-layout-6xb);
   font-family: var(--font-body);
-  font-size: var(--text-16);
+  font-size: var(--text-20);
   line-height: var(--leading-normal);
   color: var(--text-primary);
 }
@@ -128,7 +127,7 @@
   padding: var(--scale-layout-2xb) var(--scale-layout-3xb);
   font-family: var(--font-body);
   font-weight: var(--font-weight-semibold);
-  font-size: var(--text-16);
+  font-size: var(--text-18);
   color: var(--color-base-white);
   background-color: var(--color-tertiary-600);
   border-radius: var(--surface-rounder-full);

@@ -89,7 +89,7 @@
 .cadastro-card__titulo-secao {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-bold);
-  font-size: var(--text-16);
+  font-size: var(--text-22);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--color-primary-800);
@@ -130,7 +130,7 @@
 
 .cadastro-texto-auxiliar {
   font-family: var(--font-body);
-  font-size: var(--text-14);
+  font-size: var(--text-20);
   color: var(--text-secondary);
   margin: 0 0 var(--scale-layout-3xb);
 }
@@ -198,6 +198,7 @@
   left: 15px;
   font-family: var(--font-body);
   font-weight: var(--font-weight-semibold);
+  font-size: var(--text-16);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--text-secondary);
@@ -234,7 +235,7 @@
 .cadastro-field label:has(+ select:focus),
 .cadastro-field label:has(+ select:valid) {
   transform: translateY(-51%) translateX(-10px) scale(1.0);
-  background-color: var(--bg-surface);
+  background-color: white;
   color: var(--secao-cor, var(--text-secondary));
   padding: 0px 5px;
   font-weight: bold;
@@ -345,7 +346,7 @@
 .cadastro-btn {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-bold);
-  font-size: var(--text-16);
+  font-size: var(--text-18);
   width: 85%;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -443,6 +444,7 @@
   border: var(--surface-border-width-sm) solid var(--border-default);
   border-radius: var(--surface-rounder-lg);
   box-shadow: var(--surface-elevation-1);
+  background-color: white;
 }
 
 .cadastro-label-fixo {

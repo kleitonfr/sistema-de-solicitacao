@@ -18,7 +18,7 @@ class AdicionarContextoDaRequisicao
 
         $resposta = $next($request);
         $resposta->headers->set('X-Identificador-Correlacao', $identificadorDeCorrelacao);
-
+ 
         return $resposta;
     }
 }

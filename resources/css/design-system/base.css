@@ -11,7 +11,7 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   font-family: var(--font-body);
-  font-size: var(--text-16);
+  font-size: var(--text-20);
   line-height: var(--leading-normal);
   color: var(--text-primary);
   background-color: var(--bg-default);
@@ -48,6 +48,10 @@ code, pre, kbd, samp {
 input, select, textarea, button {
   font-family: inherit;
   font-size: var(--text-16);
+}
+
+button {
+  font-size: var(--text-18);
 }
 
 table {

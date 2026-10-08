@@ -32,7 +32,6 @@
   gap: var(--scale-layout-base);
   min-height: var(--scale-fit-11xh);
   font-family: var(--font-body);
-  font-size: var(--text-14);
   color: var(--color-quaternary-800);
   text-decoration: none;
 }
@@ -65,10 +64,10 @@
 
 .esic-faixa__subtitulo {
   font-family: var(--font-body);
-  font-size: var(--text-18);
+  font-size: var(--text-22);
   line-height: var(--leading-normal);
   color: var(--color-quaternary-50);
-  max-width: 70ch;
+  max-width: 130ch;
   margin: 0;
 }
 
@@ -117,14 +116,14 @@
 .esic-acao__titulo {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-bold);
-  font-size: var(--text-18);
+  font-size: var(--text-22);
   color: var(--color-primary-900);
   margin: 0;
 }
 
 .esic-acao__descricao {
   font-family: var(--font-body);
-  font-size: var(--text-14);
+  font-size: var(--text-20);
   line-height: var(--leading-normal);
   color: var(--text-secondary);
   margin: 0;
@@ -140,7 +139,7 @@
   padding-inline: var(--scale-layout-3xb);
   font-family: var(--font-body);
   font-weight: var(--font-weight-semibold);
-  font-size: var(--text-16);
+  font-size: var(--text-18);
   color: var(--color-base-white);
   background-color: var(--color-quaternary-600);
   border-radius: var(--surface-rounder-md);
@@ -189,14 +188,14 @@
 .esic-info-card__titulo {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-bold);
-  font-size: var(--text-16);
+  font-size: var(--text-22);
   color: var(--color-primary-900);
   margin: 0;
 }
 
 .esic-info-card__texto {
   font-family: var(--font-body);
-  font-size: var(--text-14);
+  font-size: var(--text-20);
   line-height: var(--leading-normal);
   color: var(--text-secondary);
   margin: 0;
@@ -232,7 +231,7 @@
 .esic-dicas__titulo {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-bold);
-  font-size: var(--text-18);
+  font-size: var(--text-22);
   color: var(--color-primary-900);
   margin-bottom: var(--scale-layout-2xb);
 }
@@ -244,7 +243,7 @@
   margin: 0;
   padding-left: var(--scale-layout-3xb);
   font-family: var(--font-body);
-  font-size: var(--text-16);
+  font-size: var(--text-20);
   line-height: var(--leading-normal);
   color: var(--text-primary);
 }

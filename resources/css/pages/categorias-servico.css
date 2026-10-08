@@ -29,7 +29,6 @@
   gap: var(--scale-layout-base);
   min-height: var(--scale-fit-11xh);
   font-family: var(--font-body);
-  font-size: var(--text-14);
   color: var(--action-primary);
   text-decoration: none;
 }
@@ -53,7 +52,7 @@
 
 .categorias-servico-cabecalho__subtitulo {
   font-family: var(--font-body);
-  font-size: var(--text-18);
+  font-size: var(--text-22);
   color: var(--text-secondary);
   margin: 0;
 }
@@ -111,7 +110,7 @@
   padding-inline: var(--scale-layout-3xb);
   font-family: var(--font-body);
   font-weight: var(--font-weight-semibold);
-  font-size: var(--text-16);
+  font-size: var(--text-18);
   color: var(--color-base-white);
   background-color: var(--action-primary);
   border: none;
@@ -251,7 +250,7 @@
 .categoria-servico__nome {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-bold);
-  font-size: var(--text-16);
+  font-size: var(--text-20);
   color: var(--color-primary-900);
   z-index: 1;
   margin: 0;
@@ -265,7 +264,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-family: var(--font-body);
-  font-size: var(--text-14);
+  font-size: var(--text-18);
   line-height: var(--leading-normal);
   z-index: 1;
   color: var(--text-secondary);

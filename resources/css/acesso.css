@@ -98,6 +98,7 @@
   padding-block: var(--scale-fit-3xh);
   font-family: var(--font-heading);
   font-weight: var(--font-weight-semibold);
+  font-size: var(--text-18);
   color: var(--text-secondary);
   text-decoration: none;
   border-radius: var(--surface-rounder-full);
@@ -315,12 +316,12 @@
   display: flex;
   align-items: center;
   width: fit-content;
-  max-width: 100%;
+  max-width: 85%;
   min-height: var(--scale-layout-8xb);
-  margin: var(--scale-layout-4xb) auto 0;
+  margin: var(--scale-layout-8xb) auto 0;
   overflow: hidden;
   border: var(--surface-border-width-sm) solid var(--color-tertiary-600);
-  border-radius: var(--surface-rounder-full);
+  border-radius: var(--surface-rounder-sm);
   background-color: var(--color-tertiary-100);
   color: var(--color-tertiary-800);
   text-decoration: none;
@@ -354,7 +355,7 @@
   padding-right: var(--scale-layout-4xb);
   font-family: var(--font-body);
   font-weight: var(--font-weight-bold);
-  font-size: var(--text-14);
+  font-size: var(--text-18);
   line-height: var(--leading-snug);
 }
 

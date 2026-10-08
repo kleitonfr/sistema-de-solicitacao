@@ -28,7 +28,7 @@
 
 .servicos-cabecalho__subtitulo {
   font-family: var(--font-body);
-  font-size: 1.5rem;
+  font-size: var(--text-22);
   color: var(--text-secondary);
   margin: 0;
 }
@@ -111,14 +111,14 @@
 .servicos-card__titulo {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-bold);
-  font-size: var(--text-20);
+  font-size: var(--text-22);
   color: var(--color-primary-900);
   margin: 0;
 }
 
 .servicos-card__descricao {
     font-family: var(--font-body);
-    font-size: 1.1rem;
+    font-size: var(--text-20);
     color: var(--text-secondary);
     margin: 0;
 }
