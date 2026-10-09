@@ -26,6 +26,7 @@ class Servico156Service
         private readonly GeradorDeProtocolo $geradorDeProtocolo,
         private readonly ArmazenadorDeAnexos $armazenadorDeAnexos,
         private readonly RegistroDeSeguranca $registroDeSeguranca,
+        private readonly StatusDaSolicitacaoService $statusDaSolicitacaoService,
     ) {
     }
 
@@ -86,6 +87,8 @@ class Servico156Service
                 'categoria_servico_id' => $servico->categoria_servico_id,
                 'protocolo' => $this->geradorDeProtocolo->gerar(self::PREFIXO_DO_PROTOCOLO, Solicitacao156::class),
             ]);
+
+            $this->statusDaSolicitacaoService->registrarRecebimento($solicitacao);
 
             foreach ($anexos as $anexo) {
                 $caminho = $this->armazenadorDeAnexos->armazenar($anexo, "solicitacoes-156/{$solicitacao->protocolo}");

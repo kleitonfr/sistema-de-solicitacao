@@ -23,6 +23,7 @@ class EsicService
         private readonly GeradorDeProtocolo $geradorDeProtocolo,
         private readonly ArmazenadorDeAnexos $armazenadorDeAnexos,
         private readonly RegistroDeSeguranca $registroDeSeguranca,
+        private readonly StatusDaSolicitacaoService $statusDaSolicitacaoService,
     ) {
     }
 
@@ -48,6 +49,8 @@ class EsicService
                 'anexo_nome_original' => $anexo?->getClientOriginalName(),
                 'anexo_caminho' => $caminhoDoAnexo,
             ]);
+
+            $this->statusDaSolicitacaoService->registrarRecebimento($solicitacao);
 
             DB::commit();
         } catch (Throwable $erro) {

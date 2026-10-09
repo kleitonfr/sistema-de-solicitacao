@@ -24,6 +24,7 @@ class OuvidoriaService
         private readonly GeradorDeProtocolo $geradorDeProtocolo,
         private readonly ArmazenadorDeAnexos $armazenadorDeAnexos,
         private readonly RegistroDeSeguranca $registroDeSeguranca,
+        private readonly StatusDaSolicitacaoService $statusDaSolicitacaoService,
     ) {
     }
 
@@ -45,6 +46,8 @@ class OuvidoriaService
                 'tipo' => $tipo,
                 'protocolo' => $this->geradorDeProtocolo->gerar(self::PREFIXO_DO_PROTOCOLO, ManifestacaoOuvidoria::class),
             ]);
+
+            $this->statusDaSolicitacaoService->registrarRecebimento($manifestacao);
 
             foreach ($anexos as $anexo) {
                 $caminho = $this->armazenadorDeAnexos->armazenar($anexo, self::DIRETORIO_DOS_ANEXOS."/{$manifestacao->protocolo}");

@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\AnexoIndisponivel;
 use App\Exceptions\SolicitacaoNaoPodeSerRegistrada;
 use App\Http\Middleware\AdicionarContextoDaRequisicao;
 use Illuminate\Foundation\Application;
@@ -31,6 +32,17 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->with(
                     'erro_geral',
                     SolicitacaoNaoPodeSerRegistrada::MENSAGEM_PARA_O_CIDADAO." Se o problema continuar, informe o código {$identificadorDeCorrelacao}.",
+                );
+        });
+
+        $exceptions->render(function (AnexoIndisponivel $erro, Request $requisicao) {
+            $identificadorDeCorrelacao = Context::get('identificador_correlacao');
+
+            return redirect()
+                ->route('minhas-solicitacoes.show', $requisicao->route('protocolo'))
+                ->with(
+                    'erro_geral',
+                    AnexoIndisponivel::MENSAGEM_PARA_O_CIDADAO." Se o problema continuar, informe o código {$identificadorDeCorrelacao}.",
                 );
         });
     })->create();

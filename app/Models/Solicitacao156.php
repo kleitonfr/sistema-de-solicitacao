@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Solicitacao156 extends Model
 {
@@ -44,6 +45,11 @@ class Solicitacao156 extends Model
     public function anexos(): HasMany
     {
         return $this->hasMany(AnexoSolicitacao156::class, 'solicitacao156_id');
+    }
+
+    public function movimentacoes(): MorphMany
+    {
+        return $this->morphMany(MovimentacaoDaSolicitacao::class, 'solicitacao')->orderBy('id');
     }
 
     public function enderecoCompleto(): string

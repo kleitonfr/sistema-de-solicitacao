@@ -4,10 +4,14 @@ use App\Http\Controllers\AcessoController;
 use App\Http\Controllers\AutocadastroController;
 use App\Http\Controllers\EsicController;
 use App\Http\Controllers\FragmentoAcessoController;
+use App\Http\Controllers\MinhasSolicitacoesController;
 use App\Http\Controllers\OuvidoriaController;
 use App\Http\Controllers\Servico156Controller;
 use App\Models\ManifestacaoOuvidoria;
 use Illuminate\Support\Facades\Route;
+
+// Protocolos dos três serviços: 156-AAAA-NNNNNN, ESIC-... e OUV-...
+$expressaoDoProtocolo = '(?:156|ESIC|OUV)-\d{4}-\d{6}';
 
 Route::get('/', function () {
     return redirect()->route('cadastro.index');
@@ -26,10 +30,19 @@ Route::get('/fragmentos/entrar', [FragmentoAcessoController::class, 'entrar'])->
 Route::get('/fragmentos/cadastro/fisica', [FragmentoAcessoController::class, 'cadastroFisica'])->name('fragmentos.cadastro.fisica');
 Route::get('/fragmentos/cadastro/juridica', [FragmentoAcessoController::class, 'cadastroJuridica'])->name('fragmentos.cadastro.juridica');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () use ($expressaoDoProtocolo) {
     Route::post('/sair', [AcessoController::class, 'sair'])->name('acesso.sair');
 
-    Route::view('/minhas-solicitacoes', 'portal.minhas-solicitacoes')->name('minhas-solicitacoes.index');
+    Route::get('/minhas-solicitacoes', [MinhasSolicitacoesController::class, 'index'])->name('minhas-solicitacoes.index');
+
+    Route::get('/minhas-solicitacoes/{protocolo}', [MinhasSolicitacoesController::class, 'show'])
+        ->where('protocolo', $expressaoDoProtocolo)
+        ->name('minhas-solicitacoes.show');
+
+    Route::get('/minhas-solicitacoes/{protocolo}/anexos/{posicao}', [MinhasSolicitacoesController::class, 'baixarAnexo'])
+        ->where('protocolo', $expressaoDoProtocolo)
+        ->where('posicao', '[1-9][0-9]{0,2}')
+        ->name('minhas-solicitacoes.anexos.baixar');
 
     Route::get('/servicos', [Servico156Controller::class, 'index'])->name('servicos.index');
 

@@ -230,10 +230,29 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--secao-cor, var(--border-focus)) 18%, transparent);
 }
 
-.cadastro-field label:has(+ input:focus),
-.cadastro-field label:has(+ input:not(:placeholder-shown)),
-.cadastro-field label:has(+ select:focus),
-.cadastro-field label:has(+ select:valid) {
+
+.cadastro-grid .cadastro-field label:has(+ input:focus),
+.entrar .cadastro-field label:has(+ input:focus),
+.cadastro-grid .cadastro-field label:has(+ input:not(:placeholder-shown)),
+.entrar .cadastro-field label:has(+ input:not(:placeholder-shown)),
+.cadastro-grid .cadastro-field label:has(+ select:focus),
+.entrar .cadastro-field label:has(+ select:focus),
+.cadastro-grid .cadastro-field label:has(+ select:valid),
+.entrar .cadastro-field label:has(+ select:valid) {
+  transform: translateY(-51%) translateX(-10px) scale(1.0);
+  background-color: var(--bg-surface);
+  color: var(--secao-cor, var(--text-secondary));
+  padding: 0px 5px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 100px;
+}
+
+.cadastro-card--solicitacao .cadastro-field label:has(+ input:focus),
+.cadastro-card--solicitacao .cadastro-field label:has(+ input:not(:placeholder-shown)),
+.cadastro-card--solicitacao .cadastro-field label:has(+ select:focus),
+.cadastro-card--solicitacao .cadastro-field label:has(+ select:valid) {
   transform: translateY(-51%) translateX(-10px) scale(1.0);
   background-color: white;
   color: var(--secao-cor, var(--text-secondary));
@@ -243,6 +262,7 @@
   border: none;
   border-radius: 100px;
 }
+
 
 /* Campo de data: o navegador não suporta placeholder real em type="date",
    então :placeholder-shown nunca funciona nele (ver nota acima, campo

@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use App\Exceptions\AnexoIndisponivel;
 use App\Exceptions\FalhaAoArmazenarAnexo;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 
 class ArmazenadorDeAnexos
@@ -26,6 +28,23 @@ class ArmazenadorDeAnexos
         }
 
         return $caminho;
+    }
+
+    /**
+     * Sempre como download (attachment) e com nosniff: o arquivo é conteúdo
+     * enviado por um cidadão e o navegador nunca deve exibi-lo como página.
+     *
+     * @throws AnexoIndisponivel
+     */
+    public function baixar(string $caminho, string $nomeOriginal): StreamedResponse
+    {
+        $disco = Storage::disk(self::DISCO_DOS_ANEXOS);
+
+        if (! $disco->exists($caminho)) {
+            throw AnexoIndisponivel::ausenteDoArmazenamento();
+        }
+
+        return $disco->download($caminho, $nomeOriginal, ['X-Content-Type-Options' => 'nosniff']);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class ManifestacaoOuvidoria extends Model
 {
@@ -78,6 +79,11 @@ class ManifestacaoOuvidoria extends Model
     public function usuario(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function movimentacoes(): MorphMany
+    {
+        return $this->morphMany(MovimentacaoDaSolicitacao::class, 'solicitacao')->orderBy('id');
     }
 
     public function anexos(): HasMany

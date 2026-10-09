@@ -3,8 +3,8 @@
 @section('title', $configuracaoDoTipo['rotulo'].' — Ouvidoria — Prefeitura Municipal de Caraguatatuba')
 
 @use('App\Http\Requests\RegistrarManifestacaoRequest')
-@use('App\Models\ManifestacaoOuvidoria')
-
+@use('App\Models\ManifestacaoOuvidoria') 
+                  
 @php
     $errosDeAnexos = collect($errors->get('anexos'))->merge($errors->get('anexos.*'))->flatten()->unique();
 

@@ -26,6 +26,9 @@
 /* e-SIC */
 @import './pages/esic.css';
 
+/* Minhas solicitações */
+@import './pages/minhas-solicitacoes.css';
+
 /* Componentes compartilhados */
 @import './components/dropzone.css';
 @import './components/confirmacao.css';
